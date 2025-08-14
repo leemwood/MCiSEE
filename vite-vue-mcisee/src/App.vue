@@ -283,15 +283,15 @@ export default {
     onMounted(() => {
       // 加载原项目的JavaScript文件
       const scripts = [
-        '/src/scripts/lib/mdui.global.js',
-        '/src/scripts/lib/jquery-3.7.1.min.js',
-        '/src/scripts/lib/jsonc.min.js',
-        '/src/scripts/lib/al.noyaml.min.js',
-        '/src/scripts/lib/browser.min.js',
-        '/src/scripts/lib/typeahead.jquery.min.js',
-        '/src/scripts/init.js',
-        '/src/scripts/DOMConstructor.js',
-        '/src/scripts/main.js'
+        './src/scripts/lib/mdui.global.js',
+        './src/scripts/lib/jquery-3.7.1.min.js',
+        './src/scripts/lib/jsonc.min.js',
+        './src/scripts/lib/al.noyaml.min.js',
+        './src/scripts/lib/browser.min.js',
+        './src/scripts/lib/typeahead.jquery.min.js',
+        './src/scripts/init.js',
+        './src/scripts/DOMConstructor.js',
+        './src/scripts/main.js'
       ]
       
       // 依次加载脚本
