@@ -310,7 +310,7 @@ export default {
         return promise.then(() => loadScript(script))
       }, Promise.resolve()).then(() => {
         // 所有脚本加载完成后，加载主题模块
-        import('/src/scripts/module/theme.js')
+        import('./scripts/module/theme.js')
       })
     })
   }
