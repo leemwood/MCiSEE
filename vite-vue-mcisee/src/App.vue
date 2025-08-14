@@ -1,0 +1,322 @@
+<template>
+  <div class="background"></div>
+  <div class="announcement-bar">
+    <ul>
+      <li al="announcement.1"></li>
+      <li>
+        <text al="announcement.2"></text>
+        <a href="https://afdian.com/a/MCiSEE" target="_blank" al="afdian"></a>
+      </li>
+      <li>
+        <text class="inline" al="introduction.2"></text>
+        <svg id="star" aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" data-view-component="true"
+             fill="currentColor" class="octicon octicon-star d-inline-block mr-2">
+          <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"></path>
+        </svg>
+      </li>
+    </ul>
+  </div>
+  
+  <sidebar id="目录">
+    <info al="content"></info>
+    <dl>
+      <dt><a href="#顶部" al="top"></a></dt>
+      <dt><a href="#设备" al="device"></a></dt>
+      <dt><a href="#软件" al="app"></a></dt>
+      <dd><a href="#启动器" al="launcher"></a></dd>
+      <dt><a href="#网站" al="website"></a></dt>
+      <dd><a href="#快速查询" al="searchable"></a></dd>
+      <dd><a href="#实用网站" al="utilityWebsite"></a></dd>
+      <dd><a href="#论坛" al="forum"></a></dd>
+      <dt><a href="#配置" al="config"></a></dt>
+      <dt><a href="#底部" al="bottom"></a></dt>
+    </dl>
+  </sidebar>
+  
+  <main class="wait" style="display: none;">
+    <mdui-snackbar class="start-download" closeable>
+      <text al="startDownloading"></text>
+      <br>
+    </mdui-snackbar>
+    
+    <div class="page-content" id="顶部">
+      <div class="introduction">
+        <a class="传送锚点"></a>
+        <h1 class="page-title first-title" al="introduction.title"></h1>
+        <p al="introduction.1"></p>
+        <p class="gravity-inline">
+          <text class="inline" al="introduction.2"></text>
+          <svg id="star" aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" data-view-component="true"
+               fill="currentColor" class="octicon octicon-star d-inline-block mr-2">
+            <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"></path>
+          </svg>
+        </p>
+        <p al="introduction.3"></p>
+      </div>
+      
+      <hr>
+      
+      <div class="device-container" id="设备">
+        <h2 class="page-title" al="device"></h2>
+        <label class="tip" al="device.tip"></label>
+        <mdui-select class="device-list" name="device-list" id="device-list" placement="bottom" variant="outlined" required></mdui-select>
+      </div>
+      
+      <div class="resource-container" id="资源">
+        <div class="app-container" id="软件">
+          <h2 class="page-title" al="app"></h2>
+          <div class="launcher-container" id="启动器">
+            <div class="label" al="launcherOnlyJavaEdition"></div>
+            <div class="launcher-list device-diff"></div>
+            <div class="launcher-title full-name"></div>
+            <div class="launcher-goto">
+              <a class="button data-url-launcher" target="_blank" style="display: none;" al="gotoLauncherWebsite"></a>
+              <a class="button data-github-launcher" target="_blank" style="display: none;" al="gotoLauncherGitHub"></a>
+            </div>
+            <div class="launcher-download gravity-inline">
+              <div>
+                <a class="button download data-download-launcher" style="display: none;" ondragstart="event.dataTransfer.effectAllowed = 'none';"></a>
+              </div>
+              <div>
+                <a class="button download data-dev-download-launcher" style="display: none;" ondragstart="event.dataTransfer.effectAllowed = 'none';"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="website-container" id="网站">
+          <h2 class="page-title" al="website"></h2>
+          <a class="inline-link" id="site-search" al="siteSearch"></a>
+          
+          <div class="searchable-container" id="快速查询">
+            <div class="label" al="searchable"></div>
+            <label class="inline-block">
+              <mdui-select class="searchable-list min-width-215" name="searchable-list" id="searchable-list" placement="bottom" variant="outlined" required></mdui-select>
+            </label>
+            <div class="label searchable-label inline-block"></div>
+            
+            <div class="searchable-args">
+              <div class="Modrinth gravity-block" style="display: none;">
+                <mdui-select class="Modrinth-projectType arg min-width-190" name="Modrinth-projectType" placement="bottom" variant="outlined" al-aplto="prefix: prefixType;" required>
+                  <mdui-menu-item value="mod" selected><div slot="custom" class="custom-item"><div al="mods"></div></div></mdui-menu-item>
+                  <mdui-menu-item value="plugin"><div slot="custom" class="custom-item"><div al="plugins"></div></div></mdui-menu-item>
+                  <mdui-menu-item value="datapack"><div slot="custom" class="custom-item"><div al="dataPacks"></div></div></mdui-menu-item>
+                  <mdui-menu-item value="shader"><div slot="custom" class="custom-item"><div al="shaders"></div></div></mdui-menu-item>
+                  <mdui-menu-item value="resourcepack"><div slot="custom" class="custom-item"><div al="resourcePacks"></div></div></mdui-menu-item>
+                  <mdui-menu-item value="modpack"><div slot="custom" class="custom-item"><div al="modpacks"></div></div></mdui-menu-item>
+                </mdui-select>
+                <mdui-select class="Modrinth-versions arg inline-block" name="Modrinth-versions" variant="outlined" al-aplto="prefix: prefixVersions; data-value: all;" multiple required>
+                  <mdui-menu-item value="?"><div slot="custom" class="custom-item"><div al="unknown"></div></div></mdui-menu-item>
+                  <mdui-menu-item value="all" hidden><div slot="custom" class="custom-item"><div al="all"></div></div></mdui-menu-item>
+                </mdui-select>
+                <mdui-button class="acquire-versions inline-block" icon="refresh" al="acquire"></mdui-button>
+              </div>
+            </div>
+            
+            <div class="searchable-search">
+              <form class="searchable-form">
+                <label style="display: flex;">
+                  <mdui-text-field class="searchable-input" type="text" data-provide="typeahead" variant="outlined" al-aplto="placeholder: searchFrom;">
+                    <mdui-button-icon slot="end-icon" icon="clear" class="searchable-clear inline-block" type="reset" disabled hidden></mdui-button-icon>
+                  </mdui-text-field>
+                  <mdui-button class="searchable-button inline-block" style="margin: auto 4px;" type="submit" icon="searchable-button" al="search" disabled></mdui-button>
+                </label>
+              </form>
+            </div>
+          </div>
+          
+          <div class="utility-website-container" id="实用网站">
+            <div class="label margin-top-20" al="utilityWebsite"></div>
+            <a class="to-unfold" href="#实用网站-展开" al="unfold"></a>
+            <a class="to-fold" href="#实用网站-收起" style="display: none;" al="fold"></a>
+            <pre class="utility-website-list pre-flex"></pre>
+          </div>
+          
+          <div class="forum-container" id="论坛">
+            <div class="label margin-top-20" al="forum"></div>
+            <a class="to-unfold" href="#论坛-展开" al="unfold"></a>
+            <a class="to-fold" href="#论坛-收起" style="display: none;" al="fold"></a>
+            <pre class="forum-list pre-flex"></pre>
+          </div>
+        </div>
+        
+        <div class="config-container" id="配置">
+          <h2 class="page-title" al="config"></h2>
+          <label>
+            <mdui-segmented-button-group class="theme" name="theme" selects="single" value="system" required>
+              <mdui-tooltip al-aplto="content: systemTheme;" placement="top" openDelay="0" closeDelay="0">
+                <mdui-segmented-button value="system" icon="settings_brightness" selected-icon="settings_brightness">
+                  <text al="default"></text>
+                </mdui-segmented-button>
+              </mdui-tooltip>
+              <mdui-tooltip al-aplto="content: lightTheme;" placement="top" openDelay="0" closeDelay="0">
+                <mdui-segmented-button value="light" icon="brightness_high" selected-icon="brightness_high">
+                  <text al="daytime"></text>
+                </mdui-segmented-button>
+              </mdui-tooltip>
+              <mdui-tooltip al-aplto="content: darkTheme;" placement="top" openDelay="0" closeDelay="0">
+                <mdui-segmented-button value="dark" icon="bedtime" selected-icon="bedtime">
+                  <text al="nighttime"></text>
+                </mdui-segmented-button>
+              </mdui-tooltip>
+              <mdui-tooltip al-aplto="content: earlyTheme;" placement="top" openDelay="0" closeDelay="0">
+                <mdui-segmented-button value="classic" icon="access_time" selected-icon="access_time">
+                  <text al="classic"></text>
+                </mdui-segmented-button>
+              </mdui-tooltip>
+            </mdui-segmented-button-group>
+          </label>
+          
+          <label id="debugMode">
+            <input type="checkbox" onclick="" disabled>
+            <text>debugMode</text>
+          </label>
+          <label id="gitHubProxy">
+            <input class="github-proxy" type="checkbox" checked>
+            <text al="GitHubProxy"></text>
+          </label>
+          <label id="checkUpdate">
+            <input class="check-update" type="checkbox" checked>
+            <text al="checkUpdate"></text>
+          </label>
+          <label id="searchableDirect">
+            <input class="searchable-direct" type="checkbox" checked>
+            <text al="searchableDirect"></text>
+          </label>
+          <label id="cleanUrl">
+            <input class="clean-url" type="checkbox" checked>
+            <text al="cleanUrl"></text>
+          </label>
+          <label id="searchablePromptLength" style="display: flex; align-items: center;">
+            <text al="searchablePromptLength"></text>
+            <mdui-slider class="inline-block searchable-prompt-length" name="searchable-prompt-length" value="10" min="0" max="30"></mdui-slider>
+          </label>
+          
+          <span id="debugFuncs">
+            <label>debugFuncs</label>
+            <label>
+              <input id="clickEffect" type="checkbox" onclick="this.disabled = true;">
+              <text>clickEffect</text>
+            </label>
+            <label>
+              <input id="snowEffect" type="checkbox" onclick="">
+              <text>snowEffect</text>
+            </label>
+            <label>
+              <input id="githubRepoProxy" type="checkbox" onclick="">
+              <text>githubRepoProxy</text>
+            </label>
+          </span>
+        </div>
+        
+        <div class="ellipsis">
+          <h2 al="ellipsis"></h2>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <a class="传送锚点" id="底部"></a>
+  
+  <footer class="wait" style="display: none;">
+    <div class="page-content">
+      <div class="footer-content">
+        <h2 al="statistics"></h2>
+        <hr>
+        <div class="article">
+          <h3 class="inline-block" al="visitorCount"></h3>
+          <div id="访问计数" class="inline">
+            <a class="to-unfold" href="#访问计数-展开" style="display: none;" al="unfold"></a>
+            <a class="to-fold" href="#访问计数-收起" al="fold"></a>
+            <details style="text-align: center;" open>
+              <summary class="noicon"></summary>
+              <img src="https://visitor-badge.laobi.icu/badge?page_id=teaSummer.MCiSEE" alt="Visitor Count">
+            </details>
+          </div>
+
+          <h3 class="inline-block" al="contributors"></h3>
+          <div id="贡献者" class="inline">
+            <a class="to-unfold" href="#贡献者-展开" al="unfold"></a>
+            <a class="to-fold" href="#贡献者-收起" style="display: none;" al="fold"></a>
+            <details style="text-align: center;">
+              <summary class="noicon"></summary>
+              <img src="https://contrib.rocks/image?repo=teaSummer/MCiSEE" alt="Contributors">
+            </details>
+          </div>
+
+          <h3 class="inline-block" al="starsOverTime"></h3>
+          <div id="GitHub星星历史图" class="inline">
+            <a class="to-unfold" href="#GitHub星星历史图-展开" al="unfold"></a>
+            <a class="to-fold" href="#GitHub星星历史图-收起" style="display: none;" al="fold"></a>
+            <details style="text-align: center;">
+              <summary class="noicon"></summary>
+              <img src="https://starchart.cc/teaSummer/MCiSEE.svg?variant=adaptive" alt="Stars Over Time">
+            </details>
+          </div>
+        </div>
+        <hr>
+        <p class="ICP" al="ICP"></p>
+        <p class="ICP" al="moeICP"></p>
+        <p class="GitHub">
+          <a href="https://github.com/teaSummer/MCiSEE" target="_blank">GitHub</a> |
+          <a href="https://github.com/teaSummer/MCiSEE/#贡献教程" target="_blank" al="contributeForThisProject"></a> |
+          <a href="https://afdian.com/a/MCiSEE" target="_blank" al="afdian"></a> |
+          <a href="https://www.rainyun.com/baiyun_" target="_blank" rel="noopener" class="rainyun" al="rainyunSponsor"></a>
+        </p>
+        <p class="license gravity-inline">
+          <text al="license.1"></text>
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+          <text al="license.2"></text>
+        </p>
+        <p class="credit inline" al="credit"></p>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script>
+import { onMounted } from 'vue'
+
+export default {
+  name: 'App',
+  setup() {
+    onMounted(() => {
+      // 加载原项目的JavaScript文件
+      const scripts = [
+        '/src/scripts/lib/mdui.global.js',
+        '/src/scripts/lib/jquery-3.7.1.min.js',
+        '/src/scripts/lib/jsonc.min.js',
+        '/src/scripts/lib/al.noyaml.min.js',
+        '/src/scripts/lib/browser.min.js',
+        '/src/scripts/lib/typeahead.jquery.min.js',
+        '/src/scripts/init.js',
+        '/src/scripts/DOMConstructor.js',
+        '/src/scripts/main.js'
+      ]
+      
+      // 依次加载脚本
+      const loadScript = (src) => {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = src
+          script.onload = resolve
+          script.onerror = reject
+          document.head.appendChild(script)
+        })
+      }
+      
+      // 按顺序加载所有脚本
+      scripts.reduce((promise, script) => {
+        return promise.then(() => loadScript(script))
+      }, Promise.resolve()).then(() => {
+        // 所有脚本加载完成后，加载主题模块
+        import('/src/scripts/module/theme.js')
+      })
+    })
+  }
+}
+</script>
+
+<style>
+/* 样式将通过原有的CSS文件加载 */
+</style>
