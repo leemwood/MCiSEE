@@ -35,22 +35,7 @@
       </div>
     </main>
     
-    <!-- 主题设置区域 -->
-    <div class="theme-settings">
-      <div class="theme-container">
-        <h3>{{ $t('theme_settings') || '主题设置' }}</h3>
-        <div class="theme-options">
-          <button 
-            v-for="theme in themes" 
-            :key="theme.value"
-            @click="setTheme(theme.value)"
-            :class="['theme-btn', { active: currentTheme === theme.value }]"
-          >
-            {{ theme.label }}
-          </button>
-        </div>
-      </div>
-    </div>
+
     
     <!-- 页脚 -->
     <Footer />
@@ -96,14 +81,31 @@ export default {
     ])
     
     const applyTheme = (theme) => {
+      // 确保theme是字符串，如果是事件对象则提取值
+      let themeValue = theme
+      if (typeof theme === 'object' && theme !== null) {
+        if (theme.target && theme.target.value) {
+          themeValue = theme.target.value
+        } else {
+          console.warn('Invalid theme value:', theme)
+          return
+        }
+      }
+      
+      // 确保themeValue是有效的字符串
+      if (typeof themeValue !== 'string' || !themeValue) {
+        console.warn('Theme value is not a valid string:', themeValue)
+        return
+      }
+      
       const backgroundElement = document.querySelector('.background')
       if (!backgroundElement) return
       
       // 移除所有主题类
       backgroundElement.classList.remove('light', 'dark', 'classic', 'system')
       
-      let finalTheme = theme
-      if (theme === 'default' || theme === 'system') {
+      let finalTheme = themeValue
+      if (themeValue === 'default' || themeValue === 'system') {
         // 使用系统默认主题
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           finalTheme = 'dark'
@@ -114,12 +116,10 @@ export default {
       
       // 添加对应的主题类
       backgroundElement.classList.add(finalTheme)
-      currentTheme.value = theme
+      currentTheme.value = themeValue
       
       // 同时更新根元素的data-theme属性
       document.documentElement.setAttribute('data-theme', finalTheme)
-      
-      console.log(`主题已切换为: ${finalTheme}`)
     }
     
     const setTheme = (theme) => {
@@ -136,7 +136,7 @@ export default {
       applyTheme(savedTheme)
       
       // 监听系统主题变化
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
         if (currentTheme.value === 'default' || currentTheme.value === 'system') {
           applyTheme(currentTheme.value)
         }
@@ -148,11 +148,6 @@ export default {
       themes,
       setTheme
     }
-  },
-  provide() {
-    return {
-      setTheme: this.setTheme
-    }
   }
 }
 </script>
@@ -160,60 +155,7 @@ export default {
 <style>
 /* 全局样式将在style.css中定义 */
 
-/* 主题设置区域样式 */
-.theme-settings {
-  background: #f8f9fa;
-  border-top: 1px solid #dee2e6;
-  padding: 2rem 0;
-  margin-top: 2rem;
-}
 
-.theme-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  text-align: center;
-}
-
-.theme-container h3 {
-  margin: 0 0 1.5rem 0;
-  color: #333;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.theme-options {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.theme-btn {
-  padding: 0.75rem 1.5rem;
-  border: 2px solid #28a745;
-  background: white;
-  color: #28a745;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  min-width: 120px;
-}
-
-.theme-btn:hover {
-  background: #28a745;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-}
-
-.theme-btn.active {
-  background: #28a745;
-  color: white;
-  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
-}
 
 /* 搜索部分样式 */
 .search-section {
@@ -231,52 +173,8 @@ export default {
   font-weight: 500;
 }
 
-/* 深色主题适配 */
-@media (prefers-color-scheme: dark) {
-  .theme-settings {
-    background: #1a1a1a;
-    border-top-color: #444;
-  }
-  
-  .theme-container h3 {
-    color: #fff;
-  }
-  
-  .theme-btn {
-    background: #2d2d2d;
-    border-color: #28a745;
-    color: #28a745;
-  }
-  
-  .theme-btn:hover {
-    background: #28a745;
-    color: white;
-  }
-}
+
 
 /* 响应式设计 */
-@media (max-width: 768px) {
-  .theme-settings {
-    padding: 1.5rem 0;
-  }
-  
-  .theme-container {
-    padding: 0 0.5rem;
-  }
-  
-  .theme-container h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  
-  .theme-options {
-    gap: 0.5rem;
-  }
-  
-  .theme-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    min-width: 100px;
-  }
-}
+
 </style>

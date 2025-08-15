@@ -1,36 +1,48 @@
 <template>
   <footer class="footer">
-    <div class="footer-content">
-      <!-- 项目信息 -->
-      <div class="footer-section">
-        <div class="footer-title">项目信息</div>
-        <div class="project-links">
-          <a href="https://github.com/Hex-Dragon/MCiSEE" target="_blank" class="project-link">
-            <i class="material-icons">code</i>
-            源代码
-          </a>
-          <a href="https://github.com/Hex-Dragon/MCiSEE/issues" target="_blank" class="project-link">
-            <i class="material-icons">bug_report</i>
-            报告问题
-          </a>
-          <a href="https://github.com/Hex-Dragon/MCiSEE/blob/main/LICENSE" target="_blank" class="project-link">
-            <i class="material-icons">gavel</i>
-            许可证
-          </a>
-        </div>
-        <div class="version-info">
-          <span>版本: {{ version }}</span>
-          <span>最后更新: {{ lastUpdated }}</span>
-        </div>
-      </div>
+    <div class="page-content">
+      <div class="footer-content">
+        <h2>统计信息</h2>
+        <hr>
+        <div class="article">
+          <h3 class="inline-block">访问计数</h3>
+          <div class="inline">
+            <details style="text-align: center;" open>
+              <summary class="noicon"></summary>
+              <img src="https://visitor-badge.laobi.icu/badge?page_id=teaSummer.MCiSEE" alt="Visitor Count">
+            </details>
+          </div>
 
-    </div>
-    
-    <!-- 版权信息 -->
-    <div class="footer-bottom">
-      <div class="copyright">
-        <p>&copy; {{ currentYear }} MCiSEE. 保留所有权利</p>
-        <p>用 ❤️ 为 Minecraft 社区制作</p>
+          <h3 class="inline-block">贡献者</h3>
+          <div class="inline">
+            <details style="text-align: center;">
+              <summary class="noicon"></summary>
+              <img src="https://contrib.rocks/image?repo=teaSummer/MCiSEE" alt="Contributors">
+            </details>
+          </div>
+
+          <h3 class="inline-block">GitHub星星历史图</h3>
+          <div class="inline">
+            <details style="text-align: center;">
+              <summary class="noicon"></summary>
+              <img src="https://starchart.cc/teaSummer/MCiSEE.svg?variant=adaptive" alt="Stars Over Time">
+            </details>
+          </div>
+        </div>
+        <hr>
+        <p class="ICP">本站已运行 {{ version }} 版本</p>
+        <p class="ICP">最后更新时间：{{ lastUpdated }}</p>
+        <p class="GitHub">
+          <a href="https://github.com/Hex-Dragon/MCiSEE" target="_blank">GitHub</a> |
+          <a href="https://github.com/Hex-Dragon/MCiSEE/issues" target="_blank">报告问题</a> |
+          <a href="https://github.com/Hex-Dragon/MCiSEE/blob/main/LICENSE" target="_blank">许可证</a>
+        </p>
+        <p class="license gravity-inline">
+          <text>本项目采用</text>
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+          <text>许可协议</text>
+        </p>
+        <p class="credit inline">&copy; {{ currentYear }} MCiSEE. 用 ❤️ 为 Minecraft 社区制作</p>
       </div>
     </div>
   </footer>
@@ -63,217 +75,168 @@ export default {
 
 <style scoped>
 .footer {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-top: 1px solid #dee2e6;
-  margin-top: 3rem;
-  padding: 2rem 0 1rem;
+  font-size: 0.9rem;
+  margin: 2rem 0;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8));
+}
+
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  padding: 2rem 0;
 }
 
-.footer-section {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.footer-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+.footer-content h2 {
   margin-bottom: 1rem;
-  color: #333;
-  border-bottom: 2px solid #28a745;
-  padding-bottom: 0.5rem;
+  color: var(--text-color, #333);
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
+.footer-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ddd, transparent);
+  margin: 1.5rem 0;
 }
 
-.stat-item {
-  text-align: center;
-  padding: 0.75rem;
-  background: rgba(40, 167, 69, 0.1);
-  border-radius: 6px;
+.article {
+  margin: 2rem 0;
 }
 
-.stat-label {
-  display: block;
-  font-size: 0.8rem;
-  color: #666;
-  margin-bottom: 0.25rem;
+.article h3 {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--text-color, #333);
+  font-size: 1rem;
 }
 
-.stat-value {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #28a745;
+.article details {
+  margin: 0.5rem 0 1rem;
 }
 
-.contributors-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.article summary {
+  cursor: pointer;
+  outline: none;
 }
 
-.contributor-item {
-  display: block;
-  transition: transform 0.2s;
+.article summary.noicon {
+  list-style: none;
 }
 
-.contributor-item:hover {
-  transform: scale(1.1);
+.article summary.noicon::-webkit-details-marker {
+  display: none;
 }
 
-.contributor-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid #28a745;
-}
-
-.contributors-loading {
-  text-align: center;
-  color: #666;
-  font-style: italic;
-}
-
-.stars-chart {
-  text-align: center;
-}
-
-.stars-history-img {
+.article img {
   max-width: 100%;
   height: auto;
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.project-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+.ICP {
+  margin: 0.5rem 0;
+  color: var(--text-color-secondary, #666);
+  font-size: 0.85rem;
 }
 
-.project-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
+.GitHub {
+  margin: 1rem 0;
+  color: var(--text-color, #333);
+}
+
+.GitHub a {
+  color: var(--link-color, #007bff);
   text-decoration: none;
-  color: #28a745;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  margin: 0 0.25rem;
 }
 
-.project-link:hover {
-  background-color: rgba(40, 167, 69, 0.1);
+.GitHub a:hover {
+  text-decoration: underline;
 }
 
-.project-link .material-icons {
-  font-size: 18px;
+.license {
+  margin: 1rem 0;
+  color: var(--text-color-secondary, #666);
+  font-size: 0.85rem;
 }
 
-.version-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+.license a {
+  color: var(--link-color, #007bff);
+  text-decoration: none;
+}
+
+.license a:hover {
+  text-decoration: underline;
+}
+
+.credit {
+  margin: 1.5rem 0 0;
+  color: var(--text-color-secondary, #666);
   font-size: 0.8rem;
-  color: #666;
 }
 
-.footer-bottom {
-  border-top: 1px solid #dee2e6;
-  margin-top: 2rem;
-  padding-top: 1rem;
+.inline-block {
+  display: inline-block;
 }
 
-.copyright {
+.inline {
+  display: inline;
+}
+
+.gravity-inline {
   text-align: center;
-  color: #666;
-  font-size: 0.9rem;
-  line-height: 1.5;
 }
 
-.copyright p {
-  margin: 0.25rem 0;
+.gravity-inline * {
+  margin: 0 0.25rem;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+  .page-content {
+    padding: 0 1rem;
+  }
+  
   .footer-content {
-    grid-template-columns: 1fr;
-    padding: 0 0.5rem;
+    padding: 1.5rem 0;
   }
   
-  .footer-section {
-    padding: 1rem;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .project-links {
-    gap: 0.25rem;
-  }
-  
-  .project-link {
-    padding: 0.25rem;
+  .article h3 {
     font-size: 0.9rem;
+  }
+  
+  .ICP, .license {
+    font-size: 0.8rem;
+  }
+  
+  .credit {
+    font-size: 0.75rem;
   }
 }
 
-/* 深色主题适配 */
-@media (prefers-color-scheme: dark) {
-  .footer {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border-top-color: #444;
+@media (max-width: 480px) {
+  .page-content {
+    padding: 0 0.75rem;
   }
   
-  .footer-section {
-    background: #2d2d2d;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  .footer-content {
+    padding: 1rem 0;
   }
   
-  .footer-title {
-    color: #fff;
+  .article h3 {
+    font-size: 0.85rem;
   }
   
-  .stat-item {
-    background: rgba(40, 167, 69, 0.2);
+  .ICP, .license {
+    font-size: 0.75rem;
   }
   
-  .stat-label {
-    color: #ccc;
-  }
-  
-  .contributors-loading {
-    color: #ccc;
-  }
-  
-  .version-info {
-    color: #ccc;
-  }
-  
-  .copyright {
-    color: #ccc;
-  }
-  
-  .footer-bottom {
-    border-top-color: #444;
+  .credit {
+    font-size: 0.7rem;
   }
 }
 </style>

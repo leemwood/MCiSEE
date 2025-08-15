@@ -41,32 +41,32 @@ export default {
         {
           value: 'auto',
           label: this.$t('auto_detect'),
-          tip: this.$t('auto_detect')
+          tip: '自动检测当前设备类型'
         },
         {
           value: 'Android',
           label: 'Android',
-          tip: 'Android'
+          tip: 'Android 移动设备'
         },
         {
           value: 'iOS',
           label: 'iOS',
-          tip: 'iOS'
+          tip: 'iPhone/iPad 设备'
         },
         {
           value: 'Windows',
           label: 'Windows',
-          tip: 'Windows'
+          tip: 'Windows 桌面系统'
         },
         {
           value: 'macOS',
           label: 'macOS',
-          tip: 'macOS'
+          tip: 'Mac 桌面系统'
         },
         {
           value: 'Linux',
           label: 'Linux',
-          tip: 'Linux'
+          tip: 'Linux 桌面系统'
         }
       ]
     }
@@ -125,8 +125,8 @@ export default {
 
 .secondary {
   font-size: 0.8rem;
-  color: #999;
-  display: none;
+  color: var(--mdui-color-on-surface-variant);
+  margin-top: 0.2rem;
 }
 /* 移动端优化 */
 @media (max-width: 768px) {

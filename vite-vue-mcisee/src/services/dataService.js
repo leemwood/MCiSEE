@@ -242,8 +242,12 @@ class DataService {
   // 加载实用网站数据
   async loadUtilityWebsiteData() {
     try {
-      const basePath = import.meta.env.BASE_URL || '/'
-      const data = await this.loadJsoncFile(`${basePath}src/services/utilityWebsite.json`)
+      // 直接使用相对路径，让Vite处理
+      const response = await fetch('/src/services/utilityWebsite.json')
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
       return this.transformUtilityWebsiteData(data)
     } catch (error) {
       console.error('加载实用网站数据失败，使用默认数据', error)

@@ -7,7 +7,6 @@
       <label class="config-label">{{ $t('theme') }}</label>
       <select 
         v-model="selectedTheme" 
-        @change="handleThemeChange"
         class="theme-selector"
       >
         <option value="default">{{ $t('theme_default') }}</option>
@@ -106,7 +105,7 @@
 </template>
 
 <script>
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted, inject, watch } from 'vue'
 import updateChecker from '../services/updateChecker.js'
 
 export default {
@@ -124,24 +123,52 @@ export default {
     
     // 主题切换处理
     const handleThemeChange = (value) => {
-      selectedTheme.value = value
-      localStorage.setItem('theme', value)
-      if (setTheme) {
-        setTheme(value)
+      // 确保value是字符串，如果是事件对象则提取值
+      let themeValue = value
+      if (typeof value === 'object' && value !== null) {
+        if (value.target && value.target.value) {
+          themeValue = value.target.value
+        } else {
+          console.warn('Invalid theme value:', value)
+          return
+        }
       }
-      applyTheme(value)
+      
+      selectedTheme.value = themeValue
+      localStorage.setItem('theme', themeValue)
+      if (setTheme) {
+        setTheme(themeValue)
+      }
+      applyTheme(themeValue)
     }
     
     // 应用主题
     const applyTheme = (theme) => {
+      // 确保theme是字符串，如果是事件对象则提取值
+      let themeValue = theme
+      if (typeof theme === 'object' && theme !== null) {
+        if (theme.target && theme.target.value) {
+          themeValue = theme.target.value
+        } else {
+          console.warn('Invalid theme value:', theme)
+          return
+        }
+      }
+      
+      // 确保themeValue是有效的字符串
+      if (typeof themeValue !== 'string' || !themeValue) {
+        console.warn('Theme value is not a valid string:', themeValue)
+        return
+      }
+      
       const backgroundElement = document.querySelector('.background')
       if (!backgroundElement) return
       
       // 移除所有主题类
       backgroundElement.classList.remove('light', 'dark', 'classic', 'system')
       
-      let finalTheme = theme
-      if (theme === 'default' || theme === 'system') {
+      let finalTheme = themeValue
+      if (themeValue === 'default' || themeValue === 'system') {
         // 使用系统默认主题
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           finalTheme = 'dark'
@@ -155,8 +182,6 @@ export default {
       
       // 同时更新根元素的data-theme属性
       document.documentElement.setAttribute('data-theme', finalTheme)
-      
-      console.log(`主题已切换到: ${finalTheme}`)
     }
     
     // 调试模式切换
@@ -165,11 +190,9 @@ export default {
       localStorage.setItem('debugMode', value.toString())
       
       if (value) {
-        console.log('调试模式已启用')
         // 启用调试功能
         window.MCiSEE_DEBUG = true
       } else {
-        console.log('调试模式已禁用')
         window.MCiSEE_DEBUG = false
       }
     }
@@ -191,10 +214,8 @@ export default {
       // 启用或禁用自动更新检查
       if (value) {
         updateChecker.enableAutoCheck()
-        console.log('自动更新检查: 启用')
       } else {
         updateChecker.disableAutoCheck()
-        console.log('自动更新检查: 禁用')
       }
     }
     
@@ -268,6 +289,11 @@ export default {
       selectedLanguage.value = savedLanguage
       document.documentElement.lang = savedLanguage
     }
+    
+    // 监听主题变化
+    watch(selectedTheme, (newTheme) => {
+      handleThemeChange(newTheme)
+    })
     
     onMounted(() => {
       // 等待DOM更新后加载配置
