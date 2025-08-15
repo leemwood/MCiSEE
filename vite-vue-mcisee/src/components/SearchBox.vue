@@ -77,9 +77,9 @@ export default {
     })
     
     // 加载搜索引擎数据
-    const loadSearchEngines = () => {
+    const loadSearchEngines = async () => {
       try {
-        searchEngines.value = getSearchableData()
+        searchEngines.value = await getSearchableData()
         if (searchEngines.value.length > 0) {
           selectedEngine.value = searchEngines.value[0].abbr
         }
@@ -89,10 +89,10 @@ export default {
     }
     
     // 执行搜索
-    const performSearch = () => {
+    const performSearch = async () => {
       if (!searchQuery.value.trim()) return
       
-      const searchUrl = buildSearchUrl(selectedEngine.value, searchQuery.value.trim())
+      const searchUrl = await buildSearchUrl(selectedEngine.value, searchQuery.value.trim())
       if (searchUrl) {
         window.open(searchUrl, '_blank')
         addToSearchHistory(searchQuery.value.trim())
@@ -100,10 +100,10 @@ export default {
     }
     
     // 快速搜索
-    const quickSearch = (engineAbbr) => {
+    const quickSearch = async (engineAbbr) => {
       if (!searchQuery.value.trim()) return
       
-      const searchUrl = buildSearchUrl(engineAbbr, searchQuery.value.trim())
+      const searchUrl = await buildSearchUrl(engineAbbr, searchQuery.value.trim())
       if (searchUrl) {
         window.open(searchUrl, '_blank')
         addToSearchHistory(searchQuery.value.trim())
