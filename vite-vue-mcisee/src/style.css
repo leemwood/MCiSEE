@@ -1,0 +1,438 @@
+/* 全局CSS变量 */
+:root {
+  scroll-behavior: smooth;
+  
+  /* 颜色变量 */
+  --apple-color-white: #d6d5da;
+  --primary-color: #92c3fe;
+  --background-overlay: rgba(214, 213, 218, 0.2);
+  --dark-overlay: rgba(17, 17, 17, 0.4);
+  
+  /* 字体变量 */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family-code: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  
+  /* 间距变量 */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* 过渡变量 */
+  --transition-fast: 0.15s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
+}
+
+/* 重置样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+}
+
+/* 背景 */
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transform-origin: left;
+  transition-duration: 0s;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* 主题背景 */
+.background.light {
+  background-image: url('/assets/image/daylight.webp');
+}
+
+.background.dark {
+  background-image: url('/assets/image/dark.webp');
+}
+
+.background.classic {
+  background-image: url('/assets/image/classic.webp');
+}
+
+/* 基础排版 */
+p {
+  margin-top: 0.75rem;
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+h4, h5, h6 {
+  font-weight: 400;
+}
+
+/* SVG图标 */
+svg {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+
+.svg.right {
+  padding-right: 3px;
+}
+
+/* 分隔线 */
+div + hr {
+  margin: 24px 0;
+}
+
+/* 标签 */
+label, .label {
+  display: block;
+  margin: var(--spacing-xs) 0;
+  user-select: none;
+}
+
+/* MDUI组件样式 */
+mdui-button {
+  vertical-align: middle;
+}
+
+mdui-select {
+  background-color: transparent;
+  font-size: 14px;
+  width: 200px;
+  padding: 1px 0;
+  line-height: 20px;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+
+mdui-segmented-button {
+  transition-duration: var(--transition-normal);
+}
+
+mdui-menu-item.version-item {
+  padding: 0 15px;
+  font-size: 13px;
+}
+
+mdui-menu-item[hidden] {
+  display: none;
+}
+
+mdui-menu-item:hover .secondary {
+  display: block;
+}
+
+/* 表单元素 */
+select, option, input, button {
+  background-color: transparent;
+}
+
+/* 公告栏 */
+.announcement-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: max(4vh, max-content);
+  background-color: var(--background-overlay);
+  line-height: 4vh;
+  text-align: center;
+  margin: auto;
+  font-size: 14px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.announcement-bar ul {
+  list-style: none;
+}
+
+.announcement-bar li {
+  position: relative;
+}
+
+.announcement-bar li.announcement-1 {
+  animation: announcement 5s ease-out forwards;
+}
+
+.announcement-bar li:not(.announcement-1) {
+  display: none;
+}
+
+@keyframes announcement {
+  0% { opacity: 0; transform: translateY(-100%); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-100%); }
+}
+
+/* 侧边栏 */
+sidebar {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  background: var(--dark-overlay);
+  padding: var(--spacing-md);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+sidebar info {
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+  display: block;
+}
+
+sidebar dl {
+  margin: 0;
+}
+
+sidebar dt, sidebar dd {
+  margin: var(--spacing-xs) 0;
+}
+
+sidebar a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+sidebar a:hover {
+  opacity: 0.7;
+}
+
+/* 主要内容 */
+.main-content {
+  margin-top: max(4vh, max-content);
+}
+
+.page-content {
+  max-width: min(1000px, 100vw);
+  margin: 0 auto;
+  padding: var(--spacing-md);
+}
+
+.page-title {
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.first-title {
+  margin: var(--spacing-md);
+  margin-left: var(--spacing-xs);
+}
+
+.full-name {
+  margin-left: 6px;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+/* 工具类 */
+.inline {
+  display: inline !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.gravity-inline * {
+  display: inline;
+}
+
+.gravity-block > * {
+  display: block;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.min-width-215 {
+  min-width: 215px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+/* 复选框 */
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* 搜索相关 */
+.searchable-goto {
+  margin-left: 3px;
+}
+
+.searchable-input {
+  width: 250px;
+}
+
+.searchable-button, .searchable-clear {
+  transition-duration: var(--transition-fast);
+}
+
+.searchable-clear[hidden] {
+  display: none !important;
+}
+
+.searchable-prompt-length {
+  width: 200px;
+}
+
+.acquire-versions {
+  transition-duration: 0.1s;
+}
+
+/* 文章样式 */
+.article h3 {
+  margin: 0.5em 0;
+}
+
+.article h3:first-child {
+  margin-top: 0;
+}
+
+.article img {
+  height: auto;
+  width: auto;
+  max-width: calc(min(100vw, 800px) - 4rem);
+}
+
+/* 网站容器 */
+.utility-website-container div.label,
+.forum-container div.label {
+  display: inline-block;
+}
+
+.website-container h2 {
+  display: contents;
+}
+
+/* 折叠/展开按钮 */
+.to-fold, .to-unfold, .inline-link {
+  font-size: 0.8rem;
+  bottom: 5px;
+  right: 1px;
+  top: 1px;
+  padding: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.to-fold:hover, .to-unfold:hover, .inline-link:hover {
+  opacity: 0.7;
+}
+
+.inline-link {
+  display: inline;
+}
+
+/* 资源容器 */
+.resource-container > div + div {
+  margin-top: var(--spacing-lg);
+}
+
+/* 新闻侧边栏 */
+.news {
+  width: calc((100vw - 1000px) / 2 - 5px);
+  top: 3%;
+  height: 80%;
+  background: var(--dark-overlay);
+  position: fixed;
+}
+
+/* 底部样式 */
+footer p {
+  margin-bottom: 0;
+}
+
+/* 特殊效果 */
+.apf:hover {
+  transform: scale(1.05) rotate(-1deg);
+  transition: transform var(--transition-slow);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .page-content {
+    padding: var(--spacing-sm);
+  }
+  
+  sidebar {
+    display: none;
+  }
+  
+  .news {
+    display: none;
+  }
+  
+  .searchable-input {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  .searchable-input {
+    width: 150px;
+  }
+}
+
+/* 深色主题适配 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-overlay: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .announcement-bar,
+  sidebar,
+  .news {
+    display: none;
+  }
+  
+  .main-content {
+    margin-top: 0;
+  }
+}

@@ -1,22 +1,37 @@
 {
-  "name": "mcisee-dev",
-  "version": "1.0.0",
+  "name": "vite-vue-mcisee",
   "private": true,
+  "version": "2.0.0",
   "type": "module",
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
+  "description": "MCiSEE - Minecraft Comprehensive Resource Navigation (Vite + Vue)",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.18"
+    "vue": "^3.5.18",
+    "vue-i18n": "^9.8.0",
+    "mdui": "^2.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
     "vite": "^7.0.6",
     "vite-plugin-vue-devtools": "^8.0.0"
+  },
+  "keywords": [
+    "minecraft",
+    "mcisee",
+    "vue",
+    "vite",
+    "navigation",
+    "resources"
+  ],
+  "author": "MCiSEE Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hex-Dragon/MCiSEE.git"
   }
 }
