@@ -242,9 +242,7 @@ class DataService {
   // 加载实用网站数据
   async loadUtilityWebsiteData() {
     try {
-      // 使用import.meta.env.BASE_URL来适配生产环境路径
-      const basePath = import.meta.env.BASE_URL
-      const response = await fetch(`${basePath}src/services/utilityWebsite.json`)
+      const response = await fetch('/src/services/utilityWebsite.json')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -288,9 +286,7 @@ class DataService {
   // 加载论坛数据
   async loadForumData() {
     try {
-      // 使用import.meta.env.BASE_URL来适配生产环境路径
-      const basePath = import.meta.env.BASE_URL
-      const response = await fetch(`${basePath}src/services/forum.json`)
+      const response = await fetch('/src/services/forum.json')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }

@@ -29,7 +29,7 @@ function jsoncPlugin() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/MCiSEE/' : '/',
+  base: '/',
   plugins: [vue({
     template: {
       compilerOptions: {
