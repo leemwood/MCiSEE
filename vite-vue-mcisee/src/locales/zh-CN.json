@@ -161,5 +161,7 @@
   "latest_version": "最新版本",
   "release": "稳定版",
   "preRelease": "开发版",
-  "searchFrom": "搜索来源"
+  "searchFrom": "搜索来源",
+  "device": "设备",
+  "device.tip": "请选择您的设备类型"
 }
