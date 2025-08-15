@@ -6,7 +6,13 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? '/MCiSEE/' : '/',
-  plugins: [vue(), vueDevtools()],
+  plugins: [vue({
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => tag.startsWith('mdui-')
+      }
+    }
+  }), vueDevtools()],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

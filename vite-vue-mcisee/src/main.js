@@ -21,7 +21,5 @@ const i18n = createI18n({
 })
 
 const app = createApp(App)
-// 配置Vue以识别MDUI自定义元素
-app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('mdui-')
 app.use(i18n)
 app.mount('#app')
