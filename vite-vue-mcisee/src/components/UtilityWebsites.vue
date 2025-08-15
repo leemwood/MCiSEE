@@ -145,6 +145,11 @@ export default {
 <style scoped>
 .utility-website-container {
   margin: 2rem 0;
+  background: rgba(248, 249, 250, 0.6);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(224, 224, 224, 0.3);
 }
 
 .header {
@@ -178,24 +183,28 @@ export default {
 }
 
 .category {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border: 1px solid rgba(224, 224, 224, 0.4);
+  border-radius: 10px;
   overflow: hidden;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .category-header {
   padding: 1rem;
-  background: #f8f9fa;
+  background: rgba(248, 249, 250, 0.7);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
 }
 
 .category-header:hover {
-  background: #e9ecef;
+  background: rgba(233, 236, 239, 0.8);
+  transform: translateY(-1px);
 }
 
 .category-info {
@@ -250,16 +259,19 @@ export default {
 }
 
 .website-item {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(224, 224, 224, 0.4);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .website-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.15);
+  border-color: rgba(0, 123, 255, 0.6);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .website-link {
