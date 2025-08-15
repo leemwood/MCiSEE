@@ -113,8 +113,7 @@ class DataService {
   // 加载启动器数据
   async loadLauncherData() {
     try {
-      const basePath = import.meta.env.BASE_URL || '/'
-      const data = await this.loadJsoncFile(`${basePath}src/services/launcher.json`)
+      const data = await this.loadJsoncFile('/data/launcher.jsonc')
       return this.transformLauncherData(data)
     } catch (error) {
       console.error('加载启动器数据失败，使用默认数据', error)
@@ -242,11 +241,13 @@ class DataService {
   // 加载实用网站数据
   async loadUtilityWebsiteData() {
     try {
-      const response = await fetch('/src/services/utilityWebsite.json')
+      const response = await fetch('/data/utilityWebsite.jsonc')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-      const data = await response.json()
+      const text = await response.text()
+      const jsonText = this.removeComments(text)
+      const data = JSON.parse(jsonText)
       return this.transformUtilityWebsiteData(data)
     } catch (error) {
       console.error('加载实用网站数据失败，使用默认数据', error)
@@ -286,11 +287,13 @@ class DataService {
   // 加载论坛数据
   async loadForumData() {
     try {
-      const response = await fetch('/src/services/forum.json')
+      const response = await fetch('/data/forum.jsonc')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-      const data = await response.json()
+      const text = await response.text()
+      const jsonText = this.removeComments(text)
+      const data = JSON.parse(jsonText)
       return this.transformForumData(data)
     } catch (error) {
       console.error('加载论坛数据失败，使用默认数据', error)
