@@ -113,7 +113,8 @@ class DataService {
   // 加载启动器数据
   async loadLauncherData() {
     try {
-      const data = await this.loadJsoncFile('/data/launcher.jsonc')
+      const basePath = import.meta.env.BASE_URL || '/'
+      const data = await this.loadJsoncFile(`${basePath}data/launcher.jsonc`)
       return this.transformLauncherData(data)
     } catch (error) {
       console.error('加载启动器数据失败，使用默认数据', error)
@@ -241,7 +242,8 @@ class DataService {
   // 加载实用网站数据
   async loadUtilityWebsiteData() {
     try {
-      const data = await this.loadJsoncFile('/data/utilityWebsite.jsonc')
+      const basePath = import.meta.env.BASE_URL || '/'
+      const data = await this.loadJsoncFile(`${basePath}data/utilityWebsite.jsonc`)
       return this.transformUtilityWebsiteData(data)
     } catch (error) {
       console.error('加载实用网站数据失败，使用默认数据', error)
