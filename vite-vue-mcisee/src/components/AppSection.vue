@@ -37,16 +37,16 @@
           class="button data-url-launcher" 
           :href="currentLauncher.website" 
           target="_blank"
+          v-html="getFormattedLinkText('gotoLauncherWebsite', currentLauncher.website)"
         >
-          {{ $t('gotoLauncherWebsite') }}
         </a>
         <a 
           v-if="currentLauncher.github" 
           class="button data-github-launcher" 
           :href="currentLauncher.github" 
           target="_blank"
+          v-html="getFormattedLinkText('gotoLauncherGitHub', currentLauncher.github)"
         >
-          {{ $t('gotoLauncherGitHub') }}
         </a>
       </div>
       
@@ -124,8 +124,25 @@ export default {
       }
     },
     
-    onLauncherChange() {
+    onLauncherChange(event) {
+      console.log('=== Launcher Change Event ===')
+      console.log('Event:', event)
+      console.log('Event target value:', event.target?.value)
+      console.log('Selected launcher before:', this.selectedLauncher)
+      
+      // 确保selectedLauncher被正确更新
+      if (event.target?.value) {
+        this.selectedLauncher = event.target.value
+      }
+      
+      console.log('Selected launcher after:', this.selectedLauncher)
       localStorage.setItem('selectedLauncher', this.selectedLauncher)
+      
+      // 强制触发响应式更新
+      this.$nextTick(() => {
+        console.log('Current launcher object:', this.currentLauncher)
+        console.log('Available launchers:', this.availableLaunchers.map(l => ({id: l.id, name: l.name})))
+      })
     },
     
     onDownloadClick() {
@@ -148,6 +165,28 @@ export default {
       } else {
         return `${downloadSVG} ${download} ${latest} ${preRelease}`
       }
+    },
+    
+    // 生成网站图标
+    getFavicon(url) {
+      if (!url) return ''
+      const domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '')
+      return `<img src="https://favicon.pub/api/${domain}?s=16" width="16" height="16" loading="lazy" style="margin-right: 4px; vertical-align: middle;"/>`
+    },
+    
+    // 获取格式化的链接文本
+    getFormattedLinkText(key, url) {
+      const template = this.$t(key)
+      let linkFavicon = ''
+      let faviconGH = '<img src="https://favicon.pub/api/github.com?s=16" width="16" height="16" loading="lazy" style="margin-right: 4px; vertical-align: middle;"/>'
+      
+      if (key === 'gotoLauncherWebsite' && url) {
+        linkFavicon = this.getFavicon(url)
+      }
+      
+      return template
+        .replace('${linkFavicon}', linkFavicon)
+        .replace('${faviconGH}', faviconGH)
     }
   },
   
@@ -161,6 +200,15 @@ export default {
     } else if (this.availableLaunchers.length > 0) {
       this.selectedLauncher = this.availableLaunchers[0].id
     }
+    
+    console.log('初始化启动器:', this.selectedLauncher)
+    
+    // 确保在初始化时也触发一次更新
+    this.$nextTick(() => {
+      console.log('初始化currentLauncher:', this.currentLauncher)
+      // 手动触发一次事件，确保界面更新
+      this.onLauncherChange({ target: { value: this.selectedLauncher } })
+    })
   }
 }
 </script>
