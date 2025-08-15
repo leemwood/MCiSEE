@@ -6,8 +6,8 @@
     {
       "title": "Fold Craft Launcher",
       "abbr": "FCL",
-      "download": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.2.4.5/FCL-release-1.2.4.5-all.apk",
-      "version": "1.2.4.5",
+      "download": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.2.4.6/FCL-release-1.2.4.6-all.apk",
+      "version": "1.2.4.6",
       "github": "https://github.com/FCL-Team/FoldCraftLauncher",
       "url": "https://fcl-team.github.io"
     },
@@ -89,7 +89,7 @@
       "title": "Plain Craft Launcher 2",
       "abbr": "PCL2",
       "download": "https://github.com/Hex-Dragon/PCL2/raw/refs/heads/main/%E6%9C%80%E6%96%B0%E6%AD%A3%E5%BC%8F%E7%89%88.zip",
-      "version": "2.10.5",
+      "version": "2.10.6",
       "github": "https://github.com/Hex-Dragon/PCL2",
       "url": "https://afdian.com/a/LTCat"
     },
