@@ -242,8 +242,9 @@ class DataService {
   // 加载实用网站数据
   async loadUtilityWebsiteData() {
     try {
-      // 直接使用相对路径，让Vite处理
-      const response = await fetch('/src/services/utilityWebsite.json')
+      // 使用import.meta.env.BASE_URL来适配生产环境路径
+      const basePath = import.meta.env.BASE_URL
+      const response = await fetch(`${basePath}src/services/utilityWebsite.json`)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -287,8 +288,9 @@ class DataService {
   // 加载论坛数据
   async loadForumData() {
     try {
-      // 首先尝试加载本地的forum.json文件
-      const response = await fetch('/src/services/forum.json')
+      // 使用import.meta.env.BASE_URL来适配生产环境路径
+      const basePath = import.meta.env.BASE_URL
+      const response = await fetch(`${basePath}src/services/forum.json`)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
