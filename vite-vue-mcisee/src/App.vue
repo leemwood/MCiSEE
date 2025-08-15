@@ -3,8 +3,6 @@
     <!-- 背景 -->
     <div class="background" :class="currentTheme"></div>
     
-
-    
     <!-- 主要内容 -->
     <main class="main-content">
       <div class="page-content" id="顶部">
@@ -23,29 +21,30 @@
         <!-- 网站部分 -->
         <WebsiteSection />
       
-      <!-- 侧边栏 -->
-      <Sidebar />
+        <!-- 侧边栏 -->
+        <Sidebar />
       </div>
     </main>
     
-    <!-- 配置按钮 -->
-    <mdui-fab 
-      @click="toggleConfig" 
-      icon="settings" 
-      class="config-fab"
-      :class="{ 'config-open': showConfig }"
-    ></mdui-fab>
-    
-    <!-- 配置面板 -->
-    <div v-if="showConfig" class="config-overlay" @click="closeConfig">
-      <div class="config-panel" @click.stop>
-        <div class="config-header">
-          <h3>{{ $t('config') }}</h3>
-          <mdui-button-icon @click="closeConfig" icon="close"></mdui-button-icon>
+    <!-- 主题设置区域 -->
+    <div class="theme-settings">
+      <div class="theme-container">
+        <h3>{{ $t('theme_settings') || '主题设置' }}</h3>
+        <div class="theme-options">
+          <button 
+            v-for="theme in themes" 
+            :key="theme.value"
+            @click="setTheme(theme.value)"
+            :class="['theme-btn', { active: currentTheme === theme.value }]"
+          >
+            {{ theme.label }}
+          </button>
         </div>
-        <ConfigSection />
       </div>
     </div>
+    
+    <!-- 页脚 -->
+    <Footer />
   </div>
 </template>
 
@@ -57,7 +56,7 @@ import DeviceSelector from './components/DeviceSelector.vue'
 import AppSection from './components/AppSection.vue'
 import WebsiteSection from './components/WebsiteSection.vue'
 import Sidebar from './components/Sidebar.vue'
-import ConfigSection from './components/ConfigSection.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
@@ -67,19 +66,16 @@ export default {
     AppSection,
     WebsiteSection,
     Sidebar,
-    ConfigSection
+    Footer
   },
   setup() {
     const currentTheme = ref('default')
-    const showConfig = ref(false)
     
-    const toggleConfig = () => {
-      showConfig.value = !showConfig.value
-    }
-    
-    const closeConfig = () => {
-      showConfig.value = false
-    }
+    const themes = ref([
+      { value: 'default', label: '跟随系统' },
+      { value: 'light', label: '浅色主题' },
+      { value: 'dark', label: '深色主题' }
+    ])
     
     const applyTheme = (theme) => {
       const backgroundElement = document.querySelector('.background')
@@ -110,6 +106,7 @@ export default {
     
     const setTheme = (theme) => {
       applyTheme(theme)
+      localStorage.setItem('theme', theme)
     }
     
     onMounted(() => {
@@ -127,10 +124,8 @@ export default {
     
     return {
       currentTheme,
-      setTheme,
-      showConfig,
-      toggleConfig,
-      closeConfig
+      themes,
+      setTheme
     }
   },
   provide() {
@@ -144,71 +139,107 @@ export default {
 <style>
 /* 全局样式将在style.css中定义 */
 
-/* 配置按钮样式 */
-.config-fab {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
-  transition: transform 0.3s ease;
+/* 主题设置区域样式 */
+.theme-settings {
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  padding: 2rem 0;
+  margin-top: 2rem;
 }
 
-.config-fab.config-open {
-  transform: rotate(45deg);
+.theme-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
 }
 
-/* 配置面板样式 */
-.config-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+.theme-container h3 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.theme-options {
   display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 1001;
-  backdrop-filter: blur(4px);
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.config-panel {
-  background: var(--mdui-color-surface);
-  border-radius: 16px;
-  padding: 24px;
-  max-width: 500px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
-.config-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--mdui-color-outline-variant);
-  padding-bottom: 16px;
-}
-
-.config-header h3 {
-  margin: 0;
-  color: var(--mdui-color-on-surface);
-  font-size: 1.25rem;
+.theme-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #28a745;
+  background: white;
+  color: #28a745;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
   font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.theme-btn:hover {
+  background: #28a745;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.theme-btn.active {
+  background: #28a745;
+  color: white;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+}
+
+/* 深色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .theme-settings {
+    background: #1a1a1a;
+    border-top-color: #444;
+  }
+  
+  .theme-container h3 {
+    color: #fff;
+  }
+  
+  .theme-btn {
+    background: #2d2d2d;
+    border-color: #28a745;
+    color: #28a745;
+  }
+  
+  .theme-btn:hover {
+    background: #28a745;
+    color: white;
+  }
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .config-panel {
-    width: 95%;
-    padding: 20px;
+  .theme-settings {
+    padding: 1.5rem 0;
   }
   
-  .config-fab {
-    bottom: 20px;
-    right: 20px;
+  .theme-container {
+    padding: 0 0.5rem;
+  }
+  
+  .theme-container h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .theme-options {
+    gap: 0.5rem;
+  }
+  
+  .theme-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    min-width: 100px;
   }
 }
 </style>
