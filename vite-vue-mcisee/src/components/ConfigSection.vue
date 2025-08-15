@@ -129,30 +129,29 @@ export default {
     
     // 应用主题
     const applyTheme = (theme) => {
-      const body = document.body
-      // 移除所有主题类
-      body.classList.remove('light-theme', 'dark-theme', 'classic-theme')
+      const backgroundElement = document.querySelector('.background')
+      if (!backgroundElement) return
       
-      switch (theme) {
-        case 'light':
-          body.classList.add('light-theme')
-          break
-        case 'dark':
-          body.classList.add('dark-theme')
-          break
-        case 'classic':
-          body.classList.add('classic-theme')
-          break
-        case 'default':
-        default:
-          // 使用系统默认主题
-          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            body.classList.add('dark-theme')
-          } else {
-            body.classList.add('light-theme')
-          }
-          break
+      // 移除所有主题类
+      backgroundElement.classList.remove('light', 'dark', 'classic', 'system')
+      
+      let finalTheme = theme
+      if (theme === 'default' || theme === 'system') {
+        // 使用系统默认主题
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          finalTheme = 'dark'
+        } else {
+          finalTheme = 'light'
+        }
       }
+      
+      // 添加对应的主题类
+      backgroundElement.classList.add(finalTheme)
+      
+      // 同时更新根元素的data-theme属性
+      document.documentElement.setAttribute('data-theme', finalTheme)
+      
+      console.log(`主题已切换到: ${finalTheme}`)
     }
     
     // 调试模式切换
@@ -264,7 +263,10 @@ export default {
     }
     
     onMounted(() => {
-      loadConfig()
+      // 等待DOM更新后加载配置
+      setTimeout(() => {
+        loadConfig()
+      }, 100)
     })
     
     return {
