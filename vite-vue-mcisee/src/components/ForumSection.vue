@@ -30,6 +30,7 @@
             <div v-for="(forum, fIndex) in Object.values(category)[0]" :key="fIndex" class="forum-item">
               <a :href="forum[1]" target="_blank" class="forum-link" rel="noopener noreferrer">
                 <div class="forum-header">
+                  <img v-if="getFaviconUrl(forum[1])" :src="getFaviconUrl(forum[1])" class="forum-favicon" width="16" height="16" loading="lazy" @error="onFaviconError" />
                   <span class="forum-name">{{ forum[0] }}</span>
                 </div>
                 <p class="forum-description" v-if="forum[2]">{{ forum[2] }}</p>
@@ -76,6 +77,23 @@ export default {
       } catch {
         return url
       }
+    },
+    
+    // 获取网站favicon URL
+    getFaviconUrl(url) {
+      if (!url || url.startsWith('#')) return ''
+      try {
+        const domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '')
+        return `https://favicon.pub/api/${domain}?s=16`
+      } catch {
+        return ''
+      }
+    },
+    
+    // 处理favicon加载错误
+    onFaviconError(event) {
+      // 隐藏加载失败的图标
+      event.target.style.display = 'none'
     },
     
     setDefaultExpandedCategories() {
@@ -273,9 +291,16 @@ export default {
 
 .forum-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.forum-favicon {
+  flex-shrink: 0;
+  border-radius: 2px;
+  vertical-align: middle;
 }
 
 .forum-name {

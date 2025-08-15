@@ -23,6 +23,7 @@
             <div v-for="(website, wIndex) in Object.values(category)[0]" :key="wIndex" class="website-item">
               <a :href="website[1]" target="_blank" class="website-link" rel="noopener noreferrer">
                 <div class="website-header">
+                  <img v-if="getFaviconUrl(website[1])" :src="getFaviconUrl(website[1])" class="website-favicon" width="16" height="16" loading="lazy" @error="onFaviconError" />
                   <span class="website-name">{{ website[0] }}</span>
                 </div>
                 <p class="website-desc" v-if="website[2]">{{ website[2] }}</p>
@@ -86,6 +87,23 @@ export default {
       } catch {
         return url
       }
+    },
+    
+    // 获取网站favicon URL
+    getFaviconUrl(url) {
+      if (!url || url.startsWith('#')) return ''
+      try {
+        const domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '')
+        return `https://favicon.pub/api/${domain}?s=16`
+      } catch {
+        return ''
+      }
+    },
+    
+    // 处理favicon加载错误
+    onFaviconError(event) {
+      // 隐藏加载失败的图标
+      event.target.style.display = 'none'
     },
     
     setDefaultExpandedCategories() {
@@ -253,9 +271,16 @@ export default {
 
 .website-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.website-favicon {
+  flex-shrink: 0;
+  border-radius: 2px;
+  vertical-align: middle;
 }
 
 .website-name {
