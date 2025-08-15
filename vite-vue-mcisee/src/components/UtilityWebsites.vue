@@ -2,7 +2,6 @@
   <div class="utility-website-container">
     <div class="header">
       <h2 class="title">
-        <span class="icon">🌐</span>
         {{ $t('utilityWebsite') }}
         <span class="count">({{ totalWebsites }})</span>
       </h2>
@@ -12,8 +11,8 @@
       <div v-for="(category, index) in websiteData" :key="index" class="category">
         <div class="category-header" @click="toggleCategory(index)">
           <div class="category-info">
-            <span class="category-icon">{{ getCategoryIcon(Object.keys(category)[0]) }}</span>
-            <span class="category-name">{{ Object.keys(category)[0] }}</span>
+
+            <span class="category-name">{{ getCleanCategoryName(Object.keys(category)[0]) }}</span>
             <span class="website-count">{{ Object.values(category)[0].length }}</span>
           </div>
           <span class="expand-icon" :class="{ expanded: expandedCategories[index] }">▼</span>
@@ -25,7 +24,6 @@
               <a :href="website[1]" target="_blank" class="website-link" rel="noopener noreferrer">
                 <div class="website-header">
                   <span class="website-name">{{ website[0] }}</span>
-                  <span class="link-icon">↗</span>
                 </div>
                 <p class="website-desc" v-if="website[2]">{{ website[2] }}</p>
                 <span class="website-domain">{{ getDomain(website[1]) }}</span>
@@ -80,24 +78,7 @@ export default {
       localStorage.setItem('expandedCategories', JSON.stringify(this.expandedCategories))
     },
     
-    getCategoryIcon(categoryName) {
-      const iconMap = {
-        '官方网站': '🏠',
-        '官方购买渠道': '🛒',
-        '资源板块': '📦',
-        '找服玩': '🎮',
-        '工具箱': '🔧',
-        '百科全书': '📚',
-        '辅助类': '🔨',
-        '基岩版版本库/启动器': '📱',
-        '服务端': '🖥️',
-        '快查网站': '🔍',
-        '加载器': '⚡',
-        '开发者狂喜': '💻',
-        '友情链接': '🤝'
-      }
-      return iconMap[categoryName] || '📌'
-    },
+
     
     getDomain(url) {
       try {
@@ -105,6 +86,21 @@ export default {
       } catch {
         return url
       }
+    },
+    
+    setDefaultExpandedCategories() {
+      this.websiteData.forEach((category, index) => {
+        const categoryName = Object.keys(category)[0]
+        if (categoryName.includes('[open]') && this.expandedCategories[index] === undefined) {
+          this.expandedCategories[index] = true
+        }
+      })
+      // 更新本地存储
+      localStorage.setItem('expandedCategories', JSON.stringify(this.expandedCategories))
+    },
+    
+    getCleanCategoryName(categoryName) {
+      return categoryName.replace(/\[open\]/g, '')
     }
   },
   
@@ -121,6 +117,9 @@ export default {
     
     // 加载网站数据
     await this.loadWebsiteData()
+    
+    // 设置默认展开分类
+    this.setDefaultExpandedCategories()
   }
 }
 </script>

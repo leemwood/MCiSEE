@@ -284,6 +284,51 @@ class DataService {
     ]
   }
 
+  // 加载论坛数据
+  async loadForumData() {
+    try {
+      // 首先尝试加载本地的forum.json文件
+      const response = await fetch('/src/services/forum.json')
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      return this.transformForumData(data)
+    } catch (error) {
+      console.error('加载论坛数据失败，使用默认数据', error)
+      return this.getDefaultForumData()
+    }
+  }
+
+  // 转换论坛数据格式
+  transformForumData(data) {
+    return data.map(category => {
+      const categoryName = Object.keys(category)[0]
+      const forums = category[categoryName]
+      return {
+        [categoryName]: forums
+      }
+    })
+  }
+
+  // 默认论坛数据
+  getDefaultForumData() {
+    return [
+      {
+        "简体中文论坛": [
+          ["MineBBS", "https://www.minebbs.com", "综合性MC论坛"],
+          ["苦力怕论坛", "https://klpbbs.com", "主营基岩版的中文社区"]
+        ]
+      },
+      {
+        "其他论坛": [
+          ["国际论坛", "https://www.minecraftforum.net"],
+          ["中国香港社区", "https://www.minecraft-hk.com", "交流最新資訊、專業教學"]
+        ]
+      }
+    ]
+  }
+
   // 清除缓存
   clearCache() {
     this.cache.clear()
