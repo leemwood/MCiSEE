@@ -12,6 +12,12 @@
         <!-- 介绍部分 -->
         <Introduction />
         
+        <!-- 搜索功能 -->
+        <section class="search-section">
+          <h2>{{ $t('search_title') || '快速搜索' }}</h2>
+          <SearchBox />
+        </section>
+        
         <!-- 设备选择 -->
         <DeviceSelector />
         
@@ -20,6 +26,9 @@
         
         <!-- 网站部分 -->
         <WebsiteSection />
+        
+        <!-- 配置部分 -->
+        <ConfigSection />
       
         <!-- 侧边栏 -->
         <Sidebar />
@@ -45,28 +54,37 @@
     
     <!-- 页脚 -->
     <Footer />
+    
+    <!-- 更新通知 -->
+    <UpdateNotification />
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, provide } from 'vue'
 
 import Introduction from './components/Introduction.vue'
+import SearchBox from './components/SearchBox.vue'
 import DeviceSelector from './components/DeviceSelector.vue'
 import AppSection from './components/AppSection.vue'
 import WebsiteSection from './components/WebsiteSection.vue'
+import ConfigSection from './components/ConfigSection.vue'
 import Sidebar from './components/Sidebar.vue'
 import Footer from './components/Footer.vue'
+import UpdateNotification from './components/UpdateNotification.vue'
 
 export default {
   name: 'App',
   components: {
     Introduction,
+    SearchBox,
     DeviceSelector,
     AppSection,
     WebsiteSection,
+    ConfigSection,
     Sidebar,
-    Footer
+    Footer,
+    UpdateNotification
   },
   setup() {
     const currentTheme = ref('default')
@@ -108,6 +126,9 @@ export default {
       applyTheme(theme)
       localStorage.setItem('theme', theme)
     }
+    
+    // 提供setTheme函数给子组件
+    provide('setTheme', setTheme)
     
     onMounted(() => {
       // 初始化主题
@@ -192,6 +213,22 @@ export default {
   background: #28a745;
   color: white;
   box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+}
+
+/* 搜索部分样式 */
+.search-section {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: var(--mdui-color-surface-container-low);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.search-section h2 {
+  color: var(--mdui-color-on-surface);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 /* 深色主题适配 */

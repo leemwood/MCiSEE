@@ -5,67 +5,74 @@
     <!-- 主题选择 -->
     <div class="config-item">
       <label class="config-label">{{ $t('theme') }}</label>
-      <mdui-segmented-button-group 
+      <select 
         v-model="selectedTheme" 
         @change="handleThemeChange"
         class="theme-selector"
       >
-        <mdui-segmented-button value="default">{{ $t('theme_default') }}</mdui-segmented-button>
-        <mdui-segmented-button value="light">{{ $t('theme_light') }}</mdui-segmented-button>
-        <mdui-segmented-button value="dark">{{ $t('theme_dark') }}</mdui-segmented-button>
-        <mdui-segmented-button value="classic">{{ $t('theme_classic') }}</mdui-segmented-button>
-      </mdui-segmented-button-group>
+        <option value="default">{{ $t('theme_default') }}</option>
+        <option value="light">{{ $t('theme_light') }}</option>
+        <option value="dark">{{ $t('theme_dark') }}</option>
+        <option value="classic">{{ $t('theme_classic') }}</option>
+      </select>
     </div>
     
     <!-- 调试模式 -->
     <div class="config-item">
-      <label class="config-label">{{ $t('debug_mode') }}</label>
-      <mdui-switch 
-        v-model="debugMode" 
-        @change="handleDebugModeChange"
-        class="config-switch"
-      ></mdui-switch>
+      <label class="config-label">
+        <input 
+          type="checkbox"
+          v-model="debugMode" 
+          @change="handleDebugModeChange"
+          class="config-switch"
+        />
+        {{ $t('debug_mode') }}
+      </label>
       <span class="config-description">{{ $t('debug_mode_desc') }}</span>
     </div>
     
     <!-- GitHub代理 -->
     <div class="config-item">
       <label class="config-label">{{ $t('github_proxy') }}</label>
-      <mdui-select 
+      <select 
         v-model="githubProxy" 
         @change="handleGithubProxyChange"
         class="config-select"
       >
-        <mdui-menu-item value="none">{{ $t('proxy_none') }}</mdui-menu-item>
-        <mdui-menu-item value="ghproxy">ghproxy.com</mdui-menu-item>
-        <mdui-menu-item value="fastgit">hub.fastgit.xyz</mdui-menu-item>
-        <mdui-menu-item value="gitclone">gitclone.com</mdui-menu-item>
-      </mdui-select>
+        <option value="none">{{ $t('proxy_none') }}</option>
+        <option value="ghproxy">ghproxy.com</option>
+        <option value="fastgit">hub.fastgit.xyz</option>
+        <option value="gitclone">gitclone.com</option>
+      </select>
       <span class="config-description">{{ $t('github_proxy_desc') }}</span>
     </div>
     
     <!-- 更新检查 -->
     <div class="config-item">
-      <label class="config-label">{{ $t('auto_update_check') }}</label>
-      <mdui-switch 
-        v-model="autoUpdateCheck" 
-        @change="handleAutoUpdateCheckChange"
-        class="config-switch"
-      ></mdui-switch>
+      <label class="config-label">
+        <input 
+          type="checkbox"
+          v-model="autoUpdateCheck" 
+          @change="handleAutoUpdateCheckChange"
+          class="config-switch"
+        />
+        {{ $t('auto_update_check') }}
+      </label>
       <span class="config-description">{{ $t('auto_update_check_desc') }}</span>
     </div>
     
     <!-- 可搜索提示长度 -->
     <div class="config-item">
       <label class="config-label">{{ $t('searchable_hint_length') }}</label>
-      <mdui-slider 
+      <input 
+        type="range"
         v-model="searchableHintLength" 
-        @change="handleSearchableHintLengthChange"
+        @input="handleSearchableHintLengthChange"
         min="5" 
         max="50" 
         step="5"
         class="config-slider"
-      ></mdui-slider>
+      />
       <span class="config-value">{{ searchableHintLength }}</span>
       <span class="config-description">{{ $t('searchable_hint_length_desc') }}</span>
     </div>
@@ -73,40 +80,38 @@
     <!-- 语言选择 -->
     <div class="config-item">
       <label class="config-label">{{ $t('language') }}</label>
-      <mdui-select 
+      <select 
         v-model="selectedLanguage" 
         @change="handleLanguageChange"
         class="config-select"
       >
-        <mdui-menu-item value="zh-CN">简体中文</mdui-menu-item>
-        <mdui-menu-item value="en-US">English</mdui-menu-item>
-        <mdui-menu-item value="pt-BR">Português (Brasil)</mdui-menu-item>
-        <mdui-menu-item value="ja-JP">日本語</mdui-menu-item>
-        <mdui-menu-item value="ko-KR">한국어</mdui-menu-item>
-      </mdui-select>
+        <option value="zh-CN">简体中文</option>
+        <option value="en-US">English</option>
+        <option value="pt-BR">Português (Brasil)</option>
+        <option value="ja-JP">日本語</option>
+        <option value="ko-KR">한국어</option>
+      </select>
     </div>
     
     <!-- 重置配置 -->
     <div class="config-item">
-      <mdui-button 
+      <button 
         @click="resetConfig" 
-        variant="outlined" 
         class="reset-button"
       >
         {{ $t('reset_config') }}
-      </mdui-button>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import { ref, onMounted, inject } from 'vue'
-import { useI18n } from 'vue-i18n'
+import updateChecker from '../services/updateChecker.js'
 
 export default {
   name: 'ConfigSection',
   setup() {
-    const { t, locale } = useI18n()
     const setTheme = inject('setTheme')
     
     // 配置状态
@@ -182,6 +187,15 @@ export default {
     const handleAutoUpdateCheckChange = (value) => {
       autoUpdateCheck.value = value
       localStorage.setItem('autoUpdateCheck', value.toString())
+      
+      // 启用或禁用自动更新检查
+      if (value) {
+        updateChecker.enableAutoCheck()
+        console.log('自动更新检查: 启用')
+      } else {
+        updateChecker.disableAutoCheck()
+        console.log('自动更新检查: 禁用')
+      }
     }
     
     // 搜索提示长度变更
@@ -193,7 +207,6 @@ export default {
     // 语言切换
     const handleLanguageChange = (value) => {
       selectedLanguage.value = value
-      locale.value = value
       localStorage.setItem('language', value)
       
       // 更新HTML lang属性
@@ -202,32 +215,27 @@ export default {
     
     // 重置配置
     const resetConfig = () => {
-      if (confirm(t('reset_config_confirm'))) {
-        // 重置所有配置到默认值
-        selectedTheme.value = 'default'
-        debugMode.value = false
-        githubProxy.value = 'none'
-        autoUpdateCheck.value = true
-        searchableHintLength.value = 20
-        selectedLanguage.value = 'zh-CN'
-        
-        // 清除本地存储
-        localStorage.removeItem('theme')
-        localStorage.removeItem('debugMode')
-        localStorage.removeItem('githubProxy')
-        localStorage.removeItem('autoUpdateCheck')
-        localStorage.removeItem('searchableHintLength')
-        localStorage.removeItem('language')
-        
-        // 应用默认设置
-        applyTheme('default')
-        locale.value = 'zh-CN'
-        document.documentElement.lang = 'zh-CN'
-        window.MCiSEE_DEBUG = false
-        window.GITHUB_PROXY = 'none'
-        
-        alert(t('reset_config_success'))
-      }
+      // 重置所有配置到默认值
+      selectedTheme.value = 'default'
+      debugMode.value = false
+      githubProxy.value = 'none'
+      autoUpdateCheck.value = true
+      searchableHintLength.value = 20
+      selectedLanguage.value = 'zh-CN'
+      
+      // 清除本地存储
+      localStorage.removeItem('theme')
+      localStorage.removeItem('debugMode')
+      localStorage.removeItem('githubProxy')
+      localStorage.removeItem('autoUpdateCheck')
+      localStorage.removeItem('searchableHintLength')
+      localStorage.removeItem('language')
+      
+      // 应用默认设置
+      applyTheme('default')
+      document.documentElement.lang = 'zh-CN'
+      window.MCiSEE_DEBUG = false
+      window.GITHUB_PROXY = 'none'
     }
     
     // 加载保存的配置
@@ -258,7 +266,6 @@ export default {
       // 加载语言
       const savedLanguage = localStorage.getItem('language') || 'zh-CN'
       selectedLanguage.value = savedLanguage
-      locale.value = savedLanguage
       document.documentElement.lang = savedLanguage
     }
     
@@ -266,6 +273,11 @@ export default {
       // 等待DOM更新后加载配置
       setTimeout(() => {
         loadConfig()
+        
+        // 初始化更新检查服务
+        if (autoUpdateCheck.value) {
+          updateChecker.enableAutoCheck()
+        }
       }, 100)
     })
     
@@ -323,19 +335,19 @@ export default {
   color: #28a745;
 }
 
-.theme-selector {
+.theme-selector,
+.config-select {
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  margin-bottom: 0.5rem;
 }
 
 .config-switch {
   margin-right: 0.5rem;
-}
-
-.config-select {
-  width: 100%;
-  max-width: 300px;
-  margin-bottom: 0.5rem;
 }
 
 .config-slider {
@@ -345,8 +357,13 @@ export default {
 }
 
 .reset-button {
+  padding: 0.5rem 1rem;
+  background: white;
   color: #dc3545;
-  border-color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .reset-button:hover {
@@ -383,6 +400,75 @@ export default {
   
   .config-description {
     color: #ccc;
+  }
+}
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .config-section {
+    padding: 1rem 0.5rem;
+  }
+  
+  .config-item {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .config-label {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .config-description {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+  
+  .config-select,
+  .config-input {
+    width: 100%;
+    font-size: 16px;
+    padding: 0.75rem;
+    min-height: 44px;
+  }
+  
+  .config-checkbox {
+    transform: scale(1.2);
+    margin-right: 0.75rem;
+  }
+  
+  .config-button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .config-section {
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .config-item {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .config-label {
+    font-size: 0.95rem;
+  }
+  
+  .config-description {
+    font-size: 0.8rem;
+  }
+  
+  .config-select,
+  .config-input {
+    padding: 0.6rem;
+  }
+  
+  .config-button {
+    padding: 0.6rem;
   }
 }
 </style>

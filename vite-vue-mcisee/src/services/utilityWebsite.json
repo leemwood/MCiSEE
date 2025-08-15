@@ -1,4 +1,3 @@
-// 实用网站列表
 [
   {
     "官方网站 (©Mojang/©微软)": [
@@ -140,7 +139,6 @@
   },
   {
     "百科全书": [
-      // ["开发者开发百科", "https://minewiki.net", ""],
       ["官方基岩版开发者文档", "https://learn.microsoft.com/minecraft/creator/", "了解如何使用附加组件修改 Minecraft。创建皮肤，设计独特的体验，发现最新功能，并发展您作为Minecraft创作者的技能"],
       ["基岩版开发Wiki", "https://wiki.mcbe-dev.net", "可以获取到各种关于基岩版开发的信息"],
       ["基岩版文档", "https://bedrock.dev", ""],
@@ -183,9 +181,7 @@
       ["甘泉版本库", "http://mcbbk.blmcpia.com", "原像素科技"],
       ["地球社区源", "https://mcpe-planet.com/downloads/", "APK下载，英文"],
       ["mcfa版本库", "https://bbk.endyun.ltd/main", "Minecraft for Android版本库"],
-      // ["mcarc版本库", "https://mcarc.github.io", ""], // 页面最新正式版停留于1.19.73且不含独有版本，不再推荐
       ["星月版本库", "https://mcarc.spectrollay.com/minecraft_repository/", "星月Minecraft版本库"],
-      // ["Alpha版本库", "https://archive.org/details/MCPEAlpha", "(存档)"], // 需要魔法才能访问
       ["电脑端启动器", "https://bedrocklauncher.github.io/", "Bedrock Launcher Lite，仅限Windows"],
       ["原子资源库", "https://res.nullatom.com/Minecraft/", ""]
     ]
@@ -205,92 +201,13 @@
       ["Purpur", "https://purpurmc.org", "Java版，极致优化、轻量，全兼容Bukkit架构。基于PutterFish"],
       ["Spigot", "https://www.spigotmc.org", "Java版，老牌核心，稳定、更新快、安全性高。由SpigotMC团队开发，基于CraftBukkit"],
       ["Sponge", "https://spongepowered.org", "Java版，由社区驱动的开源Java版模组修改平台"],
-      ["Tuinity", "https://github.com/Tuinity/Tuinity", "Java版，性能好。基于Paper"],
-      // ["Java版Docker服务器模板", "https://hub.docker.com/r/itzg/minecraft-server/", ""], // 需要魔法才能访问
-      // ["基岩版Docker服务器模板", "https://hub.docker.com/r/itzg/minecraft-bedrock-server/", ""], // 需要魔法才能访问
-      ["官方基岩版专用服务端", "https://www.minecraft.net/download/server/bedrock", "不支持插件"],
-      ["基岩版专用服务端", "https://www.minebbs.com/bds/history", "由MineBBS收集"],
-      ["基岩版专用预览版服务端", "https://www.minebbs.com/resources/bedrock-dedicated-server-preview.4934/history", "由MineBBS收集"],
-      ["BDSX", "https://github.com/bdsx/bdsx", "基岩版，BDS模组 (由Node.js编写)"],
-      ["Endstone", "https://endstone.dev", "基岩版，适用于BDS的高层次插件 API，采用 Python 和 C++ 语言编写"],
-      ["LeviLamina", "https://lamina.levimc.org", "基岩版，原LiteLoaderBDS\n轻量、模块化、多功能的BDS模组加载器"],
-      ["Leaves", "https://leavesmc.org", "Java版，一个旨在修复被破坏的原版特性的Paper分支"],
-      ["Leaf", "https://www.leafmc.one/zh/", "JAVA版，一个 Paper 分支, 专注于寻找性能优化, Vanilla, 稳定之间的平衡, 为大型网络, 密集和高承载量场景设计"],
-      ["Luminol", "https://luminolsuki.moe/", "JAVA版，致力于推动 Folia 生态的创新 为现代 Minecraft 服务端生态提供高性能解决方案"],
-
-      ["PocketMine", "https://pmmp.io", "基岩版，一款高度可定制的基岩版服务器软件"],
-      ["Allay", "https://docs.allaymc.org", "基岩版，可靠，快速及富特性的第三方基岩版服务端"],
-      ["Nukkit", "https://cloudburstmc.org", "基岩版，支持插件，使用Java开发"]
-    ]
-  },
-  {
-    "快查网站 (可供快速查询的网站)": [
-      ["维基百科: 原站", "https://zh.minecraft.wiki", "完全公开、可自由编辑的中文Minecraft Wiki"],
-      ["维基百科: 镜像站", "https://wiki.biligame.com/mc/", "中文Minecraft Wiki镜像站"],
-      ["CurseForge", "https://www.curseforge.com/minecraft/", "Minecraft Mods on CurseForge - The Home for the Best Minecraft Mods"],
-      ["Modrinth", "https://modrinth.com", "Discover, play, and share Minecraft content through our open-source platform built for the community."],
-      ["MC百科", "https://mcmod.cn", ""],
-      ["基岩版ID表", "https://ca.projectxero.top/idlist/", ""],
-      ["Java版ID表", "http://mcid.lingningyu.cn", ""],
-      ["基岩版开发维基", "https://wiki.mcbe-dev.net", "Minecraft基岩版开发Wiki\n可以获取到各种关于基岩版开发的信息"],
-      ["插件百科", "https://mineplugin.org", "服务器插件Wiki"]
-    ]
-  },
-  {
-    "加载器 (模组/光影)": [
-      ["Canvas", "https://modrinth.com/mod/canvas", "光影加载器(1.14-1.20.5)"],
-      ["Embeddium", "https://modrinth.com/mod/embeddium", "光影加载器(1.16.5-1.21.4)"],
-      ["Fabric", "https://fabricmc.net", "模组加载器(1.14+)"],
-      ["Forge", "https://www.minecraftforge.net", "模组加载器(远古版本起)"],
-      ["Iris", "https://www.irisshaders.dev", "光影加载器(1.16+)"],
-      ["Legacy Fabric", "https://legacyfabric.net/", "模组加载器(1.2.5-1.13.2)"],
-      ["LiteLoader", "https://www.liteloader.com", "模组加载器(1.3.2-1.12.2)"],
-      ["NeoForge", "https://neoforged.net", "模组加载器(1.20.1+)"],
-      ["Oculus", "https://modrinth.com/mod/oculus", "光影加载器(1.16.5-1.20.1)"],
-      ["OptiFine", "https://www.optifine.net", "光影加载器(远古版本-1.21.4)"],
-      ["Quilt", "https://quiltmc.org", "模组加载器(1.14+)"],
-      ["Rift", "https://www.curseforge.com/minecraft/mc-mods/rift", "模组加载器(1.13-1.13.2)"]
-    ]
-  },
-  {
-    "开发者狂喜": [
-      ["Fabric维基", "https://fabricmc.net/wiki/", ""],
-      ["Fabric文档", "https://docs.fabricmc.net/develop/", "Fabric模组开发文档(1.20.4+)"],
-      ["Forge文档", "https://docs.minecraftforge.net/", "Forge模组开发文档(1.12+)"],
-      ["Forge社区维基", "https://forge.gemwire.uk/", "Forge社区开发文档(1.16~1.19)"],
-      ["Architectury文档", "https://docs.architectury.dev/", "Architectury工具链模组开发文档"],
-      ["Quilt开发者维基", "https://wiki.quiltmc.org/", ""],
-      ["NeoForged文档", "https://docs.neoforged.net/", ""],
-      ["Rift维基", "https://github.com/DimensionalDevelopment/Rift/wiki/", "Rift模组开发文档"],
-      ["Sinytra文档", "https://sinytra.org/docs/", ""],
-      ["模组Minecraft维基", "https://moddedmc.wiki/", "供模组社区托管和分享自己模组文档的公共平台"],
-      ["Cloth Config维基", "https://shedaniel.gitbook.io/cloth-config/", ""],
-      ["Cursed Legacy Fabric文档", "https://minecraft-cursed-legacy.github.io/wiki/index.html", ""],
-      ["StationAPI维基", "https://github.com/ModificationStation/StationAPI/wiki", ""],
-      ["PaperMC文档", "https://docs.papermc.io/", ""],
-      ["Sponge文档", "https://docs.spongepowered.org/", ""],
-      ["Spigot维基", "https://www.spigotmc.org/wiki/index/", ""],
-      ["Bukkit维基", "https://bukkit.fandom.com/wiki/Main_Page/", "BukkitWiki"],
-      ["SpongeMixin维基", "https://github.com/SpongePowered/Mixin/wiki/", ""],
-      ["MixinExtras维基", "https://github.com/LlamaLad7/MixinExtras/wiki/", ""],
-      ["MixinSquared维基", "https://github.com/Bawnorton/MixinSquared/wiki/", ""],
-      ["Parchment", "https://parchmentmc.org/", "Mojmap参数名称修补和javadoc补全附加的映射"],
-      ["Linkie", "https://linkie.shedaniel.dev/", "快速查询Java版开发所需要的依赖与映射"],
-      ["Fabric模组模板生成器", "https://fabricmc.net/develop/template/", ""],
-      ["NeoForge模组模板生成器", "https://neoforged.net/mod-generator/", ""],
-      ["Architectury模组模板生成器", "https://generate.architectury.dev/", "Architectury工具链模组开发模板生成器"],
-      ["Quilt模组模板生成器", "https://quiltmc.org/en/usage/generator/", ""],
-      ["基岩版创作者工具", "https://mctools.dev/", "Minecraft Creator Tools\n快速创建附加包模板"],
-      ["基岩版官方模板", "https://github.com/Mojang/bedrock-samples"],
-      ["基岩版官方脚本API文档", "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/"],
-      ["基岩版官方实体API Json文档", "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/entityreference/"],
-      ["基岩版官方Molang文档", "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/molangreference/"]
-    ]
-  },
-  {
-    "友情链接[open]": [
-      ["命令自动补全", "https://mact.mcisee.top", ""],
-      ["LapisNet", "https://lapis-net.top", ""]
+      ["Tuinity", "https://github.com/Tuinity/Tuinity", "Java版，基于Paper的高性能服务端核心"],
+      ["Velocity", "https://velocitypowered.com", "Java版，现代化、高性能的代理服务器"],
+      ["Waterfall", "https://github.com/PaperMC/Waterfall", "Java版，基于BungeeCord的代理服务器"],
+      ["基岩版官方服务端", "https://www.minecraft.net/download/server/bedrock", "基岩版，官方服务端核心"],
+      ["Nukkit", "https://github.com/CloudburstMC/Nukkit", "基岩版，Java编写的服务端核心"],
+      ["PowerNukkit", "https://github.com/PowerNukkit/PowerNukkit", "基岩版，基于Nukkit的改进版本"],
+      ["PocketMine-MP", "https://pmmp.io", "基岩版，PHP编写的服务端核心"]
     ]
   }
 ]

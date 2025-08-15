@@ -402,6 +402,7 @@ footer p {
 @media (max-width: 768px) {
   .page-content {
     padding: var(--spacing-sm);
+    max-width: 100vw;
   }
   
   sidebar {
@@ -413,21 +414,83 @@ footer p {
   }
   
   .searchable-input {
-    width: 200px;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  /* 主标题优化 */
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* 段落间距优化 */
+  p {
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+  
+  /* 按钮和链接优化 */
+  mdui-button {
+    min-height: 44px; /* 触摸友好的最小高度 */
+  }
+  
+  /* 选择器优化 */
+  mdui-select {
+    width: 100%;
+    max-width: 250px;
+    font-size: 16px; /* 防止iOS缩放 */
+  }
+  
+  /* 表单元素优化 */
+  input, select, textarea {
+    font-size: 16px; /* 防止iOS缩放 */
   }
 }
 
 @media (max-width: 480px) {
+  .page-content {
+    padding: var(--spacing-xs);
+  }
+  
   h1 {
     font-size: 1.5rem;
+    text-align: center;
   }
   
   h2 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+  }
+  
+  h3 {
+    font-size: 1.1rem;
   }
   
   .searchable-input {
-    width: 150px;
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  /* 更紧凑的间距 */
+  .first-title {
+    margin: 0.5rem 0;
+  }
+  
+  /* 优化按钮布局 */
+  .theme-options {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .theme-btn {
+    width: 100%;
+    max-width: 200px;
   }
 }
 

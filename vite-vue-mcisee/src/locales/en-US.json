@@ -22,6 +22,14 @@
   "utilityWebsite": "Utility Websites",
   "bottom": "Bottom",
   
+  "search_title": "Quick Search",
+  "search_placeholder": "Enter search keywords",
+  "search_site": "Site Search",
+  "search_wiki": "Wiki Search",
+  "search_curse": "CurseForge",
+  "search_modrinth": "Modrinth",
+  "search_mcmod": "MC Encyclopedia",
+  
   "introduction_title": "What is MCiSEE?",
   "introduction_content": "MCiSEE is a comprehensive resource navigation website designed for Minecraft players. We are committed to providing the most comprehensive and practical Minecraft-related resources for players, including launchers, mods, resource packs, servers, tools, and more. Whether you are a beginner or an experienced player, you can find the resources you need here.",
   

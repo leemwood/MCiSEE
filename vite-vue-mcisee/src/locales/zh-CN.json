@@ -22,6 +22,14 @@
   "utilityWebsite": "实用网站",
   "bottom": "底部",
   
+  "search_title": "快速搜索",
+  "search_placeholder": "输入搜索关键词",
+  "search_site": "站内搜索",
+  "search_wiki": "Wiki搜索",
+  "search_curse": "CurseForge",
+  "search_modrinth": "Modrinth",
+  "search_mcmod": "MC百科",
+  
   "introduction_title": "什么是 MCiSEE？",
   "introduction_content": "MCiSEE 是一个为 Minecraft 玩家设计的综合资源导航网站。我们致力于为玩家提供最全面、最实用的 Minecraft 相关资源，包括启动器、模组、资源包、服务器、工具等。无论您是新手还是资深玩家，都能在这里找到所需的资源。",
   
@@ -145,5 +153,13 @@
   "warning": "警告",
   "info": "信息",
   "startDownloading": "开始下载",
-  "ellipsis": "更多内容"
+  "ellipsis": "更多内容",
+  
+  "has_new_version": "有新版本",
+  "close": "关闭",
+  "current_version": "当前版本",
+  "latest_version": "最新版本",
+  "release": "稳定版",
+  "preRelease": "开发版",
+  "searchFrom": "搜索来源"
 }

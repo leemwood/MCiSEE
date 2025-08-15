@@ -1,0 +1,168 @@
+{
+  "AndroidLauncher": [
+    {
+      "title": "Fold Craft Launcher",
+      "abbr": "FCL",
+      "download": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.2.4.6/FCL-release-1.2.4.6-all.apk",
+      "version": "1.2.4.6",
+      "github": "https://github.com/FCL-Team/FoldCraftLauncher",
+      "url": "https://fcl-team.github.io"
+    },
+    {
+      "title": "PojavLauncher",
+      "download": "https://github.com/PojavLauncherTeam/PojavLauncher/releases/download/gladiolus/PojavLauncher.apk",
+      "version": "gladiolus",
+      "github": "https://github.com/PojavLauncherTeam/PojavLauncher",
+      "url": "https://pojavlauncher.app"
+    },
+    {
+      "title": "Hello Minecraft! Launcher:Pocket Edition",
+      "abbr": "HMCL-PE",
+      "download": "https://github.com/HMCL-dev/HMCL-PE/releases/download/2.0.8/HMCLPE-release.apk",
+      "version": "2.0.8",
+      "github": "https://github.com/HMCL-dev/HMCL-PE"
+    },
+    {
+      "title": "Zalith Launcher",
+      "download": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/140700/ZalithLauncher-1.4.0.7.apk",
+      "version": "1.4.0.7",
+      "github": "https://github.com/ZalithLauncher/ZalithLauncher",
+      "url": "https://zalithlauncher.cn/"
+    },
+    {
+      "title": "Angel Aura Amethyst",
+      "abbr": "Amethyst",
+      "github": "https://github.com/AngelAuraMC/Amethyst-Android",
+      "dev": {
+        "download": "https://github.com/AngelAuraMC/Amethyst-Android/actions/runs/15660924693/artifacts/3330366203",
+        "version": "1.0"
+      }
+    }
+  ],
+  "iOSLauncher": [
+    {
+      "title": "PojavLauncher",
+      "download": "https://github.com/PojavLauncherTeam/PojavLauncher_iOS/releases/download/v3.4.2/net.kdt.pojavlauncher.ipa",
+      "version": "3.4.2",
+      "github": "https://github.com/PojavLauncherTeam/PojavLauncher_iOS",
+      "url": "https://pojavlauncher.app"
+    }
+  ],
+  "WindowsLauncher": [
+    {
+      "title": "Hello Minecraft! Launcher",
+      "abbr": "HMCL",
+      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.11/HMCL-3.6.11.exe",
+      "version": "3.6.11",
+      "github": "https://github.com/HMCL-dev/HMCL",
+      "url": "https://hmcl.huangyuhui.net/"
+    },
+    {
+      "title": "Plain Craft Launcher 2",
+      "abbr": "PCL2",
+      "download": "https://github.com/Hex-Dragon/PCL2/releases/download/2.9.5/Plain%20Craft%20Launcher%202.exe",
+      "version": "2.9.5",
+      "github": "https://github.com/Hex-Dragon/PCL2",
+      "url": "https://afdian.com/p/0164034c016c11ebafcb52540025c377"
+    },
+    {
+      "title": "BakaXL",
+      "download": "https://github.com/BakaXL-Launcher/BakaXL/releases/download/3.3.0.0/BakaXL_3.3.0.0_Installer.exe",
+      "version": "3.3.0.0",
+      "github": "https://github.com/BakaXL-Launcher/BakaXL",
+      "url": "https://www.bakaxl.com/"
+    },
+    {
+      "title": "MultiMC",
+      "download": "https://github.com/MultiMC/Launcher/releases/download/0.7.0/mmc-stable-win32.zip",
+      "version": "0.7.0",
+      "github": "https://github.com/MultiMC/Launcher",
+      "url": "https://multimc.org/"
+    },
+    {
+      "title": "Prism Launcher",
+      "download": "https://github.com/PrismLauncher/PrismLauncher/releases/download/9.1/PrismLauncher-Windows-MSVC-Setup-9.1.exe",
+      "version": "9.1",
+      "github": "https://github.com/PrismLauncher/PrismLauncher",
+      "url": "https://prismlauncher.org/"
+    },
+    {
+      "title": "ATLauncher",
+      "download": "https://github.com/ATLauncher/ATLauncher/releases/download/v3.4.37.5/ATLauncher-3.4.37.5.exe",
+      "version": "3.4.37.5",
+      "github": "https://github.com/ATLauncher/ATLauncher",
+      "url": "https://atlauncher.com/"
+    },
+    {
+      "title": "GDLauncher",
+      "download": "https://github.com/gorilla-devs/GDLauncher/releases/download/v1.1.30/GDLauncher-win-setup.exe",
+      "version": "1.1.30",
+      "github": "https://github.com/gorilla-devs/GDLauncher",
+      "url": "https://gdlauncher.com/"
+    },
+    {
+      "title": "Technic Launcher",
+      "download": "https://launcher.technicpack.net/launcher4/792/TechnicLauncher.exe",
+      "version": "4.792",
+      "url": "https://www.technicpack.net/"
+    },
+    {
+      "title": "CurseForge",
+      "download": "https://curseforge.overwolf.com/downloads/curseforge-latest-x64.exe",
+      "version": "latest",
+      "url": "https://www.curseforge.com/"
+    },
+    {
+      "title": "Modrinth App",
+      "download": "https://github.com/modrinth/code/releases/download/v0.8.7/Modrinth%20App_0.8.7_x64_en-US.msi",
+      "version": "0.8.7",
+      "github": "https://github.com/modrinth/code",
+      "url": "https://modrinth.com/app"
+    },
+    {
+      "title": "Lunar Client",
+      "download": "https://launcherupdates.lunarclientcdn.com/Lunar%20Client%20v3.2.17.exe",
+      "version": "3.2.17",
+      "url": "https://www.lunarclient.com/"
+    },
+    {
+      "title": "Badlion Client",
+      "download": "https://client-updates-cdn77.badlion.net/Badlion%20Client%20Setup%204.2.6.exe",
+      "version": "4.2.6",
+      "url": "https://www.badlion.net/"
+    },
+    {
+      "title": "Feather Client",
+      "download": "https://download.feathermc.com/launcher/win32/Feather%20Client%20Installer%201.0.0.exe",
+      "version": "1.0.0",
+      "url": "https://feathermc.com/"
+    },
+    {
+      "title": "LabyMod",
+      "download": "https://dl.labymod.net/latest/installer/windows/LabyMod4-Installer-1.0.0.exe",
+      "version": "1.0.0",
+      "url": "https://www.labymod.net/"
+    },
+    {
+      "title": "Crystal Launcher",
+      "download": "https://github.com/CrystalLauncher/CrystalLauncher/releases/download/v1.1.4.1/Crystal.Launcher.v1.1.4.1.exe",
+      "version": "1.1.4.1",
+      "github": "https://github.com/CrystalLauncher/CrystalLauncher",
+      "url": "https://crystal-launcher.net/"
+    },
+    {
+      "title": "X Minecraft Launcher",
+      "abbr": "XMCL",
+      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.47.3/xmcl-0.47.3-win32-x64-setup.exe",
+      "version": "0.47.3",
+      "github": "https://github.com/Voxelum/x-minecraft-launcher",
+      "url": "https://xmcl.app/"
+    },
+    {
+      "title": "Minecraft Launcher",
+      "download": "https://launcher.mojang.com/download/MinecraftInstaller.msi",
+      "version": "latest",
+      "url": "https://www.minecraft.net/download"
+    }
+  ]
+}

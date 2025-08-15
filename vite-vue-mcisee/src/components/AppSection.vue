@@ -273,4 +273,70 @@ export default {
   color: #999;
   display: none;
 }
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .launcher-selector {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .launcher-info {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .launcher-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .launcher-description {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+  
+  .launcher-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .launcher-links a {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .launcher-download {
+    margin-top: 1rem;
+  }
+  
+  .launcher-download .button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .launcher-info {
+    padding: 0.75rem;
+  }
+  
+  .launcher-name {
+    font-size: 1rem;
+  }
+  
+  .launcher-description {
+    font-size: 0.85rem;
+  }
+  
+  .launcher-links a {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+}
 </style>

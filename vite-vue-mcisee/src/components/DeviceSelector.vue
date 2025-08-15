@@ -128,4 +128,37 @@ export default {
   color: #999;
   display: none;
 }
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .device-selector {
+    padding: 1rem 0.5rem;
+  }
+  
+  .device-select {
+    width: 100%;
+    font-size: 16px;
+    padding: 0.75rem;
+    min-height: 44px;
+  }
+  
+  .device-description {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .device-selector {
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .device-select {
+    padding: 0.6rem;
+  }
+  
+  .device-description {
+    font-size: 0.85rem;
+  }
+}
 </style>
