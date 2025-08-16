@@ -231,7 +231,73 @@ export default {
 /* 响应式设计 */
 @media (max-width: 768px) {
   .sidebar {
+    left: 10px;
+    top: 20px;
+    transform: none;
+    padding: var(--spacing-sm);
+  }
+  
+  /* 移动端隐藏状态：只显示切换按钮 */
+  .sidebar-hidden {
+    transform: none;
+    opacity: 1;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidebar-hidden .sidebar-content {
     display: none;
+  }
+  
+  .sidebar-hidden .sidebar-toggle {
+    position: static;
+    transform: none;
+    background: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 移动端显示状态：展开显示内容 */
+  .sidebar-visible {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    transform: none;
+    opacity: 1;
+    width: 280px;
+    height: auto;
+    padding: var(--spacing-sm);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.9);
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .sidebar-visible .sidebar-content {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .sidebar-visible .sidebar-toggle {
+    position: absolute;
+    right: -15px;
+    top: 10px;
+    transform: none;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -262,5 +328,32 @@ export default {
 
 [data-theme="dark"] .toggle-icon {
   color: #fff;
+}
+
+/* 移动端主题适配 */
+@media (max-width: 768px) {
+  [data-theme="light"] .sidebar-hidden {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  [data-theme="light"] .sidebar-visible {
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  [data-theme="light"] .sidebar-visible .sidebar-toggle {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  [data-theme="dark"] .sidebar-hidden {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  [data-theme="dark"] .sidebar-visible {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  [data-theme="dark"] .sidebar-visible .sidebar-toggle {
+    background: rgba(0, 0, 0, 0.8);
+  }
 }
 </style>
