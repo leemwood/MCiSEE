@@ -19,10 +19,10 @@
         </section>
         
         <!-- 设备选择 -->
-        <DeviceSelector />
+        <DeviceSelector @device-changed="onDeviceChanged" />
         
         <!-- 应用程序部分 -->
-        <AppSection />
+        <AppSection :selected-device="selectedDevice" />
         
         <!-- 网站部分 -->
         <WebsiteSection />
@@ -73,6 +73,7 @@ export default {
   },
   setup() {
     const currentTheme = ref('default')
+    const selectedDevice = ref('auto')
     
     const themes = ref([
       { value: 'default', label: '跟随系统' },
@@ -127,6 +128,11 @@ export default {
       localStorage.setItem('theme', theme)
     }
     
+    // 处理设备选择变化
+    const onDeviceChanged = (device) => {
+       selectedDevice.value = device
+     }
+    
     // 提供setTheme函数给子组件
     provide('setTheme', setTheme)
     
@@ -134,6 +140,10 @@ export default {
       // 初始化主题
       const savedTheme = localStorage.getItem('theme') || 'default'
       applyTheme(savedTheme)
+      
+      // 初始化设备选择
+      const savedDevice = localStorage.getItem('selectedDevice') || 'auto'
+      selectedDevice.value = savedDevice
       
       // 监听系统主题变化
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
@@ -146,7 +156,9 @@ export default {
     return {
       currentTheme,
       themes,
-      setTheme
+      setTheme,
+      selectedDevice,
+      onDeviceChanged
     }
   }
 }

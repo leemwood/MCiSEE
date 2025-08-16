@@ -50,21 +50,21 @@
         </a>
       </div>
       
-      <div class="launcher-download gravity-inline" v-if="currentLauncher">
-        <div v-if="currentLauncher.downloadUrl">
+      <div class="launcher-download gravity-inline" v-if="currentLauncher && currentPlatformDownload">
+        <div v-if="currentPlatformDownload.downloadUrl">
           <a 
             class="button download data-download-launcher" 
-            :href="currentLauncher.downloadUrl"
+            :href="currentPlatformDownload.downloadUrl"
             @click="onDownloadClick"
             ondragstart="event.dataTransfer.effectAllowed = 'none';"
           >
             {{ formatDownloadText('release') }}
           </a>
         </div>
-        <div v-if="currentLauncher.devDownloadUrl">
+        <div v-if="currentPlatformDownload.devDownloadUrl">
           <a 
             class="button download data-dev-download-launcher" 
-            :href="currentLauncher.devDownloadUrl"
+            :href="currentPlatformDownload.devDownloadUrl"
             @click="onDownloadClick"
             ondragstart="event.dataTransfer.effectAllowed = 'none';"
           >
@@ -95,9 +95,30 @@ export default {
       error: null
     }
   },
+  watch: {
+    // 监听设备变化，自动选择合适的启动器
+    selectedDevice(newDevice, oldDevice) {
+      // 如果当前选中的启动器不支持新设备，选择第一个可用的启动器
+      if (this.availableLaunchers.length > 0) {
+        const currentLauncherStillAvailable = this.availableLaunchers.find(l => l.id === this.selectedLauncher)
+        if (!currentLauncherStillAvailable) {
+          this.selectedLauncher = this.availableLaunchers[0].id
+          localStorage.setItem('selectedLauncher', this.selectedLauncher)
+          
+          // 触发启动器变化事件
+          this.$nextTick(() => {
+            this.onLauncherChange({ target: { value: this.selectedLauncher } })
+          })
+        }
+      }
+    }
+  },
   computed: {
-    // 根据设备过滤可用启动器
+    // 根据选定设备过滤启动器
     availableLaunchers() {
+      if (!this.selectedDevice || this.selectedDevice === 'auto') {
+        return this.launchers
+      }
       return this.launchers.filter(launcher => 
         launcher.supportedDevices.includes(this.selectedDevice)
       )
@@ -105,7 +126,33 @@ export default {
     
     // 当前选中的启动器
     currentLauncher() {
-      return this.launchers.find(launcher => launcher.id === this.selectedLauncher)
+      if (!this.selectedLauncher) return null
+      return this.availableLaunchers.find(launcher => launcher.id === this.selectedLauncher)
+    },
+    
+    // 获取当前平台的下载信息
+    currentPlatformDownload() {
+      if (!this.currentLauncher || !this.selectedDevice || this.selectedDevice === 'auto') {
+        return {
+          downloadUrl: this.currentLauncher?.downloadUrl,
+          devDownloadUrl: this.currentLauncher?.devDownloadUrl,
+          version: this.currentLauncher?.version,
+          devVersion: this.currentLauncher?.devVersion
+        }
+      }
+      
+      const platformDownload = this.currentLauncher.platformDownloads?.[this.selectedDevice]
+      if (platformDownload) {
+        return platformDownload
+      }
+      
+      // 回退到通用下载链接
+      return {
+        downloadUrl: this.currentLauncher.downloadUrl,
+        devDownloadUrl: this.currentLauncher.devDownloadUrl,
+        version: this.currentLauncher.version,
+        devVersion: this.currentLauncher.devVersion
+      }
     }
   },
   methods: {
@@ -125,24 +172,12 @@ export default {
     },
     
     onLauncherChange(event) {
-      console.log('=== Launcher Change Event ===')
-      console.log('Event:', event)
-      console.log('Event target value:', event.target?.value)
-      console.log('Selected launcher before:', this.selectedLauncher)
-      
       // 确保selectedLauncher被正确更新
       if (event.target?.value) {
         this.selectedLauncher = event.target.value
       }
       
-      console.log('Selected launcher after:', this.selectedLauncher)
       localStorage.setItem('selectedLauncher', this.selectedLauncher)
-      
-      // 强制触发响应式更新
-      this.$nextTick(() => {
-        console.log('Current launcher object:', this.currentLauncher)
-        console.log('Available launchers:', this.availableLaunchers.map(l => ({id: l.id, name: l.name})))
-      })
     },
     
     onDownloadClick() {
@@ -153,18 +188,24 @@ export default {
       }
     },
     
-    formatDownloadText(type) {
+    formatDownloadText(type, version) {
       const downloadSVG = '⬇️'
       const download = this.$t('download')
       const release = this.$t('release')
       const preRelease = this.$t('preRelease')
       const latest = this.$t('latest')
       
+      let baseText
       if (type === 'release') {
-        return `${downloadSVG} ${download} ${latest} ${release}`
+        baseText = `${downloadSVG} ${download} ${latest} ${release}`
       } else {
-        return `${downloadSVG} ${download} ${latest} ${preRelease}`
+        baseText = `${downloadSVG} ${download} ${latest} ${preRelease}`
       }
+      
+      if (version && version.trim() !== '') {
+        return `${baseText} (${version})`
+      }
+      return baseText
     },
     
     // 生成网站图标
@@ -201,11 +242,8 @@ export default {
       this.selectedLauncher = this.availableLaunchers[0].id
     }
     
-    console.log('初始化启动器:', this.selectedLauncher)
-    
-    // 确保在初始化时也触发一次更新
+// 确保在初始化时也触发一次更新
     this.$nextTick(() => {
-      console.log('初始化currentLauncher:', this.currentLauncher)
       // 手动触发一次事件，确保界面更新
       this.onLauncherChange({ target: { value: this.selectedLauncher } })
     })

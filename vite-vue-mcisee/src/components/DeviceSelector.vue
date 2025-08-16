@@ -72,6 +72,20 @@ export default {
     }
   },
   methods: {
+    onDeviceChange(event) {
+      // 手动更新selectedDevice值
+      if (event.target.value) {
+        this.selectedDevice = event.target.value
+      }
+      
+      // 保存选择到localStorage
+      localStorage.setItem('selectedDevice', this.selectedDevice)
+      
+      // 触发设备变化事件
+      this.$emit('device-changed', this.selectedDevice)
+    },
+    
+    // 自动检测设备类型
     detectDevice() {
       const userAgent = navigator.userAgent.toLowerCase()
       
@@ -79,19 +93,23 @@ export default {
         return 'Android'
       } else if (/iphone|ipad|ipod/.test(userAgent)) {
         return 'iOS'
-      } else if (/windows/.test(userAgent)) {
-        return 'Windows'
-      } else if (/macintosh|mac os x/.test(userAgent)) {
+      } else if (/mac/.test(userAgent)) {
         return 'macOS'
       } else if (/linux/.test(userAgent)) {
         return 'Linux'
+      } else if (/win/.test(userAgent)) {
+        return 'Windows'
       }
-      return 'Windows' // 默认
+      
+      return 'Windows' // 默认返回Windows
     },
     
-    onDeviceChange() {
-      localStorage.setItem('selectedDevice', this.selectedDevice)
-      this.$emit('device-changed', this.selectedDevice)
+    // 获取实际的设备类型（处理auto选项）
+    getActualDevice() {
+      if (this.selectedDevice === 'auto') {
+        return this.detectDevice()
+      }
+      return this.selectedDevice
     }
   },
   

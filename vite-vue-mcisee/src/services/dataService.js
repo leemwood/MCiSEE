@@ -124,69 +124,73 @@ class DataService {
   // 转换启动器数据格式
   transformLauncherData(data) {
     const launchers = []
+    const launcherMap = new Map() // 用于合并跨平台启动器
     
-    // 处理Windows启动器
-    if (data.WindowsLauncher) {
-      data.WindowsLauncher.forEach(launcher => {
-        launchers.push({
-          id: this.generateId(launcher.title),
-          name: launcher.abbr || launcher.title,
-          fullName: launcher.title,
-          description: this.getDescription(launcher.title),
-          website: launcher.url || null,
-          github: launcher.github || null,
-          downloadUrl: launcher.download || null,
-          devDownloadUrl: launcher.dev?.download || null,
-          supportedDevices: ['Windows']
+    // 处理所有平台的启动器数据
+    const platformMappings = {
+      'AndroidLauncher': 'Android',
+      'iOSLauncher': 'iOS', 
+      'WindowsLauncher': 'Windows',
+      'macOSLauncher': 'macOS',
+      'LinuxLauncher': 'Linux'
+    }
+
+    Object.entries(platformMappings).forEach(([dataKey, deviceType]) => {
+      if (data[dataKey]) {
+        data[dataKey].forEach(launcher => {
+          const launcherName = launcher.abbr || launcher.title
+          const launcherId = this.generateId(launcher.title)
+          
+          if (launcherMap.has(launcherName)) {
+            // 如果启动器已存在，添加设备支持
+            const existingLauncher = launcherMap.get(launcherName)
+            existingLauncher.supportedDevices.push(deviceType)
+            
+            // 如果当前平台有特定的下载链接，更新对应平台的下载信息
+            if (launcher.download) {
+              existingLauncher.platformDownloads = existingLauncher.platformDownloads || {}
+              existingLauncher.platformDownloads[deviceType] = {
+                downloadUrl: launcher.download,
+                version: launcher.version,
+                devDownloadUrl: launcher.dev?.download || null,
+                devVersion: launcher.dev?.version || null
+              }
+            }
+          } else {
+            // 创建新的启动器条目
+            const newLauncher = {
+              id: launcherId,
+              name: launcherName,
+              fullName: launcher.title,
+              description: this.getDescription(launcher.title),
+              website: launcher.url || null,
+              github: launcher.github || null,
+              downloadUrl: launcher.download || null,
+              devDownloadUrl: launcher.dev?.download || null,
+              version: launcher.version || null,
+              devVersion: launcher.dev?.version || null,
+              supportedDevices: [deviceType],
+              platformDownloads: {}
+            }
+            
+            // 添加平台特定的下载信息
+            if (launcher.download) {
+              newLauncher.platformDownloads[deviceType] = {
+                downloadUrl: launcher.download,
+                version: launcher.version,
+                devDownloadUrl: launcher.dev?.download || null,
+                devVersion: launcher.dev?.version || null
+              }
+            }
+            
+            launcherMap.set(launcherName, newLauncher)
+          }
         })
-      })
-    }
+      }
+    })
 
-    // 处理macOS启动器
-    if (data.macOSLauncher) {
-      data.macOSLauncher.forEach(launcher => {
-        const existingLauncher = launchers.find(l => l.name === (launcher.abbr || launcher.title))
-        if (existingLauncher) {
-          existingLauncher.supportedDevices.push('macOS')
-        } else {
-          launchers.push({
-            id: this.generateId(launcher.title),
-            name: launcher.abbr || launcher.title,
-            fullName: launcher.title,
-            description: this.getDescription(launcher.title),
-            website: launcher.url || null,
-            github: launcher.github || null,
-            downloadUrl: launcher.download || null,
-            devDownloadUrl: launcher.dev?.download || null,
-            supportedDevices: ['macOS']
-          })
-        }
-      })
-    }
-
-    // 处理Linux启动器
-    if (data.LinuxLauncher) {
-      data.LinuxLauncher.forEach(launcher => {
-        const existingLauncher = launchers.find(l => l.name === (launcher.abbr || launcher.title))
-        if (existingLauncher) {
-          existingLauncher.supportedDevices.push('Linux')
-        } else {
-          launchers.push({
-            id: this.generateId(launcher.title),
-            name: launcher.abbr || launcher.title,
-            fullName: launcher.title,
-            description: this.getDescription(launcher.title),
-            website: launcher.url || null,
-            github: launcher.github || null,
-            downloadUrl: launcher.download || null,
-            devDownloadUrl: launcher.dev?.download || null,
-            supportedDevices: ['Linux']
-          })
-        }
-      })
-    }
-
-    return launchers
+    // 将Map转换为数组
+    return Array.from(launcherMap.values())
   }
 
   // 生成ID
