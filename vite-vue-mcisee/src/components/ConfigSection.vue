@@ -13,9 +13,7 @@
         <option value="light">{{ $t('theme_light') }}</option>
         <option value="dark">{{ $t('theme_dark') }}</option>
         <option value="classic">{{ $t('theme_classic') }}</option>
-        <option value="ocean">{{ $t('theme_ocean') }}</option>
-        <option value="forest">{{ $t('theme_forest') }}</option>
-        <option value="sunset">{{ $t('theme_sunset') }}</option>
+
         <option value="system">{{ $t('theme_system') }}</option>
       </select>
     </div>
@@ -169,7 +167,7 @@ export default {
       if (!backgroundElement) return
       
       // 移除所有主题类
-      backgroundElement.classList.remove('light', 'dark', 'classic', 'ocean', 'forest', 'sunset', 'system')
+      backgroundElement.classList.remove('light', 'dark', 'classic', 'system')
       
       let finalTheme = themeValue
       if (themeValue === 'default' || themeValue === 'system') {

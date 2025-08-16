@@ -90,9 +90,7 @@
   "theme_light": "亮色",
   "theme_dark": "暗色",
   "theme_classic": "经典",
-  "theme_ocean": "海洋",
-  "theme_forest": "森林",
-  "theme_sunset": "日落",
+
   "theme_system": "跟随系统",
   "debug_mode": "调试模式",
   "debug_mode_desc": "启用调试模式以显示更多信息",

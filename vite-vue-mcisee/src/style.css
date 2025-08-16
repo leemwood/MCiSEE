@@ -77,20 +77,7 @@ body {
   background-image: url('/assets/image/classic.webp');
 }
 
-.background.ocean {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  background-attachment: fixed;
-}
 
-.background.forest {
-  background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
-  background-attachment: fixed;
-}
-
-.background.sunset {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  background-attachment: fixed;
-}
 
 /* 确保背景图片加载前有过渡效果 */
 .background::before {
@@ -534,89 +521,7 @@ footer p {
 
 /* 新主题样式适配 */
 
-/* Ocean 主题 */
-[data-theme="ocean"] {
-  --primary-color: #4fc3f7;
-  --background-overlay: rgba(102, 126, 234, 0.15);
-  --dark-overlay: rgba(118, 75, 162, 0.4);
-  --apple-color-white: #e1f5fe;
-  --surface-container-rgb: 227, 242, 253;
-  --on-surface-rgb: 13, 71, 161;
-}
 
-[data-theme="ocean"] .container {
-  background: rgba(227, 242, 253, 0.95);
-  color: #0d47a1;
-}
-
-[data-theme="ocean"] .label {
-  color: #01579b;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-}
-
-[data-theme="ocean"] a {
-  color: #0277bd;
-}
-
-[data-theme="ocean"] a:hover {
-  color: #01579b;
-}
-
-/* Forest 主题 */
-[data-theme="forest"] {
-  --primary-color: #66bb6a;
-  --background-overlay: rgba(19, 78, 94, 0.15);
-  --dark-overlay: rgba(113, 178, 128, 0.4);
-  --apple-color-white: #e8f5e8;
-  --surface-container-rgb: 232, 245, 232;
-  --on-surface-rgb: 27, 94, 32;
-}
-
-[data-theme="forest"] .container {
-  background: rgba(232, 245, 232, 0.95);
-  color: #1b5e20;
-}
-
-[data-theme="forest"] .label {
-  color: #2e7d32;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-}
-
-[data-theme="forest"] a {
-  color: #388e3c;
-}
-
-[data-theme="forest"] a:hover {
-  color: #2e7d32;
-}
-
-/* Sunset 主题 */
-[data-theme="sunset"] {
-  --primary-color: #ff7043;
-  --background-overlay: rgba(250, 112, 154, 0.15);
-  --dark-overlay: rgba(254, 225, 64, 0.4);
-  --apple-color-white: #fff3e0;
-  --surface-container-rgb: 255, 243, 224;
-  --on-surface-rgb: 191, 54, 12;
-}
-
-[data-theme="sunset"] .container {
-  background: rgba(255, 243, 224, 0.95);
-  color: #bf360c;
-}
-
-[data-theme="sunset"] .label {
-  color: #d84315;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-}
-
-[data-theme="sunset"] a {
-  color: #f4511e;
-}
-
-[data-theme="sunset"] a:hover {
-  color: #d84315;
-}
 
 /* 深色主题适配 */
 @media (prefers-color-scheme: dark) {

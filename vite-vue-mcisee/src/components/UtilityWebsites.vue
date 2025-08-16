@@ -145,10 +145,10 @@ export default {
 <style scoped>
 .utility-website-container {
   margin: 2rem 0;
-  background: rgba(248, 249, 250, 0.8);
+  background: transparent;
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid rgba(224, 224, 224, 0.3);
+  border: none;
 }
 
 .header {

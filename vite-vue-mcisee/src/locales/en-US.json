@@ -90,9 +90,7 @@
   "theme_light": "Light",
   "theme_dark": "Dark",
   "theme_classic": "Classic",
-  "theme_ocean": "Ocean",
-  "theme_forest": "Forest",
-  "theme_sunset": "Sunset",
+
   "theme_system": "Follow System",
   "debug_mode": "Debug Mode",
   "debug_mode_desc": "Enable debug mode to show more information",
