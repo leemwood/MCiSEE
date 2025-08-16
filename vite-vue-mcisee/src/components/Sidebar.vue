@@ -125,10 +125,9 @@ export default {
   top: 50%;
   transform: translateY(-50%);
   z-index: 999;
-  background: var(--dark-overlay);
+  background: rgba(0, 0, 0, 0.8);
   padding: var(--spacing-md);
   border-radius: 8px;
-  backdrop-filter: blur(10px);
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -159,14 +158,13 @@ export default {
   transform: translateY(-50%);
   width: 30px;
   height: 30px;
-  background: var(--dark-overlay);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 

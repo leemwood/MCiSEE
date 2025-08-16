@@ -145,10 +145,9 @@ export default {
 <style scoped>
 .utility-website-container {
   margin: 2rem 0;
-  background: rgba(248, 249, 250, 0.6);
+  background: rgba(248, 249, 250, 0.8);
   border-radius: 12px;
   padding: 1.5rem;
-  backdrop-filter: blur(10px);
   border: 1px solid rgba(224, 224, 224, 0.3);
 }
 
@@ -186,20 +185,18 @@ export default {
   border: 1px solid rgba(224, 224, 224, 0.4);
   border-radius: 10px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .category-header {
   padding: 1rem;
-  background: rgba(248, 249, 250, 0.7);
+  background: rgba(248, 249, 250, 0.8);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease;
-  backdrop-filter: blur(5px);
 }
 
 .category-header:hover {
@@ -259,11 +256,10 @@ export default {
 }
 
 .website-item {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(224, 224, 224, 0.4);
   border-radius: 8px;
   transition: all 0.3s ease;
-  backdrop-filter: blur(6px);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
