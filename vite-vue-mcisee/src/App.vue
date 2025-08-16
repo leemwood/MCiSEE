@@ -13,7 +13,7 @@
         <Introduction />
         
         <!-- 搜索功能 -->
-        <section class="search-section">
+        <section class="search-section" id="快速查询">
           <h2>{{ $t('search_title') || '快速搜索' }}</h2>
           <SearchBox />
         </section>

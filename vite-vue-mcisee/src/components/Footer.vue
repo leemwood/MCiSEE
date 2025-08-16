@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" id="底部">
     <div class="page-content">
       <div class="footer-content">
         <h2>统计信息</h2>

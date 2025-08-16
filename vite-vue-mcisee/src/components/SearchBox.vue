@@ -227,18 +227,45 @@ export default {
 }
 
 .search-engine-select {
-  background: transparent;
-  border: none;
+  background: rgba(var(--mdui-color-surface-container-rgb), 0.6);
+  border: 1px solid rgba(var(--mdui-color-outline-rgb), 0.3);
   padding: 12px 16px;
-  border-radius: 24px;
+  border-radius: 12px;
   color: var(--mdui-color-on-surface);
   font-size: 14px;
   cursor: pointer;
   min-width: 120px;
+  transition: all 0.2s ease;
 }
 
 .search-engine-select:focus {
   outline: none;
+  border-color: var(--mdui-color-primary);
+  background: rgba(var(--mdui-color-surface-container-rgb), 0.8);
+  box-shadow: 0 2px 8px rgba(var(--mdui-color-primary-rgb), 0.2);
+}
+
+.search-engine-select:hover {
+  background: rgba(var(--mdui-color-surface-container-rgb), 0.7);
+  border-color: rgba(var(--mdui-color-outline-rgb), 0.5);
+}
+
+/* 下拉菜单选项样式 */
+.search-engine-select option {
+  background: var(--mdui-color-surface-container);
+  color: var(--mdui-color-on-surface);
+  padding: 8px 12px;
+  border: none;
+}
+
+.search-engine-select option:hover {
+  background: var(--mdui-color-primary-container);
+  color: var(--mdui-color-on-primary-container);
+}
+
+.search-engine-select option:checked {
+  background: var(--mdui-color-primary);
+  color: var(--mdui-color-on-primary);
 }
 
 .search-input {
