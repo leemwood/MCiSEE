@@ -3,8 +3,11 @@
     <!-- 背景 -->
     <div class="background" :class="currentTheme"></div>
     
+    <!-- 侧边栏 -->
+    <Sidebar />
+    
     <!-- 主要内容 -->
-    <main class="main-content">
+    <main class="main-content" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
       <div class="page-content" id="顶部">
         <h1>{{ $t('title') }}</h1>
         <p>{{ $t('description') }}</p>
@@ -19,26 +22,29 @@
         </section>
         
         <!-- 设备选择 -->
-        <DeviceSelector @device-changed="onDeviceChanged" />
+        <section id="设备">
+          <DeviceSelector @device-changed="onDeviceChanged" />
+        </section>
         
         <!-- 应用程序部分 -->
-        <AppSection :selected-device="selectedDevice" />
+        <section id="软件">
+          <AppSection :selected-device="selectedDevice" />
+        </section>
         
         <!-- 网站部分 -->
-        <WebsiteSection />
+        <section id="网站">
+          <WebsiteSection />
+        </section>
         
         <!-- 配置部分 -->
-        <ConfigSection />
-      
-        <!-- 侧边栏 -->
-        <Sidebar />
+        <section id="配置">
+          <ConfigSection />
+        </section>
       </div>
+      
+      <!-- 页脚 -->
+      <Footer id="底部" />
     </main>
-    
-
-    
-    <!-- 页脚 -->
-    <Footer />
     
     <!-- 更新通知 -->
     <UpdateNotification />
@@ -74,6 +80,7 @@ export default {
   setup() {
     const currentTheme = ref('default')
     const selectedDevice = ref('auto')
+    const sidebarCollapsed = ref(false)
     
     const themes = ref([
       { value: 'default', label: '跟随系统' },
@@ -153,12 +160,16 @@ export default {
       })
     })
     
+    // 提供侧边栏状态给子组件
+    provide('sidebarCollapsed', sidebarCollapsed)
+    
     return {
       currentTheme,
       themes,
       setTheme,
       selectedDevice,
-      onDeviceChanged
+      onDeviceChanged,
+      sidebarCollapsed
     }
   }
 }
@@ -167,7 +178,32 @@ export default {
 <style>
 /* 全局样式将在style.css中定义 */
 
+/* 主应用布局 */
+#app {
+  display: flex;
+  min-height: 100vh;
+}
 
+/* 主要内容区域 */
+.main-content {
+  flex: 1;
+  margin-left: 280px; /* 为侧边栏留出空间 */
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 当侧边栏收起时调整主内容区域 */
+.main-content.sidebar-collapsed {
+  margin-left: 64px;
+}
+
+/* 页面内容 */
+.page-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 /* 搜索部分样式 */
 .search-section {
@@ -185,8 +221,21 @@ export default {
   font-weight: 500;
 }
 
-
-
 /* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .page-content {
+    padding: 1rem;
+  }
+}
 
+/* 确保侧边栏在移动端正确显示 */
+@media (max-width: 768px) {
+  .sidebar-collapsed ~ .main-content {
+    margin-left: 64px;
+  }
+}
 </style>

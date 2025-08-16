@@ -1,359 +1,546 @@
 <template>
-  <div 
-    id="目录" 
-    class="sidebar" 
-    :class="{ 'sidebar-hidden': isHidden, 'sidebar-visible': !isHidden }"
-    @mouseenter="showSidebar"
-    @mouseleave="startHideTimer"
-    @click="showSidebar"
+  <!-- 展开按钮（在侧边栏完全隐藏时显示） -->
+  <button 
+    v-show="isCollapsed" 
+    class="expand-button" 
+    @click="toggleSidebar"
+    :title="'展开侧边栏'"
   >
-    <div class="sidebar-toggle" @click="toggleSidebar">
-      <span class="toggle-icon">{{ isHidden ? '▶' : '◀' }}</span>
+    <span class="toggle-icon">></span>
+  </button>
+
+  <nav class="sidebar" :class="{ 'sidebar-collapsed': isCollapsed }">
+    <!-- 侧边栏头部 -->
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text" v-show="!isCollapsed">MCiSEE</span>
+      </div>
+      <button 
+        class="sidebar-toggle" 
+        @click="toggleSidebar"
+        :title="isCollapsed ? '展开侧边栏' : '收起侧边栏'"
+      >
+        <span class="toggle-icon">{{ isCollapsed ? '>' : '<' }}</span>
+      </button>
     </div>
+
+    <!-- 导航菜单 -->
     <div class="sidebar-content">
-      <div class="info">{{ $t('content') }}</div>
-      <dl>
-        <dt><a href="#顶部" @click="handleLinkClick">{{ $t('top') }}</a></dt>
-        <dt><a href="#设备" @click="handleLinkClick">{{ $t('device') }}</a></dt>
-        <dt><a href="#软件" @click="handleLinkClick">{{ $t('app') }}</a></dt>
-        <dd><a href="#启动器" @click="handleLinkClick">{{ $t('launcher') }}</a></dd>
-        <dt><a href="#网站" @click="handleLinkClick">{{ $t('website') }}</a></dt>
-        <dd><a href="#快速查询" @click="handleLinkClick">{{ $t('searchable') }}</a></dd>
-        <dd><a href="#实用网站" @click="handleLinkClick">{{ $t('utilityWebsite') }}</a></dd>
-        <dd><a href="#论坛" @click="handleLinkClick">{{ $t('forum') }}</a></dd>
-        <dt><a href="#配置" @click="handleLinkClick">{{ $t('config') }}</a></dt>
-        <dt><a href="#底部" @click="handleLinkClick">{{ $t('bottom') }}</a></dt>
-      </dl>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#顶部" class="nav-link" @click="handleNavClick">
+            <span class="nav-text" v-show="!isCollapsed">{{ $t('top') }}</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#设备" class="nav-link" @click="handleNavClick">
+            <span class="nav-text" v-show="!isCollapsed">{{ $t('device') }}</span>
+          </a>
+        </li>
+        
+        <li class="nav-item nav-group">
+          <a href="#软件" class="nav-link" @click="handleNavClick">
+            <span class="nav-text" v-show="!isCollapsed">{{ $t('app') }}</span>
+          </a>
+          <ul class="nav-submenu" v-show="!isCollapsed">
+            <li class="nav-subitem">
+              <a href="#启动器" class="nav-sublink" @click="handleNavClick">
+                <span class="nav-subtext">{{ $t('launcher') }}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="nav-item nav-group">
+          <a href="#网站" class="nav-link" @click="handleNavClick">
+            <span class="nav-text" v-show="!isCollapsed">{{ $t('website') }}</span>
+          </a>
+          <ul class="nav-submenu" v-show="!isCollapsed">
+            <li class="nav-subitem">
+              <a href="#快速查询" class="nav-sublink" @click="handleNavClick">
+                <span class="nav-subtext">{{ $t('searchable') }}</span>
+              </a>
+            </li>
+            <li class="nav-subitem">
+              <a href="#实用网站" class="nav-sublink" @click="handleNavClick">
+                <span class="nav-subtext">{{ $t('utilityWebsite') }}</span>
+              </a>
+            </li>
+            <li class="nav-subitem">
+              <a href="#论坛" class="nav-sublink" @click="handleNavClick">
+                <span class="nav-subtext">{{ $t('forum') }}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#配置" class="nav-link" @click="handleNavClick">
+            <span class="nav-text" v-show="!isCollapsed">{{ $t('config') }}</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#底部" class="nav-link" @click="handleNavClick">
+            <span class="nav-text" v-show="!isCollapsed">{{ $t('bottom') }}</span>
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
+
+    <!-- 侧边栏底部 -->
+    <div class="sidebar-footer" v-show="!isCollapsed">
+      <div class="sidebar-info">
+        <span class="info-text">{{ $t('content') }}</span>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, inject } from 'vue'
 
 export default {
   name: 'Sidebar',
   setup() {
-    const isHidden = ref(false)
-    let hideTimer = null
-    let inactivityTimer = null
-    const HIDE_DELAY = 3000 // 3秒后自动隐藏
-    const INACTIVITY_DELAY = 10000 // 10秒无活动后自动隐藏
+    const sidebarCollapsed = inject('sidebarCollapsed')
+    const isCollapsed = ref(false)
     
-    // 显示侧边栏
-    const showSidebar = () => {
-      isHidden.value = false
-      clearTimeout(hideTimer)
-      clearTimeout(inactivityTimer)
-      startInactivityTimer()
+    // 切换侧边栏展开/收起状态
+    const toggleSidebar = () => {
+      isCollapsed.value = !isCollapsed.value
+      // 同步更新父组件状态
+      if (sidebarCollapsed) {
+        sidebarCollapsed.value = isCollapsed.value
+      }
+      // 保存用户偏好到localStorage
+      localStorage.setItem('sidebar-collapsed', isCollapsed.value.toString())
     }
     
-    // 开始隐藏计时器
-    const startHideTimer = () => {
-      clearTimeout(hideTimer)
-      hideTimer = setTimeout(() => {
-        isHidden.value = true
-      }, HIDE_DELAY)
-    }
-    
-    // 开始无活动计时器
-    const startInactivityTimer = () => {
-      clearTimeout(inactivityTimer)
-      inactivityTimer = setTimeout(() => {
-        isHidden.value = true
-      }, INACTIVITY_DELAY)
-    }
-    
-    // 切换侧边栏显示状态
-    const toggleSidebar = (event) => {
-      event.stopPropagation()
-      isHidden.value = !isHidden.value
-      if (!isHidden.value) {
-        startInactivityTimer()
+    // 处理导航链接点击
+    const handleNavClick = (event) => {
+      // 平滑滚动到目标元素
+      const href = event.currentTarget.getAttribute('href')
+      if (href && href.startsWith('#')) {
+        event.preventDefault()
+        const targetId = href.substring(1)
+        const targetElement = document.getElementById(targetId)
+        if (targetElement) {
+          targetElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }
       }
     }
     
-    // 处理链接点击
-    const handleLinkClick = () => {
-      // 点击链接后延迟隐藏侧边栏
-      setTimeout(() => {
-        isHidden.value = true
-      }, 1000)
-    }
-    
-    // 监听页面活动
-    const handlePageActivity = () => {
-      if (!isHidden.value) {
-        startInactivityTimer()
+    // 监听窗口大小变化，自动调整侧边栏状态
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        isCollapsed.value = true
       }
     }
     
     onMounted(() => {
-      // 初始状态：显示侧边栏，然后开始无活动计时器
-      startInactivityTimer()
+      // 从localStorage恢复用户偏好
+      const savedState = localStorage.getItem('sidebar-collapsed')
+      if (savedState !== null) {
+        isCollapsed.value = savedState === 'true'
+      } else {
+        // 默认在移动端收起侧边栏
+        isCollapsed.value = window.innerWidth <= 768
+      }
       
-      // 监听页面活动事件
-      document.addEventListener('mousemove', handlePageActivity)
-      document.addEventListener('scroll', handlePageActivity)
-      document.addEventListener('keydown', handlePageActivity)
+      // 同步初始状态到父组件
+      if (sidebarCollapsed) {
+        sidebarCollapsed.value = isCollapsed.value
+      }
+      
+      // 监听窗口大小变化
+      window.addEventListener('resize', handleResize)
     })
     
     onUnmounted(() => {
-      clearTimeout(hideTimer)
-      clearTimeout(inactivityTimer)
-      document.removeEventListener('mousemove', handlePageActivity)
-      document.removeEventListener('scroll', handlePageActivity)
-      document.removeEventListener('keydown', handlePageActivity)
+      window.removeEventListener('resize', handleResize)
     })
     
     return {
-      isHidden,
-      showSidebar,
-      startHideTimer,
+      isCollapsed,
       toggleSidebar,
-      handleLinkClick
+      handleNavClick
     }
   }
 }
 </script>
 
 <style scoped>
-/* 侧边栏自动隐藏功能样式 */
+/* 侧边栏主体 */
 .sidebar {
   position: fixed;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 999;
-  background: rgba(0, 0, 0, 0.8);
-  padding: var(--spacing-md);
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 280px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-right: 1px solid rgba(229, 231, 235, 0.2) !important;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateX(0);
+}
+
+/* 收起状态 */
+.sidebar-collapsed {
+  width: 48px;
+  transform: translateX(-100%);
+}
+
+/* 展开按钮（在完全隐藏时显示） */
+.expand-button {
+  position: fixed;
+  left: 8px;
+  top: 20px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(229, 231, 235, 0.2) !important;
   border-radius: 8px;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   cursor: pointer;
-}
-
-/* 隐藏状态 */
-.sidebar-hidden {
-  transform: translateY(-50%) translateX(-85%);
-  opacity: 0.3;
-}
-
-/* 显示状态 */
-.sidebar-visible {
-  transform: translateY(-50%) translateX(0);
-  opacity: 1;
-}
-
-/* 悬停时完全显示 */
-.sidebar:hover {
-  transform: translateY(-50%) translateX(0) !important;
-  opacity: 1 !important;
-}
-
-/* 切换按钮 */
-.sidebar-toggle {
-  position: absolute;
-  right: -15px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   transition: all 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1001;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.expand-button:hover {
+  background: var(--sidebar-toggle-hover, rgba(243, 244, 246, 0.9));
+  transform: scale(1.05);
+}
+
+.expand-button .toggle-icon {
+  font-size: 12px;
+  color: var(--sidebar-text, #6b7280);
+}
+
+/* 侧边栏头部 */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+  min-height: 64px;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--sidebar-text, #1f2937);
+}
+
+.logo-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-toggle {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(229, 231, 235, 0.2) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .sidebar-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-50%) scale(1.1);
+  background: rgba(229, 231, 235, 0.8);
+  transform: scale(1.05);
 }
 
 .toggle-icon {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--sidebar-text, #6b7280);
   transition: transform 0.2s ease;
-}
-
-.sidebar-hidden .toggle-icon {
-  transform: rotate(0deg);
-}
-
-.sidebar-visible .toggle-icon {
-  transform: rotate(180deg);
 }
 
 /* 侧边栏内容 */
 .sidebar-content {
-  transition: opacity 0.3s ease;
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
 }
 
-.sidebar-hidden .sidebar-content {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sidebar-visible .sidebar-content {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* 继承全局侧边栏样式 */
-.sidebar .info {
-  font-weight: bold;
-  margin-bottom: var(--spacing-sm);
-  display: block;
-}
-
-.sidebar dl {
+/* 导航菜单 */
+.nav-menu {
+  list-style: none;
   margin: 0;
+  padding: 0;
 }
 
-.sidebar dt,
-.sidebar dd {
-  margin: var(--spacing-xs) 0;
+.nav-item {
+  margin: 2px 8px;
 }
 
-.sidebar a {
-  color: inherit;
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: var(--sidebar-text, #4b5563);
   text-decoration: none;
-  transition: opacity var(--transition-fast);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.sidebar a:hover {
-  opacity: 0.7;
+.nav-link:hover {
+  background: var(--sidebar-hover, rgba(243, 244, 246, 0.6));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: var(--sidebar-text-hover, #1f2937);
+  transform: translateX(2px);
+}
+
+.nav-link:active {
+  background: var(--sidebar-active, rgba(229, 231, 235, 0.8));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.nav-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.nav-text {
+  transition: opacity 0.2s ease;
+}
+
+/* 子菜单 */
+.nav-submenu {
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+}
+
+.nav-subitem {
+  margin: 1px 0;
+}
+
+.nav-sublink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 48px;
+  color: var(--sidebar-subtext, #6b7280);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.nav-sublink:hover {
+  background: var(--sidebar-hover, rgba(249, 250, 251, 0.6));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: var(--sidebar-subtext-hover, #374151);
+  transform: translateX(2px);
+}
+
+.nav-subicon {
+  font-size: 14px;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+/* 侧边栏底部 */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+}
+
+.sidebar-info {
+  text-align: center;
+}
+
+.info-text {
+  font-size: 12px;
+  color: var(--sidebar-muted, #9ca3af);
+  font-weight: 500;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .sidebar {
-    left: 10px;
-    top: 20px;
-    transform: none;
-    padding: var(--spacing-sm);
+    transform: translateX(-100%);
   }
   
-  /* 移动端隐藏状态：只显示切换按钮 */
-  .sidebar-hidden {
-    transform: none;
-    opacity: 1;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sidebar-hidden .sidebar-content {
-    display: none;
-  }
-  
-  .sidebar-hidden .sidebar-toggle {
-    position: static;
-    transform: none;
-    background: transparent;
-    border: none;
-    width: 100%;
-    height: 100%;
-  }
-  
-  /* 移动端显示状态：展开显示内容 */
-  .sidebar-visible {
-    position: fixed;
-    left: 10px;
-    top: 10px;
-    transform: none;
-    opacity: 1;
+  .sidebar:not(.sidebar-collapsed) {
+    transform: translateX(0);
     width: 280px;
-    height: auto;
-    padding: var(--spacing-sm);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.9);
-    max-width: calc(100vw - 20px);
-    max-height: calc(100vh - 20px);
-    overflow-y: auto;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
   
-  .sidebar-visible .sidebar-content {
-    display: block;
-    opacity: 1;
-    pointer-events: auto;
+  .sidebar-collapsed {
+    transform: translateX(-100%);
+    width: 48px;
   }
   
-  .sidebar-visible .sidebar-toggle {
-    position: absolute;
-    right: -15px;
-    top: 10px;
-    transform: none;
-    width: 30px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .expand-button {
+    left: 8px;
+    top: 20px;
   }
 }
 
-/* 主题适配 */
-[data-theme="light"] .sidebar {
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
+/* 深色主题 */
+[data-theme="dark"] .sidebar,
+[data-theme="dark"] .expand-button {
+  background: rgba(31, 41, 55, 0.85) !important;
+  border-right-color: rgba(55, 65, 81, 0.3) !important;
+  --sidebar-bg: rgba(31, 41, 55, 0.85);
+  --sidebar-border: rgba(55, 65, 81, 0.3);
+  --sidebar-header-bg: rgba(31, 41, 55, 0.1);
+  --sidebar-footer-bg: rgba(31, 41, 55, 0.1);
+  --sidebar-text: #f9fafb;
+  --sidebar-text-hover: #ffffff;
+  --sidebar-subtext: #d1d5db;
+  --sidebar-subtext-hover: #f3f4f6;
+  --sidebar-hover: rgba(55, 65, 81, 0.6);
+  --sidebar-active: rgba(75, 85, 99, 0.8);
+  --sidebar-toggle-bg: rgba(55, 65, 81, 0.6);
+  --sidebar-toggle-hover: rgba(75, 85, 99, 0.8);
+  --sidebar-muted: #9ca3af;
 }
 
-[data-theme="light"] .sidebar-toggle {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(0, 0, 0, 0.1);
-}
-
-[data-theme="light"] .toggle-icon {
-  color: #333;
-}
-
-[data-theme="dark"] .sidebar {
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+[data-theme="dark"] .sidebar-header {
+  background: rgba(31, 41, 55, 0.1) !important;
+  border-bottom-color: rgba(55, 65, 81, 0.3) !important;
 }
 
 [data-theme="dark"] .sidebar-toggle {
-  background: rgba(0, 0, 0, 0.8);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(55, 65, 81, 0.6) !important;
 }
 
-[data-theme="dark"] .toggle-icon {
-  color: #fff;
+[data-theme="dark"] .sidebar-toggle:hover {
+  background: rgba(75, 85, 99, 0.8) !important;
 }
 
-/* 移动端主题适配 */
-@media (max-width: 768px) {
-  [data-theme="light"] .sidebar-hidden {
-    background: rgba(255, 255, 255, 0.9);
+[data-theme="dark"] .sidebar-footer {
+  background: rgba(31, 41, 55, 0.1) !important;
+  border-top-color: rgba(55, 65, 81, 0.3) !important;
+}
+
+/* 浅色主题 */
+[data-theme="light"] .sidebar,
+[data-theme="light"] .expand-button {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-right-color: rgba(229, 231, 235, 0.3) !important;
+  --sidebar-bg: rgba(255, 255, 255, 0.85);
+  --sidebar-border: rgba(229, 231, 235, 0.3);
+  --sidebar-header-bg: rgba(255, 255, 255, 0.1);
+  --sidebar-footer-bg: rgba(255, 255, 255, 0.1);
+  --sidebar-text: #1f2937;
+  --sidebar-text-hover: #111827;
+  --sidebar-subtext: #6b7280;
+  --sidebar-subtext-hover: #374151;
+  --sidebar-hover: rgba(243, 244, 246, 0.6);
+  --sidebar-active: rgba(229, 231, 235, 0.8);
+  --sidebar-toggle-bg: rgba(243, 244, 246, 0.6);
+  --sidebar-toggle-hover: rgba(229, 231, 235, 0.8);
+  --sidebar-muted: #9ca3af;
+}
+
+[data-theme="light"] .sidebar-header {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-bottom-color: rgba(229, 231, 235, 0.3) !important;
+}
+
+[data-theme="light"] .sidebar-toggle {
+  background: rgba(243, 244, 246, 0.6) !important;
+}
+
+[data-theme="light"] .sidebar-toggle:hover {
+  background: rgba(229, 231, 235, 0.8) !important;
+}
+
+[data-theme="light"] .sidebar-footer {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-top-color: rgba(229, 231, 235, 0.3) !important;
+}
+
+/* 滚动条样式 */
+.sidebar-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: var(--sidebar-muted, #d1d5db);
+  border-radius: 2px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: var(--sidebar-text, #9ca3af);
+}
+
+/* 动画效果 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
   }
-  
-  [data-theme="light"] .sidebar-visible {
-    background: rgba(255, 255, 255, 0.95);
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
-  
-  [data-theme="light"] .sidebar-visible .sidebar-toggle {
-    background: rgba(255, 255, 255, 0.9);
-  }
-  
-  [data-theme="dark"] .sidebar-hidden {
-    background: rgba(0, 0, 0, 0.8);
-  }
-  
-  [data-theme="dark"] .sidebar-visible {
-    background: rgba(0, 0, 0, 0.9);
-  }
-  
-  [data-theme="dark"] .sidebar-visible .sidebar-toggle {
-    background: rgba(0, 0, 0, 0.8);
-  }
+}
+
+.nav-text,
+.nav-subtext {
+  animation: slideIn 0.2s ease;
+}
+
+/* 焦点样式 */
+.nav-link:focus,
+.nav-sublink:focus,
+.sidebar-toggle:focus {
+  outline: 2px solid var(--focus-color, #3b82f6);
+  outline-offset: 2px;
 }
 </style>
