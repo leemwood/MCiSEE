@@ -180,22 +180,17 @@ export default {
 
 /* 主应用布局 */
 #app {
-  display: flex;
+  position: relative;
   min-height: 100vh;
 }
 
 /* 主要内容区域 */
 .main-content {
-  flex: 1;
-  margin-left: 280px; /* 为侧边栏留出空间 */
-  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 100vh;
   position: relative;
-}
-
-/* 当侧边栏收起时调整主内容区域 */
-.main-content.sidebar-collapsed {
-  margin-left: 64px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* 页面内容 */
@@ -203,6 +198,7 @@ export default {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
 
 /* 搜索部分样式 */
@@ -223,19 +219,8 @@ export default {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-  }
-  
   .page-content {
     padding: 1rem;
-  }
-}
-
-/* 确保侧边栏在移动端正确显示 */
-@media (max-width: 768px) {
-  .sidebar-collapsed ~ .main-content {
-    margin-left: 64px;
   }
 }
 </style>

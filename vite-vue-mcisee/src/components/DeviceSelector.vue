@@ -127,6 +127,7 @@ export default {
 <style scoped>
 .device-container {
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .tip {

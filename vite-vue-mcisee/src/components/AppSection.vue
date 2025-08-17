@@ -252,6 +252,10 @@ export default {
 </script>
 
 <style scoped>
+.app-container {
+  text-align: center;
+}
+
 .launcher-container {
   margin-top: 1rem;
 }

@@ -182,13 +182,13 @@ export default {
   top: 0;
   height: 100vh;
   width: 280px;
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-right: 1px solid rgba(229, 231, 235, 0.2) !important;
-  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -208,18 +208,18 @@ export default {
   top: 20px;
   width: 32px;
   height: 32px;
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
-  border: 1px solid rgba(229, 231, 235, 0.2) !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  z-index: 1001;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .expand-button:hover {
@@ -238,11 +238,11 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   min-height: 64px;
-  background: rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
+  background: rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
 }
 
 .sidebar-logo {
@@ -387,10 +387,10 @@ export default {
 /* 侧边栏底部 */
 .sidebar-footer {
   padding: 16px;
-  border-top: 1px solid rgba(229, 231, 235, 0.3);
-  background: rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
 }
 
 .sidebar-info {
