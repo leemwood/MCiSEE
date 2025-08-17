@@ -80,7 +80,7 @@ export default {
   setup() {
     const currentTheme = ref('default')
     const selectedDevice = ref('auto')
-    const sidebarCollapsed = ref(false)
+    const sidebarCollapsed = ref(true)
     
     const themes = ref([
       { value: 'default', label: '跟随系统' },
