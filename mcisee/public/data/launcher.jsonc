@@ -1,0 +1,336 @@
+{
+  // =====================================================
+  // 适用于 安卓手机/鸿蒙手机/安卓平板/鸿蒙平板 的启动器
+  // =====================================================
+  "AndroidLauncher": [
+    {
+      "title": "Fold Craft Launcher",
+      "abbr": "FCL",
+      "download": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.2.4.6/FCL-release-1.2.4.6-all.apk",
+      "version": "1.2.4.6",
+      "github": "https://github.com/FCL-Team/FoldCraftLauncher",
+      "url": "https://fcl-team.github.io"
+    },
+    {
+      "title": "PojavLauncher",
+      "download": "https://github.com/PojavLauncherTeam/PojavLauncher/releases/download/gladiolus/PojavLauncher.apk",
+      "version": "gladiolus",
+      "github": "https://github.com/PojavLauncherTeam/PojavLauncher",
+      "url": "https://pojavlauncher.app"
+    },
+    {
+      "title": "Hello Minecraft! Launcher:Pocket Edition",
+      "abbr": "HMCL-PE",
+      "download": "https://github.com/HMCL-dev/HMCL-PE/releases/download/2.0.8/HMCLPE-release.apk",
+      "version": "2.0.8",
+      "github": "https://github.com/HMCL-dev/HMCL-PE"
+    },
+    {
+      "title": "Zalith Launcher",
+      "download": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/140700/ZalithLauncher-1.4.0.7.apk",
+      "version": "1.4.0.7",
+      "github": "https://github.com/ZalithLauncher/ZalithLauncher",
+      "url": "https://zalithlauncher.cn/"
+    },
+    {
+      "title": "Angel Aura Amethyst",
+      "abbr": "Amethyst",
+      "github": "https://github.com/AngelAuraMC/Amethyst-Android",
+      "dev": {
+        "download": "https://github.com/AngelAuraMC/Amethyst-Android/actions/runs/15660924693/artifacts/3330366203",
+        "version": "1.0"
+      }
+    }
+  ],
+  // ===================================
+  // 适用于 苹果手机/苹果平板 的启动器
+  // ===================================
+  "iOSLauncher": [
+    {
+      "title": "PojavLauncher",
+      "download": "https://github.com/PojavLauncherTeam/PojavLauncher_iOS/releases/download/v2.2/net.kdt.pojavlauncher-2.2-ios.ipa",
+      "version": "2.2",
+      "github": "https://github.com/PojavLauncherTeam/PojavLauncher_iOS",
+      "url": "https://pojavlauncher.app"
+    },
+    {
+      "title": "Angel Aura Amethyst",
+      "abbr": "Amethyst",
+      "github": "https://github.com/AngelAuraMC/Amethyst-iOS",
+      "dev": {
+        "download": "https://github.com/AngelAuraMC/Amethyst-iOS/actions/runs/15523376984/artifacts/3284565553",
+        "version": "1.0"
+      }
+    }
+  ],
+  // ==============================
+  // 适用于 Windows电脑 的启动器
+  // ==============================
+  "WindowsLauncher": [
+    {
+      "title": "Minecraft Launcher",
+      "download": "https://launcher.mojang.com/download/MinecraftInstaller.exe",
+      "version": "latest",
+      "url": "https://www.minecraft.net"
+    },
+    {
+      "title": "Hello Minecraft! Launcher",
+      "abbr": "HMCL",
+      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.15/HMCL-3.6.15.exe",
+      "version": "3.6.15",
+      "github": "https://github.com/HMCL-dev/HMCL",
+      "url": "https://hmcl.huangyuhui.net",
+      "dev": {
+        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.15.289/HMCL-3.6.15.289.exe",
+        "version": "3.6.15.289"
+      }
+    },
+    {
+      "title": "Plain Craft Launcher 2",
+      "abbr": "PCL2",
+      "download": "https://github.com/Hex-Dragon/PCL2/raw/refs/heads/main/%E6%9C%80%E6%96%B0%E6%AD%A3%E5%BC%8F%E7%89%88.zip",
+      "version": "2.10.6",
+      "github": "https://github.com/Hex-Dragon/PCL2",
+      "url": "https://afdian.com/a/LTCat"
+    },
+    {
+      "title": "BakaXL Launcher",
+      "abbr": "BakaXL",
+      "download": "https://contents.baka.zone/Release/BakaXL_Public_Ver_3.5.1.0.exe",
+      "version": "3.5.1.0",
+      "github": "https://github.com/BakaXL-Launcher/BakaXL",
+      "url": "https://www.bakaxl.com",
+      "dev": {
+        "download": "http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe",
+        "version": "3.5.2.0"
+      }
+    },
+    {
+      "title": "ColorMC",
+      "download": "https://github.com/Coloryr/ColorMC/releases/download/a36.2025.4.15-1/colormc-windows-a36-x86_64.zip",
+      "version": "a36.2025.4.15-1",
+      "github": "https://github.com/Coloryr/ColorMC"
+    },
+    {
+      "title": "X Minecraft Launcher",
+      "abbr": "XMCL",
+      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.51.4/xmcl-0.51.4-win32-x64.zip",
+      "version": "0.51.4",
+      "github": "https://github.com/voxelum/x-minecraft-launcher",
+      "url": "https://xmcl.app"
+    },
+    {
+      "title": "Plain Craft Launcher 2 Community Edition",
+      "abbr": "PCL2 社区版",
+      "download": "https://github.com/PCL-Community/PCL2-CE/releases/download/2.12.2/PCL2_CE_Release_x64.exe",
+      // 太美的 pcl2ce开发组你们能不能别改文件名了 (╬▔皿▔)╯
+      "version": "2.12.2",
+      "github": "https://github.com/PCL-Community/PCL2-CE",
+      "dev": {
+        "download": "https://github.com/PCL-Community/PCL2-CE/releases/download/2.12.0-beta.15/PCL2_CE_Beta_x64.exe",
+        "version": "2.12.0-beta.15"
+      }
+    },
+    {
+      "title": "LauncherX",
+      "download": "https://corona.studio/lx/download",
+      "version": "2.0.0",
+      "github": "https://github.com/corona-studio/projbobcat",
+      "url": "https://corona.studio/lx"
+    },
+    {
+      "title": "我的世界启动器",
+      "url": "https://mc.163.com",
+      "download": "https://loadingbaycn.webapp.163.com/app/v1/download_client/windows/mkt-x19-official/url",
+      "version": "latest"
+    },
+    {
+      "title": "Fluent Launcher",
+      "download": "https://github.com/Xcube-Studio/Natsurainko.FluentLauncher/releases/download/v2.3.7.0/Natsurainko.FluentLauncher_2.3.7.0.msixbundle",
+      "version": "2.3.7.0",
+      "github": "https://github.com/Xcube-Studio/Natsurainko.FluentLauncher",
+      "url": "https://fluentlauncher.natsurainko.work/",
+      "dev": {
+        "download": "https://github.com/Xcube-Studio/Natsurainko.FluentLauncher/releases/download/pre-release-v2.3.7.2/package.msixbundle",
+        "version": "pre-release-v2.3.7.2"
+      }
+    },
+    {
+      "title": "MultiMC",
+      "abbr": "MMC",
+      "download": "https://files.multimc.org/downloads/mmc-develop-win32.zip",
+      "version": "latest",
+      "github": "https://github.com/MultiMC/Launcher",
+      "url": "https://multimc.org"
+    },
+    {
+      "title": "Betacraft Launcher",
+      "abbr": "Betacraft",
+      "download": "https://github.com/betacraftuk/betacraft-launcher/releases/download/1.09_17/launcher-1.09_17.exe",
+      "version": "1.09_17",
+      "github": "https://github.com/betacraftuk/betacraft-launcher",
+      "url": "https://betacraft.uk",
+      "dev": {
+        "download": "https://github.com/betacraftuk/betacraft-launcher/releases/download/1.09_17-rc2/launcher-1.09_17-rc2.exe",
+        "version": "1.09_17-rc2"
+      }
+    },
+    {
+      "title": "Prism Launcher",
+      "abbr": "Prism",
+      "download": "https://github.com/PrismLauncher/PrismLauncher/releases/download/9.4/PrismLauncher-Windows-MSVC-Setup-9.4.exe",
+      "version": "9.4",
+      "github": "https://github.com/PrismLauncher/PrismLauncher",
+      "url": "https://prismlauncher.org"
+    },
+    {
+      "title": "Minecraft Launcher (旧版)",
+      "version": "latest",
+      "download": "https://launcher.mojang.com/download/MinecraftInstaller.msi",
+      "url": "https://www.minecraft.net"
+    },
+    {
+      "title": "Plain Craft Launcher 1",
+      "abbr": "PCL1",
+      "download": "https://lz.qaiu.top/parser?url=https://share.feijipan.com/s/kwAt8rhZ",
+      "version": "1.0.9",
+      "github": "https://github.com/LTCatt/PCL1"
+    }
+  ],
+  // ==========================
+  // 适用于 苹果电脑 的启动器
+  // ==========================
+  "macOSLauncher": [
+    {
+      "title": "Minecraft Launcher",
+      "download": "https://launcher.mojang.com/download/Minecraft.dmg",
+      "version": "latest",
+      "url": "https://www.minecraft.net"
+    },
+    {
+      "title": "Hello Minecraft! Launcher",
+      "abbr": "HMCL",
+      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.15/HMCL-3.6.15.sh",
+      "version": "3.6.15",
+      "github": "https://github.com/HMCL-dev/HMCL",
+      "url": "https://hmcl.huangyuhui.net",
+      "dev": {
+        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.15.289/HMCL-3.6.15.289.sh",
+        "version": "3.6.15.289"
+      }
+    },
+    {
+      "title": "ColorMC",
+      "download": "https://github.com/Coloryr/ColorMC/releases/download/a36.2025.4.15-1/colormc-macos-a36-x86_64.zip",
+      "version": "a36.2025.4.15-1",
+      "github": "https://github.com/Coloryr/ColorMC"
+    },
+    {
+      "title": "X Minecraft Launcher",
+      "abbr": "XMCL",
+      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.51.4/xmcl-0.51.4.dmg",
+      "version": "0.51.4",
+      "github": "https://github.com/Voxelum/x-minecraft-launcher",
+      "url": "https://xmcl.app"
+    },
+    {
+      "title": "MultiMC",
+      "abbr": "MMC",
+      "download": "https://files.multimc.org/downloads/mmc-develop-osx64.tar.gz",
+      "version": "latest",
+      "github": "https://github.com/MultiMC/Launcher",
+      "url": "https://multimc.org"
+    },
+    {
+      "title": "Betacraft Launcher",
+      "abbr": "Betacraft",
+      "download": "https://github.com/betacraftuk/betacraft-launcher/releases/download/1.09_17/BetaCraft-Launcher-macOS.zip",
+      "version": "1.09_17",
+      "github": "https://github.com/betacraftuk/betacraft-launcher",
+      "url": "https://betacraft.uk",
+      "dev": {
+        "download": "https://github.com/betacraftuk/betacraft-launcher/releases/download/1.09_17-rc2/BetaCraft-Launcher-macOS.zip",
+        "version": "1.09_17-rc2"
+      }
+    },
+    {
+      "title": "Prism Launcher",
+      "abbr": "Prism",
+      "download": "https://github.com/PrismLauncher/PrismLauncher/releases/download/9.4/PrismLauncher-macOS-9.4.zip",
+      "version": "9.4",
+      "github": "https://github.com/PrismLauncher/PrismLauncher",
+      "url": "https://prismlauncher.org"
+    },
+    {
+      "title": "LauncherX",
+      "download": "https://github.com/Corona-Studio/ProjBobcat/archive/refs/tags/v2.0.0.zip",
+      "version": "2.0.0",
+      "github": "https://github.com/corona-studio/projbobcat",
+      "url": "https://corona.studio/launcherx"
+    }
+  ],
+  // ============================
+  // 适用于 Linux系统 的启动器
+  // ============================
+  "LinuxLauncher": [
+    {
+      "title": "Minecraft Launcher",
+      "download": "https://launcher.mojang.com/download/Minecraft.tar.gz",
+      "version": "latest",
+      "url": "https://www.minecraft.net"
+    },
+    {
+      "title": "Hello Minecraft! Launcher",
+      "abbr": "HMCL",
+      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.15/HMCL-3.6.15.sh",
+      "version": "3.6.15",
+      "github": "https://github.com/HMCL-dev/HMCL",
+      "url": "https://hmcl.huangyuhui.net",
+      "dev": {
+        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.15.289/HMCL-3.6.15.289.sh",
+        "version": "3.6.15.289"
+      }
+    },
+    {
+      "title": "ColorMC",
+      "download": "https://github.com/Coloryr/ColorMC/releases/download/a36.2025.4.15-1/colormc-linux-a36-x86_64.AppImage",
+      "version": "a36.2025.4.15-1",
+      "github": "https://github.com/Coloryr/ColorMC"
+    },
+    {
+      "title": "X Minecraft Launcher",
+      "abbr": "XMCL",
+      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.51.4/xmcl-0.51.4-x86_64.AppImage",
+      "version": "0.51.4",
+      "github": "https://github.com/voxelum/x-minecraft-launcher",
+      "url": "https://xmcl.app"
+    },
+    {
+      "title": "LauncherX",
+      "download": "https://github.com/Corona-Studio/ProjBobcat/archive/refs/tags/v2.0.0.zip",
+      "version": "2.0.0",
+      "github": "https://github.com/corona-studio/projbobcat",
+      "url": "https://corona.studio/launcherx"
+    },
+    {
+      "title": "Betacraft Launcher",
+      "abbr": "Betacraft",
+      "download": "https://github.com/betacraftuk/betacraft-launcher/releases/download/1.09_17/launcher-1.09_17.jar",
+      "version": "1.09_17",
+      "github": "https://github.com/betacraftuk/betacraft-launcher",
+      "url": "https://betacraft.uk",
+      "dev": {
+        "download": "https://github.com/betacraftuk/betacraft-launcher/releases/download/1.09_17-rc2/launcher-1.09_17-rc2.jar",
+        "version": "1.09_17-rc2"
+      }
+    },
+    {
+      "title": "Prism Launcher",
+      "abbr": "Prism",
+      "download": "https://github.com/PrismLauncher/PrismLauncher/releases/download/9.4/PrismLauncher-Linux-x86_64.AppImage",
+      "version": "9.4",
+      "github": "https://github.com/PrismLauncher/PrismLauncher",
+      "url": "https://prismlauncher.org"
+    }
+  ]
+}
