@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import dataService from '../services/dataService'
+import i18nService from '../services/i18nService'
 
 export type ThemeMode = 'auto' | 'light' | 'dark'
 
 export const useAppStore = defineStore('app', () => {
   // 状态
   const themeMode = ref<ThemeMode>('auto')
+  const language = ref('zh-CN')
   const isLoading = ref(false)
   const githubStats = ref({
     stars: 0,
@@ -58,6 +60,16 @@ export const useAppStore = defineStore('app', () => {
     document.body.style.backgroundAttachment = 'fixed'
   }
   
+  const setLanguage = (lang: string) => {
+    language.value = lang
+    i18nService.setStoredLocale(lang)
+  }
+
+  const loadLocaleData = async () => {
+    const storedLocale = i18nService.getStoredLocale()
+    language.value = storedLocale
+  }
+
   const initializeApp = async () => {
     // 从localStorage恢复设置
     const savedTheme = localStorage.getItem('theme-mode') as ThemeMode
@@ -65,6 +77,9 @@ export const useAppStore = defineStore('app', () => {
     if (savedTheme) {
       themeMode.value = savedTheme
     }
+    
+    // 加载语言设置
+    await loadLocaleData()
     
     // 加载数据
     await loadGitHubStats()
@@ -86,6 +101,7 @@ export const useAppStore = defineStore('app', () => {
   return {
     // 状态
     themeMode,
+    language,
     isLoading,
     githubStats,
     
@@ -95,6 +111,8 @@ export const useAppStore = defineStore('app', () => {
     
     // 方法
     setThemeMode,
+    setLanguage,
+    loadLocaleData,
     loadGitHubStats,
     applyTheme,
     initializeApp

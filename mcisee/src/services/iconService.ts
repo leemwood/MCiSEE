@@ -51,7 +51,7 @@ export class IconService {
     )
 
     return results
-      .filter((result): result is PromiseFulfilledResult<T & { iconUrl: string }> => 
+      .filter((result): result is PromiseFulfilledResult<Awaited<T & { iconUrl: string }>> => 
         result.status === 'fulfilled'
       )
       .map(result => result.value)
