@@ -128,15 +128,18 @@
 
                 <!-- 网站图标 -->
                 <div class="website-icon">
-                  <img 
-                    v-if="website.icon" 
-                    :src="website.icon" 
-                    :alt="website.name"
-                    @error="handleImageError"
-                  >
-                  <div v-else class="default-icon">
-                    <i :class="getWebsiteIcon(website.type || 'website')"></i>
+                  <!-- 加载状态 -->
+                  <div v-if="isIconLoading(website)" class="icon-loading">
+                    <div class="loading-spinner"></div>
                   </div>
+                  <!-- 网站图标 -->
+                  <img 
+                    v-else
+                    :src="getWebsiteIcon(website)" 
+                    :alt="website.name"
+                    @error="handleImageError($event, website)"
+                    class="website-favicon"
+                  >
                 </div>
 
                 <!-- 网站信息 -->
@@ -265,6 +268,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
 import dataService from '../services/dataService'
+import IconService from '../services/iconService'
 import type { WebsiteCategory, WebsiteItem } from '../services/dataService'
 
 const appStore = useAppStore()
@@ -275,6 +279,8 @@ const error = ref('')
 const categories = ref<WebsiteCategory[]>([])
 const searchQuery = ref('')
 const selectedCategory = ref<string | null>(null)
+const websiteIcons = ref<Map<string, string>>(new Map())
+const iconLoadingStates = ref<Map<string, boolean>>(new Map())
 
 // 加载网站数据
 const loadWebsites = async () => {
@@ -283,11 +289,37 @@ const loadWebsites = async () => {
     error.value = ''
     const data = await dataService.getUtilityWebsiteData()
     categories.value = data
+    
+    // 异步加载网站图标
+    loadWebsiteIcons()
   } catch (err) {
     error.value = err instanceof Error ? err.message : '加载网站数据失败'
     console.error('Failed to load websites:', err)
   } finally {
     loading.value = false
+  }
+}
+
+// 加载网站图标
+const loadWebsiteIcons = async () => {
+  const allWebsites = categories.value.flatMap(category => category.websites)
+  
+  // 批量加载图标
+  for (const website of allWebsites) {
+    const websiteKey = `${website.url}-${website.name}`
+    iconLoadingStates.value.set(websiteKey, true)
+    
+    try {
+      const iconUrl = await IconService.getWebsiteIcon(website.url, website.name)
+      websiteIcons.value.set(websiteKey, iconUrl)
+    } catch (error) {
+      console.warn(`Failed to load icon for ${website.name}:`, error)
+      // 使用默认图标
+      const fallbackIcon = IconService.generateFallbackIcon(website.name)
+      websiteIcons.value.set(websiteKey, fallbackIcon)
+    } finally {
+      iconLoadingStates.value.set(websiteKey, false)
+    }
   }
 }
 
@@ -348,9 +380,25 @@ const clearSearch = () => {
   selectedCategory.value = null
 }
 
-const handleImageError = (event: Event) => {
+const handleImageError = (event: Event, website: WebsiteItem) => {
   const img = event.target as HTMLImageElement
-  img.style.display = 'none'
+  const websiteKey = `${website.url}-${website.name}`
+  
+  // 生成备用图标
+  const fallbackIcon = `data:image/svg+xml,${encodeURIComponent(`
+    <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect width="64" height="64" rx="8" fill="#6B7280"/>
+      <text x="32" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="white">
+        ${website.name.charAt(0).toUpperCase()}
+      </text>
+    </svg>
+  `)}`
+  
+  // 更新图标缓存
+  websiteIcons.value.set(websiteKey, fallbackIcon)
+  
+  // 设置备用图标
+  img.src = fallbackIcon
 }
 
 const getCategoryIcon = (categoryId: string) => {
@@ -367,7 +415,7 @@ const getCategoryIcon = (categoryId: string) => {
   return iconMap[categoryId] || 'icon-folder'
 }
 
-const getWebsiteIcon = (type: string) => {
+const getWebsiteTypeIcon = (type: string) => {
   const iconMap: Record<string, string> = {
     'tool': 'icon-tool',
     'mod': 'icon-puzzle',
@@ -428,8 +476,37 @@ const copyUrl = async (url: string) => {
   }
 }
 
+// 获取网站图标
+const getWebsiteIcon = (website: WebsiteItem): string => {
+  const websiteKey = `${website.url}-${website.name}`
+  
+  // 如果有预设图标，优先使用
+  if (website.icon) {
+    return website.icon
+  }
+  
+  // 从缓存中获取
+  const cachedIcon = websiteIcons.value.get(websiteKey)
+  if (cachedIcon) {
+    return cachedIcon
+  }
+  
+  // 返回默认图标
+  return '/icons/default-website.svg'
+}
+
+// 检查图标是否正在加载
+const isIconLoading = (website: WebsiteItem): boolean => {
+  const websiteKey = `${website.url}-${website.name}`
+  return iconLoadingStates.value.get(websiteKey) || false
+}
+
 // 生命周期
 onMounted(() => {
+  // 清理过期缓存
+  IconService.clearExpiredCache()
+  
+  // 加载网站数据
   loadWebsites()
 })
 </script>
@@ -682,13 +759,36 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--bg-secondary, #f8fafc);
 }
 
-.website-icon img {
+.website-favicon {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 0.5rem;
+}
+
+.icon-loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary, #f8fafc);
+}
+
+.icon-loading .loading-spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--border-color, #e5e7eb);
+  border-top: 2px solid var(--primary-color, #3b82f6);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0;
 }
 
 .default-icon {
