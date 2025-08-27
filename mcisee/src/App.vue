@@ -2,10 +2,12 @@
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import { useAppStore } from './stores/app'
+import { useI18n } from 'vue-i18n'
 import AppNavbar from './components/AppNavbar.vue'
 import AppFooter from './components/AppFooter.vue'
 
 const appStore = useAppStore()
+const { t } = useI18n()
 
 // 初始化应用
 onMounted(async () => {
@@ -30,7 +32,7 @@ onMounted(async () => {
     <div v-if="appStore.isLoading" class="loading-overlay">
       <div class="loading-spinner">
         <div class="spinner"></div>
-        <p>{{ appStore.t('common.loading', '加载中...') }}</p>
+        <p>{{ t('common.loading') }}</p>
       </div>
     </div>
   </div>

@@ -29,7 +29,7 @@
             class="nav-link"
             @click="closeMobileMenu"
           >
-            {{ appStore.t(route.titleKey, route.title) }}
+            {{ t(route.titleKey) }}
           </router-link>
         </div>
 
@@ -48,9 +48,9 @@
                 :key="lang.code"
                 class="dropdown-item"
                 @click="changeLanguage(lang.code)"
-                :class="{ active: appStore.language === lang.code }"
+                :class="{ active: getCurrentLocale()?.code === lang.code }"
               >
-                {{ lang.label }}
+                {{ lang.name }}
               </button>
             </div>
           </div>
@@ -71,7 +71,7 @@
                 :class="{ active: appStore.themeMode === theme.mode }"
               >
                 <i :class="theme.icon"></i>
-                {{ appStore.t(theme.labelKey, theme.label) }}
+                {{ t(theme.labelKey) || theme.label }}
               </button>
             </div>
           </div>
@@ -81,7 +81,7 @@
             href="https://github.com/teaSummer/MCiSEE" 
             target="_blank" 
             class="github-link"
-            :title="appStore.t('navbar.github', 'GitHub')"
+            :title="t('navbar.github') || 'GitHub'"
           >
             <i class="icon-github"></i>
           </a>
@@ -94,10 +94,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAppStore, type ThemeMode, type Language } from '../stores/app'
+import { useAppStore, type ThemeMode } from '../stores/app'
+import { useI18n } from '../composables/useI18n'
 
 const router = useRouter()
 const appStore = useAppStore()
+const { t, changeLocale, getCurrentLocale, supportedLocales } = useI18n()
 
 // 响应式状态
 const isMobileMenuOpen = ref(false)
@@ -106,23 +108,14 @@ const isThemeDropdownOpen = ref(false)
 
 // 导航路由
 const navRoutes = [
-  { path: '/', title: '首页', titleKey: 'navbar.home' },
-  { path: '/download', title: '下载', titleKey: 'navbar.download' },
-  { path: '/websites', title: '实用网站', titleKey: 'navbar.websites' },
-  { path: '/about', title: '关于', titleKey: 'navbar.about' }
+  { path: '/', titleKey: 'navbar.home' },
+  { path: '/download', titleKey: 'navbar.download' },
+  { path: '/websites', titleKey: 'navbar.websites' },
+  { path: '/about', titleKey: 'navbar.about' }
 ]
 
-// 语言选项
-const languages = [
-  { code: 'zh-CN' as Language, label: '简体中文' },
-  { code: 'zh-TW' as Language, label: '繁體中文' },
-  { code: 'zh-HK' as Language, label: '繁體中文（香港）' },
-  { code: 'en-US' as Language, label: 'English' },
-  { code: 'en-UD' as Language, label: 'English (Upside Down)' },
-  { code: 'it-IT' as Language, label: 'Italiano' },
-  { code: 'lzh' as Language, label: '文言文' },
-  { code: 'pt-BR' as Language, label: 'Português (Brasil)' }
-]
+// 语言选项使用国际化服务提供的数据
+const languages = supportedLocales
 
 // 主题选项
 const themes = [
@@ -133,13 +126,13 @@ const themes = [
 
 // 计算属性
 const currentLanguageLabel = computed(() => {
-  const lang = languages.find(l => l.code === appStore.language)
-  return lang?.label || '简体中文'
+  const currentLocale = getCurrentLocale()
+  return currentLocale?.name || '简体中文'
 })
 
 const currentThemeLabel = computed(() => {
   const theme = themes.find(t => t.mode === appStore.themeMode)
-  return appStore.t(theme?.labelKey || 'theme.auto', theme?.label || '跟随系统')
+  return t(theme?.labelKey || 'theme.auto') || theme?.label || '跟随系统'
 })
 
 const themeIcon = computed(() => {
@@ -166,8 +159,8 @@ const toggleThemeDropdown = () => {
   isLanguageDropdownOpen.value = false
 }
 
-const changeLanguage = (lang: Language) => {
-  appStore.setLanguage(lang)
+const changeLanguage = async (langCode: string) => {
+  await changeLocale(langCode)
   isLanguageDropdownOpen.value = false
 }
 

@@ -4,12 +4,12 @@
     <section class="page-header">
       <div class="container">
         <div class="header-content">
-          <h1 class="page-title">
-            {{ appStore.t('utility.title', '实用网站') }}
-          </h1>
-          <p class="page-subtitle">
-            {{ appStore.t('utility.subtitle', '精选的 Minecraft 相关实用网站，助力你的游戏体验') }}
-          </p>
+          <h1 class="hero-title">
+          {{ t('utility.title') || '实用网站' }}
+        </h1>
+        <p class="hero-subtitle">
+          {{ t('utility.subtitle') || '精选的 Minecraft 相关实用网站，助力你的游戏体验' }}
+        </p>
         </div>
       </div>
     </section>
@@ -24,7 +24,7 @@
             <input 
               v-model="searchQuery"
               type="text"
-              :placeholder="appStore.t('utility.search_placeholder', '搜索网站...')"
+              :placeholder="t('utility.search_placeholder') || '搜索网站...'"
               class="search-input"
             >
             <button 
@@ -43,7 +43,7 @@
               class="filter-button"
               :class="{ 'active': selectedCategory === null }"
             >
-              {{ appStore.t('utility.all_categories', '全部') }}
+              {{ t('utility.all_categories') || '全部' }}
             </button>
             <button 
               v-for="category in categories"
@@ -65,7 +65,7 @@
         <!-- 加载状态 -->
         <div v-if="loading" class="loading-container">
           <div class="loading-spinner"></div>
-          <p>{{ appStore.t('common.loading', '加载中...') }}</p>
+          <p>{{ t('common.loading') || '加载中...' }}</p>
         </div>
 
         <!-- 错误状态 -->
@@ -73,10 +73,10 @@
           <div class="error-icon">
             <i class="icon-alert"></i>
           </div>
-          <h3>{{ appStore.t('common.error', '加载失败') }}</h3>
+          <h3>{{ t('common.error') || '加载失败' }}</h3>
           <p>{{ error }}</p>
           <button @click="loadWebsites" class="btn btn-primary">
-            {{ appStore.t('common.retry', '重试') }}
+            {{ t('common.retry') || '重试' }}
           </button>
         </div>
 
@@ -85,9 +85,9 @@
           <!-- 搜索结果提示 -->
           <div v-if="searchQuery" class="search-results-info">
             <p>
-              {{ appStore.t('utility.search_results', '搜索结果') }}: 
+              {{ t('utility.search_results') || '搜索结果' }}: 
               <strong>{{ filteredWebsites.length }}</strong> 
-              {{ appStore.t('utility.websites_found', '个网站') }}
+              {{ t('utility.websites_found') || '个网站' }}
             </p>
           </div>
 
@@ -108,7 +108,7 @@
               <div class="category-stats">
                 <span class="website-count">
                   {{ getCategoryWebsites(category.id).length }} 
-                  {{ appStore.t('utility.websites', '个网站') }}
+                  {{ t('utility.websites') || '个网站' }}
                 </span>
               </div>
             </div>
@@ -123,7 +123,7 @@
               >
                 <!-- 特色标签 -->
                 <div v-if="website.featured" class="featured-badge">
-                  {{ appStore.t('utility.featured', '推荐') }}
+                  {{ t('utility.featured') || '推荐' }}
                 </div>
 
                 <!-- 网站图标 -->
@@ -185,7 +185,7 @@
                     @click="trackVisit(website.name)"
                   >
                     <i class="icon-external"></i>
-                    {{ appStore.t('utility.visit', '访问') }}
+                    {{ t('utility.visit') || '访问' }}
                   </a>
                   
                   <!-- 额外链接 -->
@@ -196,7 +196,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       class="link-button"
-                      :title="appStore.t('utility.github', 'GitHub')"
+                      :title="t('utility.github') || 'GitHub'"
                     >
                       <i class="icon-github"></i>
                     </a>
@@ -206,14 +206,14 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       class="link-button"
-                      :title="appStore.t('utility.docs', '文档')"
+                      :title="t('utility.docs') || '文档'"
                     >
                       <i class="icon-book"></i>
                     </a>
                     <button 
                       @click="copyUrl(website.url)"
                       class="link-button"
-                      :title="appStore.t('utility.copy_link', '复制链接')"
+                      :title="t('utility.copy_link') || '复制链接'"
                     >
                       <i class="icon-copy"></i>
                     </button>
@@ -228,10 +228,10 @@
             <div class="no-results-icon">
               <i class="icon-search"></i>
             </div>
-            <h3>{{ appStore.t('utility.no_results', '未找到相关网站') }}</h3>
-            <p>{{ appStore.t('utility.try_different_keywords', '尝试使用不同的关键词或选择其他分类') }}</p>
+            <h3>{{ t('utility.no_results') || '未找到相关网站' }}</h3>
+            <p>{{ t('utility.try_different_keywords') || '尝试使用不同的关键词或选择其他分类' }}</p>
             <button @click="clearSearch" class="btn btn-primary">
-              {{ appStore.t('utility.clear_search', '清除搜索') }}
+              {{ t('utility.clear_search') || '清除搜索' }}
             </button>
           </div>
         </div>
@@ -243,8 +243,8 @@
       <div class="container">
         <div class="submit-card">
           <div class="submit-content">
-            <h3>{{ appStore.t('utility.submit_title', '推荐网站') }}</h3>
-            <p>{{ appStore.t('utility.submit_description', '发现了好用的 Minecraft 相关网站？欢迎推荐给我们！') }}</p>
+            <h3>{{ t('utility.submit_title') || '推荐网站' }}</h3>
+            <p>{{ t('utility.submit_description') || '发现了好用的 Minecraft 相关网站？欢迎推荐给我们！' }}</p>
             <a 
               href="https://github.com/MCiSEE/MCiSEE/issues/new?template=website-submission.md"
               target="_blank"
@@ -252,7 +252,7 @@
               class="btn btn-primary"
             >
               <i class="icon-plus"></i>
-              {{ appStore.t('utility.submit_website', '推荐网站') }}
+              {{ t('utility.submit_website') || '推荐网站' }}
             </a>
           </div>
           <div class="submit-illustration">
@@ -267,11 +267,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
+import { useI18n } from '../composables/useI18n'
 import dataService from '../services/dataService'
 import IconService from '../services/iconService'
 import type { WebsiteCategory, WebsiteItem } from '../services/dataService'
 
 const appStore = useAppStore()
+const { t } = useI18n()
 
 // 响应式数据
 const loading = ref(true)

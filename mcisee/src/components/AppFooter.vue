@@ -7,22 +7,22 @@
           <div class="stat-item">
             <i class="icon-star"></i>
             <span class="stat-value">{{ appStore.githubStats.stars }}</span>
-            <span class="stat-label">{{ appStore.t('footer.stars', 'Stars') }}</span>
+            <span class="stat-label">{{ t('footer.stars') }}</span>
           </div>
           <div class="stat-item">
             <i class="icon-fork"></i>
             <span class="stat-value">{{ appStore.githubStats.forks }}</span>
-            <span class="stat-label">{{ appStore.t('footer.forks', 'Forks') }}</span>
+            <span class="stat-label">{{ t('footer.forks') }}</span>
           </div>
           <div class="stat-item">
             <i class="icon-eye"></i>
             <span class="stat-value">{{ appStore.githubStats.watchers }}</span>
-            <span class="stat-label">{{ appStore.t('footer.watchers', 'Watchers') }}</span>
+            <span class="stat-label">{{ t('footer.watchers') }}</span>
           </div>
           <div class="stat-item">
             <i class="icon-issue"></i>
             <span class="stat-value">{{ appStore.githubStats.issues }}</span>
-            <span class="stat-label">{{ appStore.t('footer.issues', 'Issues') }}</span>
+            <span class="stat-label">{{ t('footer.issues') }}</span>
           </div>
         </div>
       </div>
@@ -33,14 +33,14 @@
       <!-- 项目信息 -->
       <div class="project-info">
         <div class="info-section">
-          <h3 class="section-title">{{ appStore.t('footer.project', 'MCiSEE') }}</h3>
+          <h3 class="section-title">{{ t('footer.project') }}</h3>
           <p class="section-description">
-            {{ appStore.t('footer.description', 'Minecraft 整合包启动器与实用工具集合') }}
+            {{ t('footer.description') }}
           </p>
         </div>
 
         <div class="info-section">
-          <h3 class="section-title">{{ appStore.t('footer.links', '链接') }}</h3>
+          <h3 class="section-title">{{ t('footer.links') }}</h3>
           <div class="links-grid">
             <a 
               href="https://github.com/MCiSEE/MCiSEE" 
@@ -48,7 +48,7 @@
               class="footer-link"
             >
               <i class="icon-github"></i>
-              {{ appStore.t('footer.github', 'GitHub') }}
+              {{ t('footer.github') }}
             </a>
             <a 
               href="https://github.com/teaSummer/MCiSEE/releases" 
@@ -56,7 +56,7 @@
               class="footer-link"
             >
               <i class="icon-download"></i>
-              {{ appStore.t('footer.releases', '发布版本') }}
+              {{ t('footer.releases') }}
             </a>
             <a 
               href="https://github.com/teaSummer/MCiSEE/issues" 
@@ -64,7 +64,7 @@
               class="footer-link"
             >
               <i class="icon-bug"></i>
-              {{ appStore.t('footer.report', '问题反馈') }}
+              {{ t('footer.report') }}
             </a>
             <a 
               href="https://github.com/teaSummer/MCiSEE/wiki" 
@@ -72,13 +72,13 @@
               class="footer-link"
             >
               <i class="icon-book"></i>
-              {{ appStore.t('footer.wiki', '使用文档') }}
+              {{ t('footer.wiki') }}
             </a>
           </div>
         </div>
 
         <div class="info-section">
-          <h3 class="section-title">{{ appStore.t('footer.community', '社区') }}</h3>
+          <h3 class="section-title">{{ t('footer.community') }}</h3>
           <div class="links-grid">
             <a
               href="https://discord.gg/mcisee" 
@@ -86,12 +86,8 @@
               class="footer-link"
             >
               <i class="icon-discord"></i>
-              {{ appStore.t('footer.discord', 'Discord') }}
+              {{ t('footer.discord') }}
             </a>
-              href="https://discord.gg/mcisee" 
-              target="_blank" 
-              class="footer-link"
-            >
           </div>
         </div>
       </div>
@@ -100,11 +96,11 @@
       <div class="copyright">
         <div class="copyright-text">
           <p>
-            © {{ currentYear }} MCiSEE. {{ appStore.t('footer.copyright', 'All rights reserved.') }}
+            © {{ currentYear }} MCiSEE. {{ t('footer.copyright') }}
           </p>
           <p class="version-info">
-            {{ appStore.t('footer.version', 'Version') }} 2.0.0 | 
-            {{ appStore.t('footer.built_with', 'Built with') }} 
+            {{ t('footer.version') }} 2.0.0 | 
+            {{ t('footer.built_with') }} 
             <a href="https://vuejs.org" target="_blank" class="tech-link">Vue 3</a> & 
             <a href="https://vitejs.dev" target="_blank" class="tech-link">Vite</a>
           </p>
@@ -115,7 +111,7 @@
           v-show="showBackToTop"
           @click="scrollToTop"
           class="back-to-top"
-          :title="appStore.t('footer.back_to_top', '返回顶部')"
+          :title="t('footer.back_to_top')"
         >
           <i class="icon-arrow-up"></i>
         </button>
@@ -127,8 +123,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useAppStore } from '../stores/app'
+import { useI18n } from 'vue-i18n'
 
 const appStore = useAppStore()
+const { t } = useI18n()
 
 // 响应式状态
 const showBackToTop = ref(false)

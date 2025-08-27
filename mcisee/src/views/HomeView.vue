@@ -6,23 +6,23 @@
         <div class="hero-content">
           <div class="hero-text">
             <h1 class="hero-title">
-              {{ appStore.t('home.title', 'MCiSEE') }}
+              {{ t('home.title') || 'MCiSEE' }}
               <span class="version-badge">v2.0</span>
             </h1>
             <p class="hero-subtitle">
-              {{ appStore.t('home.subtitle', 'Minecraft 整合包启动器与实用工具集合') }}
+              {{ t('home.subtitle') || 'Minecraft 整合包启动器与实用工具集合' }}
             </p>
             <p class="hero-description">
-              {{ appStore.t('home.description', '为 Minecraft 玩家提供便捷的整合包管理、启动器下载和实用工具集合，让你的游戏体验更加顺畅。') }}
+              {{ t('home.description') || '为 Minecraft 玩家提供便捷的整合包管理、启动器下载和实用工具集合，让你的游戏体验更加顺畅。' }}
             </p>
             <div class="hero-actions">
               <router-link to="/download" class="btn btn-primary btn-lg">
                 <i class="icon-download"></i>
-                {{ appStore.t('home.download_now', '立即下载') }}
+                {{ t('home.download_now') || '立即下载' }}
               </router-link>
               <router-link to="/websites" class="btn btn-secondary btn-lg">
                 <i class="icon-globe"></i>
-                {{ appStore.t('home.explore_tools', '探索工具') }}
+                {{ t('home.explore_tools') || '探索工具' }}
               </router-link>
             </div>
           </div>
@@ -59,10 +59,10 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            {{ appStore.t('home.features_title', '核心特性') }}
+            {{ t('home.features_title') || '核心特性' }}
           </h2>
           <p class="section-subtitle">
-            {{ appStore.t('home.features_subtitle', '为 Minecraft 玩家量身打造的全方位解决方案') }}
+            {{ t('home.features_subtitle') || '为 Minecraft 玩家量身打造的全方位解决方案' }}
           </p>
         </div>
         <div class="features-grid">
@@ -71,10 +71,10 @@
               <i :class="feature.icon"></i>
             </div>
             <h3 class="feature-title">
-              {{ appStore.t(feature.titleKey, feature.title) }}
+              {{ t(feature.titleKey) || feature.title }}
             </h3>
             <p class="feature-description">
-              {{ appStore.t(feature.descKey, feature.description) }}
+              {{ t(feature.descKey) || feature.description }}
             </p>
           </div>
         </div>
@@ -87,19 +87,19 @@
         <div class="stats-grid">
           <div class="stat-item">
             <div class="stat-number">{{ appStore.githubStats.stars || '0' }}</div>
-            <div class="stat-label">{{ appStore.t('stats.stars', 'GitHub Stars') }}</div>
+            <div class="stat-label">{{ t('stats.stars') || 'GitHub Stars' }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">{{ appStore.githubStats.forks || '0' }}</div>
-            <div class="stat-label">{{ appStore.t('stats.forks', 'Forks') }}</div>
+            <div class="stat-label">{{ t('stats.forks') || 'Forks' }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">{{ launcherCount }}</div>
-            <div class="stat-label">{{ appStore.t('stats.launchers', '启动器') }}</div>
+            <div class="stat-label">{{ t('stats.launchers') || '启动器' }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">{{ websiteCount }}</div>
-            <div class="stat-label">{{ appStore.t('stats.websites', '实用网站') }}</div>
+            <div class="stat-label">{{ t('stats.websites') || '实用网站' }}</div>
           </div>
         </div>
       </div>
@@ -110,10 +110,10 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            {{ appStore.t('home.quickstart_title', '快速开始') }}
+            {{ t('home.quickstart_title') || '快速开始' }}
           </h2>
           <p class="section-subtitle">
-            {{ appStore.t('home.quickstart_subtitle', '三步即可开始使用 MCiSEE') }}
+            {{ t('home.quickstart_subtitle') || '三步即可开始使用 MCiSEE' }}
           </p>
         </div>
         <div class="steps-container">
@@ -121,10 +121,10 @@
             <div class="step-number">{{ index + 1 }}</div>
             <div class="step-content">
               <h3 class="step-title">
-                {{ appStore.t(step.titleKey, step.title) }}
+                {{ t(step.titleKey) || step.title }}
               </h3>
               <p class="step-description">
-                {{ appStore.t(step.descKey, step.description) }}
+                {{ t(step.descKey) || step.description }}
               </p>
             </div>
             <div class="step-icon">
@@ -141,10 +141,10 @@
         <div class="community-content">
           <div class="community-text">
             <h2 class="community-title">
-              {{ appStore.t('home.community_title', '加入我们的社区') }}
+              {{ t('home.community_title') || '加入我们的社区' }}
             </h2>
             <p class="community-description">
-              {{ appStore.t('home.community_description', '与其他 Minecraft 玩家交流经验，获取技术支持，分享你的创意和想法。') }}
+              {{ t('home.community_description') || '与其他 Minecraft 玩家交流经验，获取技术支持，分享你的创意和想法。' }}
             </p>
             <div class="community-links">
               <a href="https://github.com/MCiSEE/MCiSEE" target="_blank" class="community-link">
@@ -171,9 +171,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
+import { useI18n } from '../composables/useI18n'
 import dataService from '../services/dataService'
 
 const appStore = useAppStore()
+const { t } = useI18n()
 
 // 响应式数据
 const launcherCount = ref(0)

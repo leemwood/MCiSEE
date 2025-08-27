@@ -4,12 +4,12 @@
     <section class="page-header">
       <div class="container">
         <div class="header-content">
-          <h1 class="page-title">
-            {{ appStore.t('download.title', '下载启动器') }}
-          </h1>
-          <p class="page-subtitle">
-            {{ appStore.t('download.subtitle', '选择适合你的 Minecraft 启动器，开始你的游戏之旅') }}
-          </p>
+          <h1 class="hero-title">
+          {{ t('download.title') || '下载启动器' }}
+        </h1>
+        <p class="hero-subtitle">
+          {{ t('download.subtitle') || '选择适合你的 Minecraft 启动器，开始你的游戏之旅' }}
+        </p>
         </div>
       </div>
     </section>
@@ -20,7 +20,7 @@
         <!-- 加载状态 -->
         <div v-if="loading" class="loading-container">
           <div class="loading-spinner"></div>
-          <p>{{ appStore.t('common.loading', '加载中...') }}</p>
+          <p>{{ t('common.loading') || '加载中...' }}</p>
         </div>
 
         <!-- 启动器网格 -->
@@ -33,7 +33,7 @@
           >
             <!-- 特色标签 -->
             <div v-if="launcher.featured" class="featured-badge">
-              {{ appStore.t('download.featured', '推荐') }}
+              {{ t('download.featured') || '推荐' }}
             </div>
 
             <!-- 启动器图标 -->
@@ -109,7 +109,7 @@
                   class="link-button"
                 >
                   <i class="icon-globe"></i>
-                  {{ appStore.t('download.website', '官网') }}
+                  {{ t('download.website') || '官网' }}
                 </a>
                 <a 
                   v-if="launcher.github"
@@ -119,7 +119,7 @@
                   class="link-button"
                 >
                   <i class="icon-github"></i>
-                  {{ appStore.t('download.github', 'GitHub') }}
+                  {{ t('download.github') || 'GitHub' }}
                 </a>
                 <a 
                   v-if="launcher.docs"
@@ -129,7 +129,7 @@
                   class="link-button"
                 >
                   <i class="icon-book"></i>
-                  {{ appStore.t('download.docs', '文档') }}
+                  {{ t('download.docs') || '文档' }}
                 </a>
               </div>
             </div>
@@ -141,10 +141,10 @@
           <div class="error-icon">
             <i class="icon-alert"></i>
           </div>
-          <h3>{{ appStore.t('common.error', '加载失败') }}</h3>
+          <h3>{{ t('common.error') || '加载失败' }}</h3>
           <p>{{ error }}</p>
           <button @click="loadLaunchers" class="btn btn-primary">
-            {{ appStore.t('common.retry', '重试') }}
+            {{ t('common.retry') || '重试' }}
           </button>
         </div>
       </div>
@@ -155,10 +155,10 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            {{ appStore.t('download.instructions_title', '使用说明') }}
+            {{ t('download.instructions_title') || '使用说明' }}
           </h2>
           <p class="section-subtitle">
-            {{ appStore.t('download.instructions_subtitle', '如何选择和使用启动器') }}
+            {{ t('download.instructions_subtitle') || '如何选择和使用启动器' }}
           </p>
         </div>
 
@@ -167,24 +167,24 @@
             <div class="instruction-icon">
               <i class="icon-search"></i>
             </div>
-            <h3>{{ appStore.t('download.step1_title', '选择启动器') }}</h3>
-            <p>{{ appStore.t('download.step1_desc', '根据你的需求选择合适的启动器。推荐标签的启动器通常更稳定易用。') }}</p>
+            <h3>{{ t('download.step1_title') || '选择启动器' }}</h3>
+            <p>{{ t('download.step1_desc') || '根据你的需求选择合适的启动器。推荐标签的启动器通常更稳定易用。' }}</p>
           </div>
 
           <div class="instruction-card">
             <div class="instruction-icon">
               <i class="icon-download"></i>
             </div>
-            <h3>{{ appStore.t('download.step2_title', '下载安装') }}</h3>
-            <p>{{ appStore.t('download.step2_desc', '点击下载按钮获取启动器，根据你的操作系统选择对应版本。') }}</p>
+            <h3>{{ t('download.step2_title') || '下载安装' }}</h3>
+            <p>{{ t('download.step2_desc') || '点击下载按钮获取启动器，根据你的操作系统选择对应版本。' }}</p>
           </div>
 
           <div class="instruction-card">
             <div class="instruction-icon">
               <i class="icon-settings"></i>
             </div>
-            <h3>{{ appStore.t('download.step3_title', '配置启动') }}</h3>
-            <p>{{ appStore.t('download.step3_desc', '安装完成后，配置游戏路径和Java环境，即可开始使用。') }}</p>
+            <h3>{{ t('download.step3_title') || '配置启动' }}</h3>
+            <p>{{ t('download.step3_desc') || '安装完成后，配置游戏路径和Java环境，即可开始使用。' }}</p>
           </div>
         </div>
       </div>
@@ -195,7 +195,7 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            {{ appStore.t('download.faq_title', '常见问题') }}
+            {{ t('download.faq_title') || '常见问题' }}
           </h2>
         </div>
 
@@ -207,11 +207,11 @@
             :class="{ 'active': activeFaq === index }"
           >
             <div class="faq-question" @click="toggleFaq(index)">
-              <h4>{{ appStore.t(faq.questionKey, faq.question) }}</h4>
+              <h4>{{ t(faq.questionKey) || faq.question }}</h4>
               <i class="icon-chevron" :class="{ 'rotated': activeFaq === index }"></i>
             </div>
             <div class="faq-answer" v-show="activeFaq === index">
-              <p>{{ appStore.t(faq.answerKey, faq.answer) }}</p>
+              <p>{{ t(faq.answerKey) || faq.answer }}</p>
             </div>
           </div>
         </div>
@@ -223,10 +223,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
+import { useI18n } from '../composables/useI18n'
 import dataService from '../services/dataService'
 import type { LauncherItem } from '../services/dataService'
 
 const appStore = useAppStore()
+const { t } = useI18n()
 
 // 响应式数据
 const loading = ref(true)

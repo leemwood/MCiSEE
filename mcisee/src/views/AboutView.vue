@@ -9,7 +9,7 @@
           </div>
           <h1 class="page-title">MCiSEE</h1>
           <p class="page-subtitle">
-            {{ appStore.t('about.subtitle', 'Minecraft 启动器和实用网站集合') }}
+            {{ t('about.subtitle') || 'Minecraft 启动器和实用网站集合' }}
           </p>
           <div class="version-info">
             <span class="version-badge">v2.0.0</span>
@@ -24,26 +24,26 @@
         <div class="intro-grid">
           <div class="intro-content">
             <h2 class="section-title">
-              {{ appStore.t('about.intro_title', '关于项目') }}
+              {{ t('about.intro_title') || '关于项目' }}
             </h2>
             <div class="intro-text">
-              <p>{{ appStore.t('about.intro_p1', 'MCiSEE 是一个专为 Minecraft 玩家打造的综合性资源平台，致力于为玩家提供最全面、最实用的启动器和网站资源。') }}</p>
-              <p>{{ appStore.t('about.intro_p2', '我们精心收集和整理了各种优秀的 Minecraft 启动器，以及与 Minecraft 相关的实用网站，帮助玩家更好地享受游戏体验。') }}</p>
-              <p>{{ appStore.t('about.intro_p3', '项目完全开源，欢迎社区贡献和反馈，让我们一起打造更好的 Minecraft 生态。') }}</p>
+              <p>{{ t('about.intro_p1') || 'MCiSEE 是一个专为 Minecraft 玩家打造的综合性资源平台，致力于为玩家提供最全面、最实用的启动器和网站资源。' }}</p>
+              <p>{{ t('about.intro_p2') || '我们精心收集和整理了各种优秀的 Minecraft 启动器，以及与 Minecraft 相关的实用网站，帮助玩家更好地享受游戏体验。' }}</p>
+              <p>{{ t('about.intro_p3') || '项目完全开源，欢迎社区贡献和反馈，让我们一起打造更好的 Minecraft 生态。' }}</p>
             </div>
             
             <div class="project-stats">
               <div class="stat-item">
                 <div class="stat-number">{{ githubStats.stars || '---' }}</div>
-                <div class="stat-label">{{ appStore.t('about.stars', 'Stars') }}</div>
+                <div class="stat-label">{{ t('about.stars') || 'Stars' }}</div>
               </div>
               <div class="stat-item">
                 <div class="stat-number">{{ githubStats.forks || '---' }}</div>
-                <div class="stat-label">{{ appStore.t('about.forks', 'Forks') }}</div>
+                <div class="stat-label">{{ t('about.forks') || 'Forks' }}</div>
               </div>
               <div class="stat-item">
                 <div class="stat-number">{{ githubStats.watchers || '---' }}</div>
-                <div class="stat-label">{{ appStore.t('about.watchers', 'Watchers') }}</div>
+                <div class="stat-label">{{ t('about.watchers') || 'Watchers' }}</div>
               </div>
             </div>
           </div>
@@ -52,18 +52,18 @@
             <div class="feature-cards">
               <div class="feature-card">
                 <i class="icon-rocket"></i>
-                <h4>{{ appStore.t('about.feature1_title', '启动器集合') }}</h4>
-                <p>{{ appStore.t('about.feature1_desc', '收录各种优秀的 Minecraft 启动器') }}</p>
+                <h4>{{ t('about.feature1_title') || '启动器集合' }}</h4>
+                <p>{{ t('about.feature1_desc') || '收录各种优秀的 Minecraft 启动器' }}</p>
               </div>
               <div class="feature-card">
                 <i class="icon-globe"></i>
-                <h4>{{ appStore.t('about.feature2_title', '实用网站') }}</h4>
-                <p>{{ appStore.t('about.feature2_desc', '精选 Minecraft 相关的实用网站') }}</p>
+                <h4>{{ t('about.feature2_title') || '实用网站' }}</h4>
+                <p>{{ t('about.feature2_desc') || '精选 Minecraft 相关的实用网站' }}</p>
               </div>
               <div class="feature-card">
                 <i class="icon-heart"></i>
-                <h4>{{ appStore.t('about.feature3_title', '开源免费') }}</h4>
-                <p>{{ appStore.t('about.feature3_desc', '完全开源，永久免费使用') }}</p>
+                <h4>{{ t('about.feature3_title') || '开源免费' }}</h4>
+                <p>{{ t('about.feature3_desc') || '完全开源，永久免费使用' }}</p>
               </div>
             </div>
           </div>
@@ -78,10 +78,10 @@
           <div class="settings-header">
             <h2 class="section-title">
               <i class="icon-settings"></i>
-              {{ appStore.t('about.settings_title', '网站设置') }}
+              {{ t('about.settings_title') || '网站设置' }}
             </h2>
             <p class="section-subtitle">
-              {{ appStore.t('about.settings_subtitle', '个性化你的浏览体验') }}
+              {{ t('about.settings_subtitle') || '个性化你的浏览体验' }}
             </p>
           </div>
 
@@ -91,10 +91,10 @@
               <div class="setting-header">
                 <h3 class="setting-title">
                   <i class="icon-palette"></i>
-                  {{ appStore.t('about.theme_title', '主题模式') }}
+                  {{ t('about.theme_title') || '主题模式' }}
                 </h3>
                 <p class="setting-description">
-                  {{ appStore.t('about.theme_description', '选择你喜欢的主题模式') }}
+                  {{ t('about.theme_description') || '选择你喜欢的主题模式' }}
                 </p>
               </div>
               <div class="theme-options">
@@ -114,8 +114,8 @@
                     <i :class="theme.icon"></i>
                   </div>
                   <div class="theme-info">
-                    <div class="theme-name">{{ appStore.t(theme.labelKey, theme.label) }}</div>
-                    <div class="theme-desc">{{ appStore.t(theme.descKey, theme.description) }}</div>
+                    <div class="theme-name">{{ t(theme.labelKey) || theme.label }}</div>
+                  <div class="theme-desc">{{ t(theme.descKey) || theme.description }}</div>
                   </div>
                 </label>
               </div>
@@ -126,10 +126,10 @@
               <div class="setting-header">
                 <h3 class="setting-title">
                   <i class="icon-globe"></i>
-                  {{ appStore.t('about.language_title', '语言设置') }}
+                  {{ t('about.language_title') || '语言设置' }}
                 </h3>
                 <p class="setting-description">
-                  {{ appStore.t('about.language_description', '选择界面显示语言') }}
+                  {{ t('about.language_description') || '选择界面显示语言' }}
                 </p>
               </div>
               <div class="language-selector">
@@ -154,7 +154,7 @@
               <div class="setting-header">
                 <h3 class="setting-title">
                   <i class="icon-sliders"></i>
-                  {{ appStore.t('about.other_settings_title', '其他设置') }}
+                  {{ t('about.other_settings_title') || '其他设置' }}
                 </h3>
               </div>
               <div class="other-settings">
@@ -166,7 +166,7 @@
                       @change="handleAnimationChange"
                     >
                     <span class="checkmark"></span>
-                    {{ appStore.t('about.enable_animations', '启用动画效果') }}
+                    {{ t('about.enable_animations') || '启用动画效果' }}
                   </label>
                 </div>
                 <div class="setting-item">
@@ -177,7 +177,7 @@
                       @change="handleSoundChange"
                     >
                     <span class="checkmark"></span>
-                    {{ appStore.t('about.enable_sounds', '启用音效') }}
+                    {{ t('about.enable_sounds') || '启用音效' }}
                   </label>
                 </div>
               </div>
@@ -188,11 +188,11 @@
           <div class="settings-actions">
             <button @click="resetSettings" class="btn btn-outline">
               <i class="icon-refresh"></i>
-              {{ appStore.t('about.reset_settings', '重置设置') }}
+              {{ t('about.reset_settings') || '重置设置' }}
             </button>
             <button @click="exportSettings" class="btn btn-outline">
               <i class="icon-download"></i>
-              {{ appStore.t('about.export_settings', '导出设置') }}
+              {{ t('about.export_settings') || '导出设置' }}
             </button>
           </div>
         </div>
@@ -204,10 +204,10 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            {{ appStore.t('about.team_title', '开发团队') }}
+            {{ t('about.team_title') || '开发团队' }}
           </h2>
           <p class="section-subtitle">
-            {{ appStore.t('about.team_subtitle', '感谢所有为项目做出贡献的开发者') }}
+            {{ t('about.team_subtitle') || '感谢所有为项目做出贡献的开发者' }}
           </p>
         </div>
 
@@ -272,7 +272,7 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">
-            {{ appStore.t('about.links_title', '相关链接') }}
+            {{ t('about.links_title') || '相关链接' }}
           </h2>
         </div>
 
@@ -289,8 +289,8 @@
               <i :class="link.icon"></i>
             </div>
             <div class="link-info">
-              <h3 class="link-name">{{ appStore.t(link.nameKey, link.name) }}</h3>
-              <p class="link-description">{{ appStore.t(link.descKey, link.description) }}</p>
+              <h3 class="link-name">{{ t(link.nameKey) || link.name }}</h3>
+              <p class="link-description">{{ t(link.descKey) || link.description }}</p>
             </div>
             <div class="link-arrow">
               <i class="icon-arrow-right"></i>
@@ -305,8 +305,8 @@
       <div class="container">
         <div class="license-card">
           <div class="license-content">
-            <h3>{{ appStore.t('about.license_title', '开源许可') }}</h3>
-            <p>{{ appStore.t('about.license_description', '本项目基于 MIT 许可证开源，你可以自由使用、修改和分发。') }}</p>
+            <h3>{{ t('about.license_title') || '开源许可' }}</h3>
+            <p>{{ t('about.license_description') || '本项目基于 MIT 许可证开源，你可以自由使用、修改和分发。' }}</p>
             <div class="license-actions">
               <a 
                 href="https://github.com/MCiSEE/MCiSEE/blob/main/LICENSE"
@@ -315,7 +315,7 @@
                 class="btn btn-outline"
               >
                 <i class="icon-file"></i>
-                {{ appStore.t('about.view_license', '查看许可证') }}
+                {{ t('about.view_license') || '查看许可证' }}
               </a>
             </div>
           </div>
@@ -331,8 +331,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
+import { useI18n } from '../composables/useI18n'
 
 const appStore = useAppStore()
+const { t } = useI18n()
 
 // 响应式数据
 const enableAnimations = ref(true)
@@ -449,7 +451,7 @@ const handleSoundChange = () => {
 }
 
 const resetSettings = () => {
-  if (confirm(appStore.t('about.confirm_reset', '确定要重置所有设置吗？'))) {
+  if (confirm(t('about.confirm_reset') || '确定要重置所有设置吗？')) {
     appStore.themeMode = 'auto'
     appStore.language = 'zh-CN'
     enableAnimations.value = true
