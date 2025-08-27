@@ -61,7 +61,7 @@
 body {
   min-height: 100vh;
   color: var(--color-text);
-  background: var(--color-background);
+  /* 移除固定背景色，允许JavaScript设置背景图 */
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -83,4 +83,18 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 主题相关的背景样式 */
+body.light-theme {
+  background-color: var(--color-background);
+}
+
+body.dark-theme {
+  background-color: var(--vt-c-black);
+}
+
+/* 确保背景图能正确显示 */
+body[style*="background-image"] {
+  background-color: transparent !important;
 }

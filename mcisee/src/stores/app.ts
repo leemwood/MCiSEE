@@ -54,10 +54,13 @@ export const useAppStore = defineStore('app', () => {
       dark: '/assets/image/dark.webp'
     }
     
-    document.body.style.backgroundImage = `url('${backgroundImages[theme]}')`
+    const backgroundUrl = backgroundImages[theme]
+    
+    document.body.style.backgroundImage = `url('${backgroundUrl}')`
     document.body.style.backgroundSize = 'cover'
     document.body.style.backgroundPosition = 'center'
     document.body.style.backgroundAttachment = 'fixed'
+    document.body.style.backgroundRepeat = 'no-repeat'
   }
   
   const setLanguage = (lang: string) => {

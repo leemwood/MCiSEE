@@ -54,9 +54,14 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.6;
   color: var(--text-color, #374151);
-  background: var(--bg-color, #ffffff);
+  /* 移除固定背景色，允许JavaScript动态设置背景图 */
   transition: all 0.3s ease;
   min-height: 100vh;
+}
+
+/* 当没有背景图时的默认背景色 */
+body:not([style*="background-image"]) {
+  background: var(--bg-color, #ffffff);
 }
 
 /* CSS变量定义 */
