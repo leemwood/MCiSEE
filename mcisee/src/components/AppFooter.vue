@@ -160,8 +160,6 @@ onUnmounted(() => {
 
 <style scoped>
 .app-footer {
-  background: var(--footer-bg, #f8fafc);
-  border-top: 1px solid var(--border-color, #e5e7eb);
   margin-top: auto;
   padding: 3rem 0 1rem;
 }
@@ -190,16 +188,15 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   padding: 1.5rem 1rem;
-  background: var(--card-bg, white);
-  border: 1px solid var(--border-color, #e5e7eb);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 0.75rem;
   transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(155, 140, 140, 0.1);
 }
 
 .stat-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(155, 147, 147, 0.15);
 }
 
 .stat-item i {
@@ -211,13 +208,13 @@ onUnmounted(() => {
 .stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-color, #111827);
+  color: #000000;
   margin-bottom: 0.25rem;
 }
 
 .stat-label {
   font-size: 0.875rem;
-  color: var(--text-secondary, #6b7280);
+  color: #000000;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -244,12 +241,12 @@ onUnmounted(() => {
 .section-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--text-color, #111827);
+  color: #000000;
   margin-bottom: 1rem;
 }
 
 .section-description {
-  color: var(--text-secondary, #6b7280);
+  color: #000000;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -265,7 +262,7 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--text-secondary, #6b7280);
+  color: #000000;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -295,7 +292,7 @@ onUnmounted(() => {
 
 .copyright-text p {
   margin: 0.25rem 0;
-  color: var(--text-secondary, #6b7280);
+  color: #000000;
   font-size: 0.875rem;
 }
 

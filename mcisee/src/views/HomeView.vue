@@ -518,7 +518,7 @@ onMounted(() => {
 .feature-card {
   text-align: center;
   padding: 2rem;
-  background: var(--card-bg,);
+  background: rgba(255, 255, 255, 0.342);
   border-radius: 1rem;
   border: 1px solid var(--border-color, #e5e7eb17);
   transition: all 0.3s ease;
