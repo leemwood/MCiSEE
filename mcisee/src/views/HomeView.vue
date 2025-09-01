@@ -293,14 +293,6 @@ onMounted(() => {
   padding: 0 1rem;
 }
 
-/* 英雄区域 */
-.hero-section {
-  padding: 4rem 0;
-  background: linear-gradient(135deg, var(--primary-color, #3b82f6) 0%, var(--primary-hover, #2563eb) 100%);
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
 
 .hero-section::before {
   content: '';
@@ -495,7 +487,7 @@ onMounted(() => {
 /* 特性区域 */
 .features-section {
   padding: 5rem 0;
-  background: var(--bg-color, #ffffff);
+
 }
 
 .section-header {
@@ -526,9 +518,9 @@ onMounted(() => {
 .feature-card {
   text-align: center;
   padding: 2rem;
-  background: var(--card-bg, white);
+  background: var(--card-bg,);
   border-radius: 1rem;
-  border: 1px solid var(--border-color, #e5e7eb);
+  border: 1px solid var(--border-color, #e5e7eb17);
   transition: all 0.3s ease;
   box-shadow: var(--shadow);
 }
@@ -536,19 +528,19 @@ onMounted(() => {
 .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--primary-color, #3b82f6);
+  border-color: var(--primary-color, #4376c734);
 }
 
 .feature-icon {
   width: 4rem;
   height: 4rem;
-  background: linear-gradient(135deg, var(--primary-color, #3b82f6), var(--primary-hover, #2563eb));
+  background: linear-gradient(135deg, var(--primary-color, #0dd1b041), var(--primary-hover, #2563eb));
   border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: 1.5rem;
 }
 
@@ -567,8 +559,8 @@ onMounted(() => {
 /* 统计区域 */
 .stats-section {
   padding: 3rem 0;
-  background: var(--primary-color, #3b82f6);
-  color: white;
+
+  color: rgb(0, 1, 15);
 }
 
 .stats-grid {
@@ -594,7 +586,6 @@ onMounted(() => {
 /* 快速开始区域 */
 .quickstart-section {
   padding: 5rem 0;
-  background: var(--bg-color, #f8fafc);
 }
 
 .steps-container {
@@ -610,7 +601,7 @@ onMounted(() => {
   align-items: center;
   gap: 2rem;
   padding: 2rem;
-  background: var(--card-bg, white);
+
   border-radius: 1rem;
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
@@ -624,8 +615,6 @@ onMounted(() => {
 .step-number {
   width: 3rem;
   height: 3rem;
-  background: var(--primary-color, #3b82f6);
-  color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -642,25 +631,24 @@ onMounted(() => {
 .step-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-color, #111827);
+  color: var(--text-color, #000000);
   margin-bottom: 0.5rem;
 }
 
 .step-description {
-  color: var(--text-secondary, #6b7280);
+  color: var(--text-secondary, #000000);
   line-height: 1.6;
 }
 
 .step-icon {
   font-size: 2rem;
-  color: var(--primary-color, #3b82f6);
   flex-shrink: 0;
 }
 
 /* 社区区域 */
 .community-section {
   padding: 5rem 0;
-  background: linear-gradient(135deg, var(--primary-color, #3b82f6), var(--primary-hover, #2563eb));
+  background: linear-gradient(135deg, var(--primary-hover, #2563eb));
   color: white;
 }
 
