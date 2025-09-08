@@ -39,63 +39,38 @@ onMounted(async () => {
 </template>
 
 <style>
-/* 全局样式重置 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  line-height: 1.6;
-  color: var(--text-color, #374151);
-  /* 移除固定背景色，允许JavaScript动态设置背景图 */
-  transition: all 0.3s ease;
-  min-height: 100vh;
-}
-
-/* 当没有背景图时的默认背景色 */
-body:not([style*="background-image"]) {
-  background: var(--bg-color, #ffffff);
-}
-
-/* CSS变量定义 */
+/* 使用设计系统的CSS变量 */
 :root {
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --secondary-color: #6b7280;
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --error-color: #ef4444;
-  --text-color: #374151;
-  --text-secondary: #6b7280;
-  --bg-color: #ffffff;
-  --card-bg: #ffffff;
-  --border-color: #e5e7eb;
-  --hover-bg: rgba(0, 0, 0, 0.05);
-  --active-bg: rgba(59, 130, 246, 0.1);
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --primary-color: var(--color-primary-600);
+  --primary-hover: var(--color-primary-700);
+  --secondary-color: var(--color-gray-500);
+  --success-color: var(--color-success-500);
+  --warning-color: var(--color-warning-500);
+  --error-color: var(--color-error-500);
+  --text-color: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --bg-color: var(--color-background);
+  --card-bg: var(--color-surface);
+  --border-color: var(--color-border);
+  --hover-bg: var(--color-gray-100);
+  --active-bg: var(--color-primary-100);
+  --shadow: var(--shadow-sm);
+  --shadow-lg: var(--shadow-lg);
 }
 
 /* 暗色模式变量 */
 .dark-theme {
-  --primary-color: #60a5fa;
-  --primary-hover: #3b82f6;
-  --text-color: #f9fafb;
-  --text-secondary: #d1d5db;
-  --bg-color: #111827;
-  --card-bg: #1f2937;
-  --border-color: #374151;
-  --hover-bg: rgba(255, 255, 255, 0.1);
-  --active-bg: rgba(96, 165, 250, 0.2);
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+  --primary-color: var(--color-primary-400);
+  --primary-hover: var(--color-primary-500);
+  --text-color: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --bg-color: var(--color-background);
+  --card-bg: var(--color-surface);
+  --border-color: var(--color-border);
+  --hover-bg: var(--color-gray-800);
+  --active-bg: var(--color-primary-900);
+  --shadow: var(--shadow-sm);
+  --shadow-lg: var(--shadow-lg);
 }
 
 /* 应用容器 */
@@ -108,8 +83,8 @@ body:not([style*="background-image"]) {
 /* 主要内容区域 */
 .main-content {
   flex: 1;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
 }
 
 /* 加载覆盖层 */
@@ -123,25 +98,27 @@ body:not([style*="background-image"]) {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: var(--z-modal);
+  backdrop-filter: blur(4px);
 }
 
 .loading-spinner {
-  background: var(--card-bg, white);
-  padding: 2rem;
-  border-radius: 1rem;
+  background: var(--card-bg);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
   text-align: center;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-2xl);
+  border: 1px solid var(--border-color);
 }
 
 .spinner {
   width: 3rem;
   height: 3rem;
-  border: 3px solid var(--border-color, #e5e7eb);
-  border-top: 3px solid var(--primary-color, #3b82f6);
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
+  margin: 0 auto var(--spacing-md);
 }
 
 @keyframes spin {
@@ -150,45 +127,21 @@ body:not([style*="background-image"]) {
 }
 
 .loading-spinner p {
-  color: var(--text-secondary, #6b7280);
-  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .main-content {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
   }
-}
-
-/* 滚动条样式 */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-color);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
-}
-
-/* 选择文本样式 */
-::selection {
-  background: var(--primary-color);
-  color: white;
-}
-
-/* 焦点样式 */
-:focus-visible {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+  
+  .loading-spinner {
+    padding: var(--spacing-lg);
+    margin: var(--spacing-md);
+  }
 }
 </style>

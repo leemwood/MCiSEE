@@ -191,17 +191,17 @@ onUnmounted(() => {
 .navbar {
   background: var(--navbar-bg, rgba(255, 255, 255, 0.95));
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
-  z-index: 1000;
-  transition: all 0.3s ease;
+  z-index: var(--z-sticky);
+  transition: all var(--transition-normal);
 }
 
 .navbar-container {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--container-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
