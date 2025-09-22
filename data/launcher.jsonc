@@ -6,8 +6,8 @@
     {
       "title": "Fold Craft Launcher",
       "abbr": "FCL",
-      "download": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.2.4.9/FCL-release-1.2.4.9-all.apk",
-      "version": "1.2.4.9",
+      "download": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.2.5.5/FCL-release-1.2.5.5-all.apk",
+      "version": "1.2.5.5",
       "github": "https://github.com/FCL-Team/FoldCraftLauncher",
       "url": "https://fcl-team.github.io"
     },
@@ -27,9 +27,16 @@
     },
     {
       "title": "Zalith Launcher",
-      "download": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/140700/ZalithLauncher-1.4.0.7.apk",
-      "version": "1.4.0.7",
+      "download": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/140800/ZalithLauncher-1.4.0.8.apk",
+      "version": "1.4.0.8",
       "github": "https://github.com/ZalithLauncher/ZalithLauncher",
+      "url": "https://zalithlauncher.cn/"
+    },
+    {
+      "title": "Zalith Launcher 2",
+      "download": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20250921a/ZalithLauncher-2.0.0_beta-20250921a.apk",
+      "version": "2.0.0_beta-20250921a",
+      "github": "https://github.com/ZalithLauncher/ZalithLauncher2",
       "url": "https://zalithlauncher.cn/"
     },
     {
@@ -76,20 +83,20 @@
     {
       "title": "Hello Minecraft! Launcher",
       "abbr": "HMCL",
-      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.16/HMCL-3.6.16.exe",
-      "version": "3.6.16",
+      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.17/HMCL-3.6.17.exe",
+      "version": "3.6.17",
       "github": "https://github.com/HMCL-dev/HMCL",
       "url": "https://hmcl.huangyuhui.net",
       "dev": {
-        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.16.292/HMCL-3.6.16.292.exe",
-        "version": "3.6.16.292"
+        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.17.296/HMCL-3.6.17.296.exe",
+        "version": "3.6.17.296"
       }
     },
     {
       "title": "Plain Craft Launcher 2",
       "abbr": "PCL2",
       "download": "https://github.com/Hex-Dragon/PCL2/raw/refs/heads/main/%E6%9C%80%E6%96%B0%E6%AD%A3%E5%BC%8F%E7%89%88.zip",
-      "version": "2.10.6",
+      "version": "2.10.8",
       "github": "https://github.com/Hex-Dragon/PCL2",
       "url": "https://afdian.com/a/LTCat"
     },
@@ -114,8 +121,8 @@
     {
       "title": "X Minecraft Launcher",
       "abbr": "XMCL",
-      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.51.6/xmcl-0.51.6-win32-x64.zip",
-      "version": "0.51.6",
+      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.52.0/xmcl-0.52.0-win32-x64.zip",
+      "version": "0.52.0",
       "github": "https://github.com/voxelum/x-minecraft-launcher",
       "url": "https://xmcl.app"
     },
@@ -127,8 +134,8 @@
       "version": "2.12.3",
       "github": "https://github.com/PCL-Community/PCL2-CE",
       "dev": {
-        "download": "https://github.com/PCL-Community/PCL2-CE/releases/download/2.13.0-beta.2/PCL2_CE_Beta_x64.exe",
-        "version": "2.13.0-beta.2"
+        "download": "https://github.com/PCL-Community/PCL2-CE/releases/download/2.13.0-beta.9/PCL2_CE_Beta_x64.exe",
+        "version": "2.13.0-beta.9"
       }
     },
     {
@@ -151,8 +158,8 @@
       "github": "https://github.com/Xcube-Studio/Natsurainko.FluentLauncher",
       "url": "https://fluentlauncher.natsurainko.work/",
       "dev": {
-        "download": "https://github.com/Xcube-Studio/Natsurainko.FluentLauncher/releases/download/pre-release-v2.3.8.1/package.msixbundle",
-        "version": "pre-release-v2.3.8.1"
+        "download": "https://github.com/Xcube-Studio/Natsurainko.FluentLauncher/releases/download/pre-release-v2.3.8.2/package.msixbundle",
+        "version": "pre-release-v2.3.8.2"
       }
     },
     {
@@ -210,13 +217,13 @@
     {
       "title": "Hello Minecraft! Launcher",
       "abbr": "HMCL",
-      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.16/HMCL-3.6.16.sh",
-      "version": "3.6.16",
+      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.17/HMCL-3.6.17.sh",
+      "version": "3.6.17",
       "github": "https://github.com/HMCL-dev/HMCL",
       "url": "https://hmcl.huangyuhui.net",
       "dev": {
-        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.16.292/HMCL-3.6.16.292.sh",
-        "version": "3.6.16.292"
+        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.17.296/HMCL-3.6.17.296.sh",
+        "version": "3.6.17.296"
       }
     },
     {
@@ -228,8 +235,8 @@
     {
       "title": "X Minecraft Launcher",
       "abbr": "XMCL",
-      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.51.6/xmcl-0.51.6.dmg",
-      "version": "0.51.6",
+      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.52.0/xmcl-0.52.0.dmg",
+      "version": "0.52.0",
       "github": "https://github.com/Voxelum/x-minecraft-launcher",
       "url": "https://xmcl.app"
     },
@@ -282,13 +289,13 @@
     {
       "title": "Hello Minecraft! Launcher",
       "abbr": "HMCL",
-      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.16/HMCL-3.6.16.sh",
-      "version": "3.6.16",
+      "download": "https://github.com/HMCL-dev/HMCL/releases/download/release-3.6.17/HMCL-3.6.17.sh",
+      "version": "3.6.17",
       "github": "https://github.com/HMCL-dev/HMCL",
       "url": "https://hmcl.huangyuhui.net",
       "dev": {
-        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.16.292/HMCL-3.6.16.292.sh",
-        "version": "3.6.16.292"
+        "download": "https://github.com/HMCL-dev/HMCL/releases/download/v3.6.17.296/HMCL-3.6.17.296.sh",
+        "version": "3.6.17.296"
       }
     },
     {
@@ -300,8 +307,8 @@
     {
       "title": "X Minecraft Launcher",
       "abbr": "XMCL",
-      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.51.6/xmcl-0.51.6-x86_64.AppImage",
-      "version": "0.51.6",
+      "download": "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v0.52.0/xmcl-0.52.0-x86_64.AppImage",
+      "version": "0.52.0",
       "github": "https://github.com/voxelum/x-minecraft-launcher",
       "url": "https://xmcl.app"
     },
