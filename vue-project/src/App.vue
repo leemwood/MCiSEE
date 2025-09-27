@@ -208,7 +208,10 @@ export default {
 
     // 公告相关方法
     const switchAnnouncement = () => {
-      currentAnnouncementIndex.value = (currentAnnouncementIndex.value + 1) % announcements.value.length
+      if (announcements.value.length > 0) {
+        currentAnnouncementIndex.value = (currentAnnouncementIndex.value + 1) % announcements.value.length
+        console.log('切换到公告索引:', currentAnnouncementIndex.value)
+      }
     }
 
     const initAnnouncements = async () => {
@@ -220,7 +223,11 @@ export default {
       announcements.value = announcementKeys.map(key => i18n.t(key))
       
       // 启动公告轮播
-      announcementInterval = setInterval(switchAnnouncement, 5000)
+      if (announcements.value.length > 0) {
+        // 重置索引为0
+        currentAnnouncementIndex.value = 0
+        announcementInterval = setInterval(switchAnnouncement, 5000)
+      }
     }
 
     // 方法
