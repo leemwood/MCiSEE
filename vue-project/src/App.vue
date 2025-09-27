@@ -44,7 +44,48 @@
 
     <!-- 页脚 -->
     <footer class="footer">
-      <p>&copy; 2024 MCiSEE. 所见皆是Minecraft.</p>
+      <div class="footer-content">
+        <h2>统计信息</h2>
+        <hr>
+        <div class="footer-stats">
+          <div class="footer-stat-item">
+            <h3>访问统计</h3>
+            <div class="stat-content">
+              <img src="https://visitor-badge.laobi.icu/badge?page_id=teaSummer.MCiSEE" alt="Visitor Count">
+            </div>
+          </div>
+          
+          <div class="footer-stat-item">
+            <h3>贡献者</h3>
+            <div class="stat-content">
+              <img src="https://contrib.rocks/image?repo=teaSummer/MCiSEE" alt="Contributors">
+            </div>
+          </div>
+          
+          <div class="footer-stat-item">
+            <h3>GitHub星星历史</h3>
+            <div class="stat-content">
+              <img src="https://starchart.cc/teaSummer/MCiSEE.svg?variant=adaptive" alt="Stars Over Time">
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="footer-links">
+          <p class="footer-icp">ICP备案信息</p>
+          <p class="footer-social">
+            <a href="https://github.com/teaSummer/MCiSEE" target="_blank">GitHub</a> |
+            <a href="https://github.com/teaSummer/MCiSEE/#贡献教程" target="_blank">贡献教程</a> |
+            <a href="https://afdian.com/a/MCiSEE" target="_blank">爱发电赞助</a> |
+            <a href="https://www.007idc.cn/aff/RIWDQNQO" target="_blank" rel="noopener" class="sponsor">007IDC</a>
+          </p>
+          <p class="footer-license">
+            本作品采用 
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 
+            许可协议进行许可
+          </p>
+          <p class="footer-credit">感谢所有贡献者和支持者</p>
+        </div>
+      </div>
     </footer>
   </div>
 </template>
@@ -485,14 +526,131 @@ body {
 .footer {
   background-color: var(--md-sys-color-surface-variant);
   color: var(--md-sys-color-on-surface);
-  text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
   margin-top: auto;
+  border-top: 1px solid var(--md-sys-color-outline);
 }
 
-.footer p {
-  opacity: 0.7;
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-primary);
+}
+
+.footer h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: var(--md-sys-color-on-surface);
+}
+
+.footer hr {
+  border: none;
+  border-top: 1px solid var(--md-sys-color-outline);
+  margin: 24px 0;
+}
+
+.footer-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.footer-stat-item {
+  text-align: center;
+  min-width: 200px;
+}
+
+.stat-content {
+  margin-top: 8px;
+}
+
+.stat-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.footer-links {
+  margin-top: 24px;
+}
+
+.footer-icp {
   font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+.footer-social {
+  margin-bottom: 16px;
+}
+
+.footer-social a {
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+.footer-social a:hover {
+  text-decoration: underline;
+}
+
+.footer-license {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+.footer-license a {
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+}
+
+.footer-license a:hover {
+  text-decoration: underline;
+}
+
+.footer-credit {
+  font-size: 14px;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 16px;
+  }
+  
+  .footer-stats {
+    gap: 20px;
+  }
+  
+  .footer-stat-item {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 12px;
+  }
+  
+  .footer-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .footer-stat-item {
+    min-width: auto;
+  }
 }
 
 /* 响应式设计 */
