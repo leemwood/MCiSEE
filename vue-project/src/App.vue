@@ -437,6 +437,23 @@ const searchForumSites = (keyword) => {
       theme.value = newConfig.theme
       showUpdatePrompt.value = newConfig.showUpdatePrompt
       autoCheckUpdates.value = newConfig.autoCheckUpdates
+      
+      // 应用主题更改
+      const appElement = document.getElementById('app')
+      const root = document.documentElement
+      
+      if (appElement) {
+        appElement.classList.remove('light', 'dark')
+        
+        let actualTheme = newConfig.theme
+        if (actualTheme === 'auto') {
+          actualTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        
+        appElement.classList.add(actualTheme)
+        root.setAttribute('data-theme', actualTheme)
+        root.style.setProperty('color-scheme', actualTheme)
+      }
     }
 
     // 生命周期
@@ -447,6 +464,26 @@ const searchForumSites = (keyword) => {
       
       // 初始化公告功能
       await initAnnouncements()
+      
+      // 加载保存的主题设置
+      const savedTheme = localStorage.getItem('mciSeeTheme')
+      const appElement = document.getElementById('app')
+      const root = document.documentElement
+      
+      if (appElement) {
+        appElement.classList.remove('light', 'dark')
+        
+        let actualTheme = savedTheme || 'light'
+        theme.value = savedTheme || 'light'
+        
+        if (actualTheme === 'auto') {
+          actualTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        
+        appElement.classList.add(actualTheme)
+        root.setAttribute('data-theme', actualTheme)
+        root.style.setProperty('color-scheme', actualTheme)
+      }
     })
 
     onUnmounted(() => {
@@ -502,8 +539,9 @@ body {
   flex-direction: column;
 }
 
-/* 主题变量 */
-#app.light {
+/* 主题变量 - 使用data-theme属性控制 */
+:root {
+  /* 默认浅色主题变量 */
   --md-sys-color-background: #fef7ff;
   --md-sys-color-on-background: #1d1b20;
   --md-sys-color-surface: #fef7ff;
@@ -517,7 +555,8 @@ body {
   --md-sys-color-on-error: #ffffff;
 }
 
-#app.dark {
+/* 深色主题变量 */
+:root[data-theme="dark"] {
   --md-sys-color-background: #141218;
   --md-sys-color-on-background: #e6e1e5;
   --md-sys-color-surface: #141218;
@@ -531,13 +570,42 @@ body {
   --md-sys-color-on-error: #690005;
 }
 
+/* 浅色主题变量 */
+:root[data-theme="light"] {
+  --md-sys-color-background: #fef7ff;
+  --md-sys-color-on-background: #1d1b20;
+  --md-sys-color-surface: #fef7ff;
+  --md-sys-color-surface-variant: #e7e0ec;
+  --md-sys-color-on-surface: #1d1b20;
+  --md-sys-color-primary: #6750a4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-secondary: #625b71;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+}
+
+/* 主题切换动画 */
+#app {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 所有使用主题变量的元素都添加过渡效果 */
+* {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* 公告栏样式 */
 .announcement-bar {
   position: fixed;
   top: 0;
   width: 100%;
   height: max(4vh, max-content);
-  background-color: rgba(214, 213, 218, 0.2);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
   line-height: 4vh;
   text-align: center;
   margin: auto;

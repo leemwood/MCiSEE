@@ -191,7 +191,7 @@ export default {
   gap: 8px;
   margin-bottom: 8px;
   font-size: 0.9rem;
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface);
 }
 
 .info-icon {

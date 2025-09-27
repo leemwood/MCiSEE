@@ -104,15 +104,45 @@ export default {
 
     const applyTheme = (theme) => {
       const root = document.documentElement
+      const appElement = document.getElementById('app')
       
-      if (theme === 'dark') {
-        root.style.setProperty('color-scheme', 'dark')
-      } else if (theme === 'light') {
-        root.style.setProperty('color-scheme', 'light')
-      } else {
-        // 跟随系统
-        root.style.removeProperty('color-scheme')
+      if (!appElement) return
+      
+      // 移除所有主题类
+      appElement.classList.remove('light', 'dark')
+      
+      let actualTheme = theme
+      
+      if (theme === 'auto') {
+        // 检测系统主题偏好
+        actualTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        
+        // 监听系统主题变化
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+        const handleSystemThemeChange = (e) => {
+          if (localConfig.value.theme === 'auto') {
+            const newTheme = e.matches ? 'dark' : 'light'
+            appElement.classList.remove('light', 'dark')
+            appElement.classList.add(newTheme)
+            root.setAttribute('data-theme', newTheme)
+            root.style.setProperty('color-scheme', newTheme)
+          }
+        }
+        
+        // 添加监听器（避免重复添加）
+        if (!window._systemThemeListener) {
+          mediaQuery.addEventListener('change', handleSystemThemeChange)
+          window._systemThemeListener = handleSystemThemeChange
+        }
       }
+      
+      // 应用主题类
+      appElement.classList.add(actualTheme)
+      root.setAttribute('data-theme', actualTheme)
+      root.style.setProperty('color-scheme', actualTheme)
+      
+      // 保存主题设置到本地存储
+      localStorage.setItem('mciSeeTheme', theme)
     }
 
     const resetConfig = () => {
