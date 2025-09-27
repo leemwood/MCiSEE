@@ -1,0 +1,16 @@
+{
+  "name": "MCiSEE - 所见皆是Minecraft",
+  "short_name": "MCiSEE",
+  "description": "Minecraft启动器和资源集合",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6750a4",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

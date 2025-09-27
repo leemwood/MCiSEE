@@ -1,0 +1,302 @@
+/* Material Design 3 主题变量 */
+:root {
+  /* 颜色系统 */
+  --md-sys-color-primary: #6750A4;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #EADDFF;
+  --md-sys-color-on-primary-container: #21005D;
+  --md-sys-color-secondary: #625B71;
+  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary-container: #E8DEF8;
+  --md-sys-color-on-secondary-container: #1D192B;
+  --md-sys-color-tertiary: #7D5260;
+  --md-sys-color-on-tertiary: #FFFFFF;
+  --md-sys-color-tertiary-container: #FFD8E4;
+  --md-sys-color-on-tertiary-container: #31111D;
+  --md-sys-color-error: #B3261E;
+  --md-sys-color-on-error: #FFFFFF;
+  --md-sys-color-error-container: #F9DEDC;
+  --md-sys-color-on-error-container: #410E0B;
+  --md-sys-color-background: #FFFBFE;
+  --md-sys-color-on-background: #1C1B1F;
+  --md-sys-color-surface: #FFFBFE;
+  --md-sys-color-on-surface: #1C1B1F;
+  --md-sys-color-surface-variant: #E7E0EC;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-outline: #79747E;
+  --md-sys-color-outline-variant: #CAC4D0;
+  
+  /* 字体 */
+  --md-sys-typescale-body-large-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-body-medium-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-body-small-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-display-large-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-display-medium-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-display-small-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-headline-large-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-headline-medium-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-headline-small-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-label-large-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-label-medium-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-label-small-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-title-large-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-title-medium-font-family: 'Roboto', sans-serif;
+  --md-sys-typescale-title-small-font-family: 'Roboto', sans-serif;
+}
+
+/* 深色主题 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #D0BCFF;
+    --md-sys-color-on-primary: #381E72;
+    --md-sys-color-primary-container: #4F378B;
+    --md-sys-color-on-primary-container: #EADDFF;
+    --md-sys-color-secondary: #CCC2DC;
+    --md-sys-color-on-secondary: #332D41;
+    --md-sys-color-secondary-container: #4A4458;
+    --md-sys-color-on-secondary-container: #E8DEF8;
+    --md-sys-color-tertiary: #EFB8C8;
+    --md-sys-color-on-tertiary: #492532;
+    --md-sys-color-tertiary-container: #633B48;
+    --md-sys-color-on-tertiary-container: #FFD8E4;
+    --md-sys-color-error: #F2B8B5;
+    --md-sys-color-on-error: #601410;
+    --md-sys-color-error-container: #8C1D18;
+    --md-sys-color-on-error-container: #F9DEDC;
+    --md-sys-color-background: #1C1B1F;
+    --md-sys-color-on-background: #E6E1E5;
+    --md-sys-color-surface: #1C1B1F;
+    --md-sys-color-on-surface: #E6E1E5;
+    --md-sys-color-surface-variant: #49454F;
+    --md-sys-color-on-surface-variant: #CAC4D0;
+    --md-sys-color-outline: #938F99;
+    --md-sys-color-outline-variant: #444746;
+  }
+}
+
+/* 全局样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  line-height: 1.5;
+}
+
+/* 应用容器样式 */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 公告栏样式 */
+.announcement-bar {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.announcement-bar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.announcement-bar li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 主要内容区域 */
+.main-content {
+  flex: 1;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 页面标题 */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-primary);
+}
+
+/* 卡片样式 */
+.card {
+  background-color: var(--md-sys-color-surface);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 设备选择器 */
+.device-selector {
+  margin-bottom: 32px;
+}
+
+/* 启动器列表 */
+.launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.launcher-card {
+  background-color: var(--md-sys-color-surface-variant);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.launcher-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.launcher-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.launcher-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* 搜索区域 */
+.search-section {
+  margin: 32px 0;
+}
+
+.search-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* 网站列表 */
+.website-list {
+  margin-top: 24px;
+}
+
+.website-category {
+  margin-bottom: 24px;
+}
+
+.website-category h4 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: var(--md-sys-color-primary);
+}
+
+.website-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.website-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--md-sys-color-surface-variant);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface-variant);
+  transition: all 0.2s ease;
+}
+
+.website-item:hover {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* 配置区域 */
+.config-section {
+  margin-top: 32px;
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.config-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 页脚 */
+.footer {
+  background-color: var(--md-sys-color-surface-variant);
+  padding: 24px;
+  text-align: center;
+  margin-top: 64px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 16px 0;
+}
+
+.footer-links a {
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--md-sys-color-primary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+  
+  .launcher-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .website-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .config-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .announcement-bar ul {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
