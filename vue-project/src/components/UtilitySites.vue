@@ -7,8 +7,17 @@
         :key="index"
         class="category"
       >
-        <h3>{{ Object.keys(category)[0] }}</h3>
-        <div class="sites-grid">
+        <div class="category-header" @click="toggleCategory(index)">
+          <h3>{{ Object.keys(category)[0] }}</h3>
+          <span class="toggle-icon" :class="{ 'expanded': expandedCategories[index] }">
+            {{ expandedCategories[index] ? '▼' : '▶' }}
+          </span>
+        </div>
+        <div 
+          class="sites-grid" 
+          v-show="expandedCategories[index]"
+          :class="{ 'expanded': expandedCategories[index] }"
+        >
           <div 
             v-for="(site, siteIndex) in Object.values(category)[0]" 
             :key="siteIndex"
@@ -29,7 +38,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 
 export default defineComponent({
   name: 'UtilitySites',
@@ -39,11 +48,32 @@ export default defineComponent({
       required: true
     }
   },
-  methods: {
-    openSite(url) {
+  setup(props) {
+    const expandedCategories = ref({})
+    
+    // 初始化所有分类为收起状态
+    onMounted(() => {
+      if (props.utilitySites) {
+        props.utilitySites.forEach((_, index) => {
+          expandedCategories.value[index] = false
+        })
+      }
+    })
+    
+    const toggleCategory = (index) => {
+      expandedCategories.value[index] = !expandedCategories.value[index]
+    }
+    
+    const openSite = (url) => {
       if (url && url !== '#') {
         window.open(url, '_blank')
       }
+    }
+    
+    return {
+      expandedCategories,
+      toggleCategory,
+      openSite
     }
   }
 })
@@ -62,16 +92,44 @@ export default defineComponent({
 }
 
 .category {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
-.category h3 {
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 16px;
+  background: var(--md-sys-color-surface-variant);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 0;
+}
+
+.category-header:hover {
+  background: var(--md-sys-color-primary-container);
+}
+
+.category-header h3 {
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.toggle-icon {
+  font-size: 16px;
+  color: var(--md-sys-color-on-surface-variant);
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.expanded {
+  transform: rotate(0deg);
+}
+
+.category-header:hover .toggle-icon {
   color: var(--md-sys-color-primary);
-  margin-bottom: 16px;
-  font-size: 20px;
-  font-weight: 500;
-  border-bottom: 2px solid var(--md-sys-color-surface-variant);
-  padding-bottom: 8px;
 }
 
 .sites-grid {
