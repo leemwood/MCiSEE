@@ -46,6 +46,15 @@
           </button>
           
           <button 
+            v-if="launcher.dev && launcher.dev.download"
+            @click="openLink(launcher.dev.download)"
+            class="action-button preview-button"
+          >
+            <span class="button-icon">🔬</span>
+            预览版
+          </button>
+          
+          <button 
             v-if="launcher.github"
             @click="openGitHub(launcher.github)"
             class="action-button github-button"
@@ -227,6 +236,17 @@ export default {
 
 .github-button:hover {
   background-color: var(--md-sys-color-primary-container);
+}
+
+.preview-button {
+  background-color: transparent;
+  color: var(--md-sys-color-tertiary);
+  border: 1px solid var(--md-sys-color-tertiary);
+}
+
+.preview-button:hover {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
 }
 
 .website-button {
