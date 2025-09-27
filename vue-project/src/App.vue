@@ -64,11 +64,13 @@ import { parseJsonc } from './utils/jsoncParser'
 import launcherJsonc from '../data/launcher.jsonc?raw'
 import searchableJsonc from '../data/searchable.jsonc?raw'
 import utilityWebsiteJsonc from '../data/utilityWebsite.jsonc?raw'
+import forumJsonc from '../data/forum.jsonc?raw'
 
 // 解析JSONC数据
 const launcherData = parseJsonc(launcherJsonc)
 const searchableData = parseJsonc(searchableJsonc)
 const utilityWebsiteData = parseJsonc(utilityWebsiteJsonc)
+const forumData = parseJsonc(forumJsonc)
 
 export default {
   name: 'App',
@@ -140,6 +142,22 @@ export default {
       return result
     })
 
+    // 论坛网站数据
+    const forumSites = computed(() => {
+      if (!forumData || !Array.isArray(forumData)) {
+        return {}
+      }
+      
+      // 将数组转换为对象格式
+      const result = {}
+      forumData.forEach(categoryObj => {
+        const categoryName = Object.keys(categoryObj)[0]
+        result[categoryName] = categoryObj[categoryName]
+      })
+      
+      return result
+    })
+
     // 方法
     const handleDeviceChange = (device) => {
       selectedDevice.value = device
@@ -156,11 +174,190 @@ export default {
 
     const handleSearch = (searchData) => {
       console.log('搜索:', searchData)
-      // 这里可以添加搜索逻辑
-      if (searchData.site && searchData.query) {
-        const searchUrl = searchData.site.url.replace('{query}', encodeURIComponent(searchData.query))
-        window.open(searchUrl, '_blank')
+      
+      // 处理站内搜索
+      if (searchData.site.abbr === 'MCiSEE') {
+        console.log('执行站内搜索:', searchData.query)
+        // 执行站内搜索
+        performSiteSearch(searchData.query)
+      } else if (searchData.url) {
+        // 外部搜索直接打开链接
+        window.open(searchData.url, '_blank')
       }
+    }
+    
+    // 站内搜索功能
+    const performSiteSearch = (keyword) => {
+      if (!keyword.trim()) return
+      
+      // 清除之前的搜索结果高亮
+      clearSearchHighlights()
+      
+      // 搜索实用网站数据
+      const utilityResults = searchUtilitySites(keyword)
+      
+      // 搜索论坛数据
+      const forumResults = searchForumSites(keyword)
+      
+      // 显示搜索结果
+      displaySearchResults(utilityResults, forumResults, keyword)
+    }
+    
+    // 清除搜索结果高亮
+    const clearSearchHighlights = () => {
+      const searchMatches = document.querySelectorAll('.searchmatch')
+      searchMatches.forEach(match => {
+        match.outerHTML = match.innerHTML
+      })
+    }
+    
+    // 搜索实用网站
+    const searchUtilitySites = (keyword) => {
+      const results = []
+      if (!utilitySites.value || !keyword || typeof utilitySites.value !== 'object') return results
+      
+      // 遍历对象的所有属性（分类名称）
+      Object.keys(utilitySites.value).forEach(categoryName => {
+        const sites = utilitySites.value[categoryName]
+        if (Array.isArray(sites)) {
+          const matchingSites = sites.filter(site => {
+            const title = site[0] || ''
+            const description = site[2] || ''
+            const searchText = (title + description).toLowerCase()
+            return searchText.includes(keyword.toLowerCase())
+          })
+          
+          if (matchingSites.length > 0) {
+            results.push({
+              category: categoryName,
+              sites: matchingSites
+            })
+          }
+        }
+      })
+      
+      return results
+    }
+    
+    // 搜索论坛
+const searchForumSites = (keyword) => {
+  const results = []
+  if (!forumSites.value || !keyword || typeof forumSites.value !== 'object') return results
+  
+  // 遍历对象的所有属性（分类名称）
+  Object.keys(forumSites.value).forEach(categoryName => {
+    const sites = forumSites.value[categoryName]
+    if (Array.isArray(sites)) {
+      const matchingSites = sites.filter(site => {
+        const title = site[0] || ''
+        const description = site[2] || ''
+        const searchText = (title + description).toLowerCase()
+        return searchText.includes(keyword.toLowerCase())
+      })
+      
+      if (matchingSites.length > 0) {
+        results.push({
+          category: categoryName,
+          sites: matchingSites
+        })
+      }
+    }
+  })
+  
+  return results
+}
+    
+    // 显示搜索结果
+    const displaySearchResults = (utilityResults, forumResults, keyword) => {
+      // 创建搜索结果容器
+      let resultsHTML = ''
+      
+      // 添加实用网站搜索结果
+      if (utilityResults.length > 0) {
+        utilityResults.forEach(result => {
+          resultsHTML += `<details class="search-result" open>
+            <summary>${highlightText(result.category, keyword)}</summary>
+            ${result.sites.map(site => {
+              const title = highlightText(site[0], keyword)
+              const url = site[1]
+              const description = site[2] ? highlightText(site[2], keyword) : ''
+              return `<a class="button search-result-item" href="${url}" target="_blank" title="${description}">
+                <span>${title}</span>
+                ${description ? `<small>${description}</small>` : ''}
+              </a>`
+            }).join('')}
+          </details>`
+        })
+      }
+      
+      // 添加论坛搜索结果
+      if (forumResults.length > 0) {
+        forumResults.forEach(result => {
+          resultsHTML += `<details class="search-result" open>
+            <summary>${highlightText(result.category, keyword)}</summary>
+            ${result.sites.map(site => {
+              const title = highlightText(site[0], keyword)
+              const url = site[1]
+              const description = site[2] ? highlightText(site[2], keyword) : ''
+              return `<a class="button search-result-item" href="${url}" target="_blank" title="${description}">
+                <span>${title}</span>
+                ${description ? `<small>${description}</small>` : ''}
+              </a>`
+            }).join('')}
+          </details>`
+        })
+      }
+      
+      // 如果没有结果
+      if (utilityResults.length === 0 && forumResults.length === 0) {
+        resultsHTML = `<div class="no-results">没有找到与 "${keyword}" 相关的搜索结果</div>`
+      }
+      
+      // 更新页面显示搜索结果
+      const searchResultsContainer = document.getElementById('search-results')
+      if (!searchResultsContainer) {
+        // 创建搜索结果容器
+        const container = document.createElement('div')
+        container.id = 'search-results'
+        container.className = 'search-results-container'
+        container.innerHTML = `<h3>站内搜索结果</h3>${resultsHTML}`
+        
+        // 插入到页面内容区域 - 在搜索区域之后，实用网站区域之前
+        const mainContent = document.querySelector('main.main-content')
+        if (mainContent) {
+          const searchSection = document.querySelector('.search-section')
+          const utilitySection = document.querySelector('.utility-sites')
+          
+          if (searchSection && utilitySection) {
+            // 在搜索区域和实用网站区域之间插入
+            mainContent.insertBefore(container, utilitySection)
+          } else if (searchSection) {
+            // 在搜索区域之后插入
+            searchSection.parentNode.insertBefore(container, searchSection.nextSibling)
+          } else {
+            // 插入到主要内容区域
+            mainContent.appendChild(container)
+          }
+        }
+      } else {
+        // 更新现有搜索结果
+        searchResultsContainer.innerHTML = `<h3>站内搜索结果</h3>${resultsHTML}`
+      }
+      
+      // 滚动到搜索结果区域
+      setTimeout(() => {
+        const searchResults = document.getElementById('search-results')
+        if (searchResults) {
+          searchResults.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+    }
+    
+    // 高亮搜索关键词
+    const highlightText = (text, keyword) => {
+      if (!text || !keyword) return text
+      const regex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
+      return text.replace(regex, '<text class="searchmatch">$1</text>')
     }
 
     const handleConfigChange = (newConfig) => {
@@ -188,6 +385,7 @@ export default {
       filteredLaunchers,
       searchSites,
       utilitySites,
+      forumSites,
       searchableData,
       handleDeviceChange,
       handleLauncherClick,
