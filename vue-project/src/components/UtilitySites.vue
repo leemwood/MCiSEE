@@ -1,40 +1,39 @@
 <template>
-  <section class="utility-sites">
+  <div class="utility-sites">
     <h2>实用网站</h2>
-    <div class="sites-container">
-      <div 
-        v-for="(category, index) in utilitySites" 
-        :key="index"
-        class="category"
-      >
-        <div class="category-header" @click="toggleCategory(index)">
-          <h3>{{ Object.keys(category)[0] }}</h3>
-          <span class="toggle-icon" :class="{ 'expanded': expandedCategories[index] }">
-            {{ expandedCategories[index] ? '▼' : '▶' }}
-          </span>
-        </div>
+    <div v-for="category in Object.keys(utilitySites)" :key="category" class="category">
+      <div class="category-header" @click="toggleCategory(category)">
+        <h3>{{ category.replace('[open]', '') }}</h3>
+        <span class="toggle-icon" :class="{ expanded: expandedCategories[category] }">
+          {{ expandedCategories[category] ? '▼' : '▶' }}
+        </span>
+      </div>
+      <div class="sites-grid" v-show="expandedCategories[category]">
         <div 
-          class="sites-grid" 
-          v-show="expandedCategories[index]"
-          :class="{ 'expanded': expandedCategories[index] }"
+          v-for="site in utilitySites[category]" 
+          :key="site[0]" 
+          class="site-card"
+          @click="openSite(site[1])"
         >
-          <div 
-            v-for="(site, siteIndex) in Object.values(category)[0]" 
-            :key="siteIndex"
-            class="site-card"
-            @click="openSite(site[1])"
-          >
-            <div class="site-header">
-              <h4>{{ site[0] }}</h4>
-              <span class="site-badge" v-if="site[2]">{{ site[2] }}</span>
-            </div>
-            <div class="site-url">{{ site[1] }}</div>
-            <div class="site-description" v-if="site[2]">{{ site[2] }}</div>
+          <div class="site-icon">
+            <img 
+              :src="getSiteIcon(site[1], site[3])" 
+              :alt="site[0] + '图标'"
+              width="32" 
+              height="32"
+              loading="lazy"
+              @error="handleIconError"
+            />
+          </div>
+          <div class="site-info">
+            <h4>{{ site[0] }}</h4>
+            <p class="site-url">{{ site[1] }}</p>
+            <p class="site-description" v-if="site[2]">{{ site[2] }}</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -44,36 +43,65 @@ export default defineComponent({
   name: 'UtilitySites',
   props: {
     utilitySites: {
-      type: Array,
+      type: Object,
       required: true
     }
   },
   setup(props) {
     const expandedCategories = ref({})
+    const fIconUrl = 'https://www.faviconextractor.com/favicon/<T>?larger=true'
     
-    // 初始化所有分类为收起状态
+    // 初始化展开状态，除友情链接外都默认收起
     onMounted(() => {
-      if (props.utilitySites) {
-        props.utilitySites.forEach((_, index) => {
-          expandedCategories.value[index] = false
-        })
-      }
+      Object.keys(props.utilitySites).forEach(category => {
+        expandedCategories.value[category] = category.includes('友情链接')
+      })
     })
     
-    const toggleCategory = (index) => {
-      expandedCategories.value[index] = !expandedCategories.value[index]
+    const toggleCategory = (category) => {
+      expandedCategories.value[category] = !expandedCategories.value[category]
     }
     
     const openSite = (url) => {
-      if (url && url !== '#') {
+      if (url && !url.startsWith('#')) {
         window.open(url, '_blank')
       }
+    }
+    
+    // 获取网站图标
+    const getSiteIcon = (url, favicon) => {
+      // 确保url是字符串类型
+      if (typeof url !== 'string') {
+        return ''
+      }
+      
+      // 如果提供了自定义图标路径，优先使用
+      if (favicon) {
+        return favicon
+      }
+      
+      // 如果是内部链接，不显示图标
+      if (url.startsWith('#')) {
+        return ''
+      }
+      
+      // 使用FaviconExtractor服务获取网站图标
+      const domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '')
+      return fIconUrl.replace('<T>', domain)
+    }
+    
+    // 处理图标加载错误
+    const handleIconError = (event) => {
+      // 图标加载失败时移除img元素
+      event.target.remove()
     }
     
     return {
       expandedCategories,
       toggleCategory,
-      openSite
+      openSite,
+      getSiteIcon,
+      handleIconError
     }
   }
 })
@@ -146,6 +174,9 @@ export default defineComponent({
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .site-card:hover {
@@ -154,30 +185,26 @@ export default defineComponent({
   border-color: var(--md-sys-color-primary);
 }
 
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
+.site-icon {
+  flex-shrink: 0;
 }
 
-.site-header h4 {
+.site-icon img {
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.site-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.site-info h4 {
   color: var(--md-sys-color-on-surface);
   font-size: 16px;
   font-weight: 600;
-  margin: 0;
-  flex: 1;
-}
-
-.site-badge {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  margin-left: 8px;
+  margin: 0 0 8px 0;
+  word-break: break-word;
 }
 
 .site-url {
@@ -207,6 +234,16 @@ export default defineComponent({
   
   .category h3 {
     font-size: 18px;
+  }
+  
+  .site-card {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .site-icon img {
+    width: 28px;
+    height: 28px;
   }
 }
 </style>

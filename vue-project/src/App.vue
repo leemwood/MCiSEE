@@ -126,7 +126,18 @@ export default {
 
     // 实用网站数据
     const utilitySites = computed(() => {
-      return utilityWebsiteData || []
+      if (!utilityWebsiteData || !Array.isArray(utilityWebsiteData)) {
+        return {}
+      }
+      
+      // 将数组转换为对象格式
+      const result = {}
+      utilityWebsiteData.forEach(categoryObj => {
+        const categoryName = Object.keys(categoryObj)[0]
+        result[categoryName] = categoryObj[categoryName]
+      })
+      
+      return result
     })
 
     // 方法
