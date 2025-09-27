@@ -1,0 +1,15 @@
+{
+  "announcement": {
+    "1": "欢迎使用MCiSEE！这里汇集了各种Minecraft启动器和资源。",
+    "2": "MCiSEE项目持续更新中，欢迎提交反馈和建议！",
+    "3": "支持多平台启动器：Windows、macOS、Linux、Android、iOS",
+    "4": "发现更多实用工具和社区资源，助力Minecraft体验"
+  },
+  "news": {
+    "java": "Java版：",
+    "bedrock": "基岩版：",
+    "release": "正式版",
+    "development": "开发版",
+    "beta": "测试版"
+  }
+}

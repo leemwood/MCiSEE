@@ -1,0 +1,15 @@
+{
+  "announcement": {
+    "1": "Welcome to MCiSEE! A collection of various Minecraft launchers and resources.",
+    "2": "MCiSEE project is continuously updated. Feedback and suggestions are welcome!",
+    "3": "Support for multi-platform launchers: Windows, macOS, Linux, Android, iOS",
+    "4": "Discover more utility tools and community resources to enhance your Minecraft experience"
+  },
+  "news": {
+    "java": "Java Edition: ",
+    "bedrock": "Bedrock Edition: ",
+    "release": "Release",
+    "development": "Development",
+    "beta": "Beta"
+  }
+}

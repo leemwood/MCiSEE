@@ -1,11 +1,15 @@
 <template>
   <div id="app" :class="theme">
     <!-- 公告栏 -->
-    <div class="announcement-bar" v-if="announcement">
-      <div class="announcement-content">
-        <span class="announcement-icon">📢</span>
-        <span class="announcement-text">{{ announcement }}</span>
-      </div>
+    <div class="announcement-bar" v-if="announcements.length > 0">
+      <ul>
+        <li v-for="(announcement, index) in announcements" 
+            :key="index" 
+            :class="{ active: currentAnnouncementIndex === index }">
+          <span class="announcement-icon">📢</span>
+          <span class="announcement-text" v-html="announcement"></span>
+        </li>
+      </ul>
     </div>
 
     <!-- 主要内容区域 -->
@@ -91,12 +95,13 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import DeviceSelector from './components/DeviceSelector.vue'
 import LauncherList from './components/LauncherList.vue'
 import SearchSection from './components/SearchSection.vue'
 import ConfigSection from './components/ConfigSection.vue'
 import UtilitySites from './components/UtilitySites.vue'
+import { i18n } from './utils/i18n'
 
 // 导入JSON数据文件
 import { parseJsonc } from './utils/jsoncParser'
@@ -128,7 +133,9 @@ export default {
     const theme = ref('light')
     const showUpdatePrompt = ref(true)
     const autoCheckUpdates = ref(true)
-    const announcement = ref('欢迎使用MCiSEE！这里汇集了各种Minecraft启动器和资源。')
+    const currentAnnouncementIndex = ref(0)
+    const announcements = ref([])
+    let announcementInterval = null
 
     // 设备列表
     const devices = [
@@ -198,6 +205,23 @@ export default {
       
       return result
     })
+
+    // 公告相关方法
+    const switchAnnouncement = () => {
+      currentAnnouncementIndex.value = (currentAnnouncementIndex.value + 1) % announcements.value.length
+    }
+
+    const initAnnouncements = async () => {
+      // 加载默认语言
+      await i18n.loadLanguage('zh-CN')
+      
+      // 获取公告内容
+      const announcementKeys = ['announcement.1', 'announcement.2', 'announcement.3', 'announcement.4']
+      announcements.value = announcementKeys.map(key => i18n.t(key))
+      
+      // 启动公告轮播
+      announcementInterval = setInterval(switchAnnouncement, 5000)
+    }
 
     // 方法
     const handleDeviceChange = (device) => {
@@ -409,10 +433,20 @@ const searchForumSites = (keyword) => {
     }
 
     // 生命周期
-    onMounted(() => {
+    onMounted(async () => {
       console.log('App 已挂载')
       console.log('启动器数据:', launcherData)
       console.log('可搜索数据:', searchableData)
+      
+      // 初始化公告功能
+      await initAnnouncements()
+    })
+
+    onUnmounted(() => {
+      // 清除定时器
+      if (announcementInterval) {
+        clearInterval(announcementInterval)
+      }
     })
 
     return {
@@ -420,7 +454,8 @@ const searchForumSites = (keyword) => {
       theme,
       showUpdatePrompt,
       autoCheckUpdates,
-      announcement,
+      currentAnnouncementIndex,
+      announcements,
       devices,
       config,
       filteredLaunchers,
@@ -428,6 +463,7 @@ const searchForumSites = (keyword) => {
       utilitySites,
       forumSites,
       searchableData,
+
       handleDeviceChange,
       handleLauncherClick,
       handleSearch,
@@ -490,19 +526,43 @@ body {
 
 /* 公告栏样式 */
 .announcement-bar {
-  background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-secondary));
-  color: var(--md-sys-color-on-primary);
-  padding: 12px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: max(4vh, max-content);
+  background-color: rgba(214, 213, 218, 0.2);
+  line-height: 4vh;
   text-align: center;
+  margin: auto;
   font-size: 14px;
-  font-weight: 500;
+  z-index: 0;
+  overflow: hidden;
 }
 
-.announcement-content {
+.announcement-bar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  position: relative;
+}
+
+.announcement-bar li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.announcement-bar li.active {
+  opacity: 1;
 }
 
 .announcement-icon {
@@ -513,6 +573,14 @@ body {
   opacity: 0.9;
 }
 
+/* 公告动画 */
+@keyframes announcement {
+  0% { top: 4vh; opacity: 0; }
+  15% { top: 0; opacity: 1; }
+  75% { top: 0; opacity: 1; }
+  100% { top: -2.5vh; opacity: 0; }
+}
+
 /* 主要内容区域 */
 .main-content {
   flex: 1;
@@ -520,6 +588,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  margin-top: 4vh; /* 为公告栏留出空间 */
 }
 
 /* 页脚样式 */
@@ -584,8 +653,8 @@ body {
 
 .footer-icp {
   font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 16px;
+  opacity: 0.7;
+  margin-bottom: 8px;
 }
 
 .footer-social {
@@ -595,7 +664,7 @@ body {
 .footer-social a {
   color: var(--md-sys-color-primary);
   text-decoration: none;
-  margin: 0 8px;
+  margin: 0 4px;
 }
 
 .footer-social a:hover {
@@ -604,53 +673,13 @@ body {
 
 .footer-license {
   font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 16px;
-}
-
-.footer-license a {
-  color: var(--md-sys-color-primary);
-  text-decoration: none;
-}
-
-.footer-license a:hover {
-  text-decoration: underline;
+  opacity: 0.7;
+  margin-bottom: 8px;
 }
 
 .footer-credit {
   font-size: 14px;
-  opacity: 0.8;
-  font-style: italic;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .footer {
-    padding: 30px 16px;
-  }
-  
-  .footer-stats {
-    gap: 20px;
-  }
-  
-  .footer-stat-item {
-    min-width: 150px;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer {
-    padding: 20px 12px;
-  }
-  
-  .footer-stats {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .footer-stat-item {
-    min-width: auto;
-  }
+  opacity: 0.7;
 }
 
 /* 响应式设计 */
@@ -659,15 +688,13 @@ body {
     padding: 16px;
   }
   
-  .announcement-bar {
-    padding: 10px 16px;
-    font-size: 13px;
+  .footer-stats {
+    flex-direction: column;
+    gap: 24px;
   }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    padding: 12px;
+  
+  .footer-stat-item {
+    min-width: auto;
   }
 }
 </style>
