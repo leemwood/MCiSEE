@@ -19,6 +19,7 @@
         <router-link to="/" class="nav-link">启动器下载</router-link>
         <router-link to="/utilities" class="nav-link">实用网站</router-link>
         <router-link to="/search" class="nav-link active">搜索功能</router-link>
+        <router-link to="/about" class="nav-link">关于</router-link>
       </nav>
 
       <!-- 搜索区域 -->
@@ -245,38 +246,6 @@ export default {
 </script>
 
 <style scoped>
-.page-navigation {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: var(--md-sys-color-surface);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.nav-link {
-  padding: 0.75rem 1.5rem;
-  margin: 0 0.5rem;
-  text-decoration: none;
-  color: var(--md-sys-color-on-surface);
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-}
-
-.nav-link:hover {
-  background-color: var(--md-sys-color-surface-variant);
-  transform: translateY(-2px);
-}
-
-.nav-link.active {
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
-
-.nav-link.active:hover {
-  background-color: var(--md-sys-color-primary);
-  transform: none;
-}
+/* 引入导航样式 */
+@import '../assets/css/navigation.css';
 </style>

@@ -1,0 +1,116 @@
+/* 主要内容区域 */
+.main-content {
+  flex: 1;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 4vh; /* 为公告栏留出空间 */
+}
+
+/* 页脚样式 */
+.footer {
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface);
+  padding: 40px 20px;
+  margin-top: auto;
+  border-top: 1px solid var(--md-sys-color-outline);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-primary);
+}
+
+.footer h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: var(--md-sys-color-on-surface);
+}
+
+.footer hr {
+  border: none;
+  border-top: 1px solid var(--md-sys-color-outline);
+  margin: 24px 0;
+}
+
+.footer-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.footer-stat-item {
+  text-align: center;
+  min-width: 200px;
+}
+
+.stat-content {
+  margin-top: 8px;
+}
+
+.stat-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.footer-links {
+  margin-top: 24px;
+}
+
+.footer-icp {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.footer-social {
+  margin-bottom: 16px;
+}
+
+.footer-social a {
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+.footer-social a:hover {
+  text-decoration: underline;
+}
+
+.footer-license {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.footer-credit {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+  
+  .footer-stats {
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .footer-stat-item {
+    min-width: auto;
+  }
+}

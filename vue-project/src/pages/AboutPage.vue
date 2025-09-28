@@ -1,5 +1,5 @@
 <template>
-  <div id="utilities-page">
+  <div id="about-page">
     <!-- 公告栏 -->
     <div class="announcement-bar" v-if="announcements.length > 0">
       <ul>
@@ -17,66 +17,107 @@
       <!-- 导航栏 -->
       <nav class="page-navigation">
         <router-link to="/" class="nav-link">启动器下载</router-link>
-        <router-link to="/utilities" class="nav-link active">实用网站</router-link>
+        <router-link to="/utilities" class="nav-link">实用网站</router-link>
         <router-link to="/search" class="nav-link">搜索功能</router-link>
-        <router-link to="/about" class="nav-link">关于</router-link>
+        <router-link to="/about" class="nav-link active">关于</router-link>
       </nav>
 
-      <!-- 实用网站区域 -->
-      <UtilitySites 
-        :utilitySites="utilitySites"
-      />
+      <!-- 页面标题 -->
+      <div class="page-header">
+        <h1 class="page-title">关于 MCiSEE</h1>
+        <p class="page-description">Minecraft 启动器与资源一站式解决方案</p>
+      </div>
 
-      <!-- 配置区域 -->
+      <!-- 项目信息 -->
+      <div class="info-section">
+        <h2 class="section-title">项目信息</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <h3>项目名称</h3>
+            <p>MCiSEE (Minecraft Integrated Search Engine & Explorer)</p>
+          </div>
+          <div class="info-item">
+            <h3>项目描述</h3>
+            <p>一个集成了 Minecraft 启动器下载、实用网站导航和资源搜索功能的一站式解决方案</p>
+          </div>
+          <div class="info-item">
+            <h3>开源协议</h3>
+            <p>CC BY-NC-SA 4.0</p>
+          </div>
+          <div class="info-item">
+            <h3>项目版本</h3>
+            <p>v2.0.0 (Vue重构版)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 配置设置区域 -->
       <ConfigSection 
         :config="config"
         @config-change="handleConfigChange"
       />
-    </main>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-      <div class="footer-content">
-        <h2>统计信息</h2>
-        <hr>
-        <div class="footer-stats">
-          <div class="footer-stat-item">
+      <!-- 统计信息 -->
+      <div class="stats-section">
+        <h2 class="section-title">统计信息</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
             <h3>访问统计</h3>
             <div class="stat-content">
               <img src="https://visitor-badge.laobi.icu/badge?page_id=teaSummer.MCiSEE" alt="Visitor Count">
             </div>
           </div>
           
-          <div class="footer-stat-item">
+          <div class="stat-item">
             <h3>贡献者</h3>
             <div class="stat-content">
-              <img src="https://contrib.rocks/image?repo=teaSummer.MCiSEE" alt="Contributors">
+              <img src="https://contrib.rocks/image?repo=teaSummer/MCiSEE" alt="Contributors">
             </div>
           </div>
           
-          <div class="footer-stat-item">
+          <div class="stat-item">
             <h3>GitHub星星历史</h3>
             <div class="stat-content">
               <img src="https://starchart.cc/teaSummer/MCiSEE.svg?variant=adaptive" alt="Stars Over Time">
             </div>
           </div>
         </div>
-        <hr>
-        <div class="footer-links">
-          <p class="footer-icp">ICP备案信息</p>
-          <p class="footer-social">
-            <a href="https://github.com/teaSummer/MCiSEE" target="_blank">GitHub</a> |
-            <a href="https://github.com/teaSummer/MCiSEE/#贡献教程" target="_blank">贡献教程</a> |
-            <a href="https://afdian.com/a/MCiSEE" target="_blank">爱发电赞助</a> |
-            <a href="https://www.007idc.cn/aff/RIWDQNQO" target="_blank" rel="noopener" class="sponsor">007IDC</a>
-          </p>
-          <p class="footer-license">
-            本作品采用 
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 
-            许可协议进行许可
-          </p>
-          <p class="footer-credit">感谢所有贡献者和支持者</p>
+      </div>
+
+      <!-- 友情链接 -->
+      <div class="links-section">
+        <h2 class="section-title">友情链接</h2>
+        <div class="links-grid">
+          <a href="https://github.com/teaSummer/MCiSEE" target="_blank" class="link-item">
+            <span class="link-icon">📱</span>
+            <span class="link-text">GitHub仓库</span>
+          </a>
+          <a href="https://github.com/teaSummer/MCiSEE/#贡献教程" target="_blank" class="link-item">
+            <span class="link-icon">📖</span>
+            <span class="link-text">贡献教程</span>
+          </a>
+          <a href="https://afdian.com/a/MCiSEE" target="_blank" class="link-item">
+            <span class="link-icon">💖</span>
+            <span class="link-text">爱发电赞助</span>
+          </a>
+          <a href="https://www.007idc.cn/aff/RIWDQNQO" target="_blank" rel="noopener" class="link-item sponsor">
+            <span class="link-icon">🌐</span>
+            <span class="link-text">007IDC</span>
+          </a>
         </div>
+      </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p class="footer-icp">ICP备案信息</p>
+        <p class="footer-license">
+          本作品采用 
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 
+          许可协议进行许可
+        </p>
+        <p class="footer-credit">感谢所有贡献者和支持者</p>
       </div>
     </footer>
   </div>
@@ -85,25 +126,12 @@
 <script>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import UtilitySites from '../components/UtilitySites.vue'
 import ConfigSection from '../components/ConfigSection.vue'
 import { i18n } from '../utils/i18n'
 
-// 导入JSON数据文件
-import { parseJsonc } from '../utils/jsoncParser'
-
-// 导入JSONC文件内容
-import utilityWebsiteJsonc from '../../data/utilityWebsite.jsonc?raw'
-import forumJsonc from '../../data/forum.jsonc?raw'
-
-// 解析JSONC数据
-const utilityWebsiteData = parseJsonc(utilityWebsiteJsonc)
-const forumData = parseJsonc(forumJsonc)
-
 export default {
-  name: 'UtilitySitesPage',
+  name: 'AboutPage',
   components: {
-    UtilitySites,
     ConfigSection
   },
   setup() {
@@ -123,38 +151,6 @@ export default {
       showUpdatePrompt: showUpdatePrompt.value,
       autoCheckUpdates: autoCheckUpdates.value
     }))
-
-    // 实用网站数据
-    const utilitySites = computed(() => {
-      if (!utilityWebsiteData || !Array.isArray(utilityWebsiteData)) {
-        return {}
-      }
-      
-      // 将数组转换为对象格式
-      const result = {}
-      utilityWebsiteData.forEach(categoryObj => {
-        const categoryName = Object.keys(categoryObj)[0]
-        result[categoryName] = categoryObj[categoryName]
-      })
-      
-      return result
-    })
-
-    // 论坛网站数据
-    const forumSites = computed(() => {
-      if (!forumData || !Array.isArray(forumData)) {
-        return {}
-      }
-      
-      // 将数组转换为对象格式
-      const result = {}
-      forumData.forEach(categoryObj => {
-        const categoryName = Object.keys(categoryObj)[0]
-        result[categoryName] = categoryObj[categoryName]
-      })
-      
-      return result
-    })
 
     // 公告相关方法
     const switchAnnouncement = () => {
@@ -180,6 +176,7 @@ export default {
       }
     }
 
+    // 配置更改处理
     const handleConfigChange = (newConfig) => {
       console.log('配置已更改:', newConfig)
       theme.value = newConfig.theme
@@ -187,7 +184,7 @@ export default {
       autoCheckUpdates.value = newConfig.autoCheckUpdates
       
       // 应用主题更改
-      const appElement = document.getElementById('utilities-page')
+      const appElement = document.getElementById('about-page')
       const root = document.documentElement
       
       if (appElement) {
@@ -206,16 +203,14 @@ export default {
 
     // 生命周期
     onMounted(async () => {
-      console.log('UtilitySitesPage 已挂载')
-      console.log('实用网站数据:', utilityWebsiteData)
-      console.log('论坛数据:', forumData)
+      console.log('AboutPage 已挂载')
       
       // 初始化公告功能
       await initAnnouncements()
       
       // 加载保存的主题设置
       const savedTheme = localStorage.getItem('mciSeeTheme')
-      const appElement = document.getElementById('utilities-page')
+      const appElement = document.getElementById('about-page')
       const root = document.documentElement
       
       if (appElement) {
@@ -248,15 +243,14 @@ export default {
       currentAnnouncementIndex,
       announcements,
       config,
-      utilitySites,
-      forumSites,
       handleConfigChange
     }
   }
 }
 </script>
 
-<style scoped>
-/* 引入导航样式 */
+<style scoped lang="css">
+/* 引入导航和关于页面样式 */
 @import '../assets/css/navigation.css';
+@import '../assets/css/about.css';
 </style>

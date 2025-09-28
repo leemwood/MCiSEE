@@ -1,0 +1,35 @@
+/* 页面导航样式 */
+.page-navigation {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--md-sys-color-surface);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  padding: 0.75rem 1.5rem;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: var(--md-sys-color-surface-variant);
+  transform: translateY(-2px);
+}
+
+.nav-link.active {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.nav-link.active:hover {
+  background-color: var(--md-sys-color-primary);
+  transform: none;
+}

@@ -19,6 +19,7 @@
         <router-link to="/" class="nav-link active">启动器下载</router-link>
         <router-link to="/utilities" class="nav-link">实用网站</router-link>
         <router-link to="/search" class="nav-link">搜索功能</router-link>
+        <router-link to="/about" class="nav-link">关于</router-link>
       </nav>
 
       <!-- 设备选择器 -->
@@ -33,12 +34,6 @@
         :launchers="filteredLaunchers" 
         :device="selectedDevice"
         @launcher-click="handleLauncherClick"
-      />
-
-      <!-- 配置区域 -->
-      <ConfigSection 
-        :config="config"
-        @config-change="handleConfigChange"
       />
     </main>
 
@@ -95,7 +90,6 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import DeviceSelector from '../components/DeviceSelector.vue'
 import LauncherList from '../components/LauncherList.vue'
-import ConfigSection from '../components/ConfigSection.vue'
 import { i18n } from '../utils/i18n'
 
 // 导入JSON数据文件
@@ -111,17 +105,13 @@ export default {
   name: 'HomePage',
   components: {
     DeviceSelector,
-    LauncherList,
-    ConfigSection
+    LauncherList
   },
   setup() {
     const router = useRouter()
     
     // 响应式数据
     const selectedDevice = ref('Android')
-    const theme = ref('light')
-    const showUpdatePrompt = ref(true)
-    const autoCheckUpdates = ref(true)
     const currentAnnouncementIndex = ref(0)
     const announcements = ref([])
     let announcementInterval = null
@@ -134,13 +124,6 @@ export default {
       { id: 'macOS', name: 'macOS', icon: '💻' },
       { id: 'Linux', name: 'Linux', icon: '💻' }
     ]
-
-    // 计算属性：组合配置对象
-    const config = computed(() => ({
-      theme: theme.value,
-      showUpdatePrompt: showUpdatePrompt.value,
-      autoCheckUpdates: autoCheckUpdates.value
-    }))
 
     // 计算属性：根据选择的设备过滤启动器
     const filteredLaunchers = computed(() => {
@@ -186,30 +169,6 @@ export default {
       }
     }
 
-    const handleConfigChange = (newConfig) => {
-      console.log('配置已更改:', newConfig)
-      theme.value = newConfig.theme
-      showUpdatePrompt.value = newConfig.showUpdatePrompt
-      autoCheckUpdates.value = newConfig.autoCheckUpdates
-      
-      // 应用主题更改
-      const appElement = document.getElementById('home-page')
-      const root = document.documentElement
-      
-      if (appElement) {
-        appElement.classList.remove('light', 'dark')
-        
-        let actualTheme = newConfig.theme
-        if (actualTheme === 'auto') {
-          actualTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-        }
-        
-        appElement.classList.add(actualTheme)
-        root.setAttribute('data-theme', actualTheme)
-        root.style.setProperty('color-scheme', actualTheme)
-      }
-    }
-
     // 生命周期
     onMounted(async () => {
       console.log('HomePage 已挂载')
@@ -217,26 +176,6 @@ export default {
       
       // 初始化公告功能
       await initAnnouncements()
-      
-      // 加载保存的主题设置
-      const savedTheme = localStorage.getItem('mciSeeTheme')
-      const appElement = document.getElementById('home-page')
-      const root = document.documentElement
-      
-      if (appElement) {
-        appElement.classList.remove('light', 'dark')
-        
-        let actualTheme = savedTheme || 'light'
-        theme.value = savedTheme || 'light'
-        
-        if (actualTheme === 'auto') {
-          actualTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-        }
-        
-        appElement.classList.add(actualTheme)
-        root.setAttribute('data-theme', actualTheme)
-        root.style.setProperty('color-scheme', actualTheme)
-      }
     })
 
     onUnmounted(() => {
@@ -248,55 +187,18 @@ export default {
 
     return {
       selectedDevice,
-      theme,
-      showUpdatePrompt,
-      autoCheckUpdates,
       currentAnnouncementIndex,
       announcements,
       devices,
-      config,
       filteredLaunchers,
       handleDeviceChange,
-      handleLauncherClick,
-      handleConfigChange
+      handleLauncherClick
     }
   }
 }
 </script>
 
 <style scoped>
-.page-navigation {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: var(--md-sys-color-surface);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.nav-link {
-  padding: 0.75rem 1.5rem;
-  margin: 0 0.5rem;
-  text-decoration: none;
-  color: var(--md-sys-color-on-surface);
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-}
-
-.nav-link:hover {
-  background-color: var(--md-sys-color-surface-variant);
-  transform: translateY(-2px);
-}
-
-.nav-link.active {
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
-
-.nav-link.active:hover {
-  background-color: var(--md-sys-color-primary);
-  transform: none;
-}
+/* 引入导航样式 */
+@import '../assets/css/navigation.css';
 </style>
