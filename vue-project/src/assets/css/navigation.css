@@ -80,6 +80,11 @@
   transform: rotate(-45deg) translate(7px, -6px);
 }
 
+/* 桌面端隐藏移动端页面标题 */
+.mobile-page-title {
+  display: none;
+}
+
 /* 移动端响应式设计 */
 @media (max-width: 768px) {
   .page-navigation {
@@ -103,13 +108,6 @@
     text-align: center;
     padding-right: 40px; /* 为汉堡菜单留出空间 */
     display: block;
-  }
-
-  /* 桌面端隐藏移动端页面标题 */
-  @media (min-width: 769px) {
-    .mobile-page-title {
-      display: none;
-    }
   }
   
   .hamburger-menu {
