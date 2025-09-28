@@ -16,10 +16,18 @@
     <main class="main-content">
       <!-- 导航栏 -->
       <nav class="page-navigation">
-        <router-link to="/" class="nav-link active">启动器下载</router-link>
-        <router-link to="/utilities" class="nav-link">实用网站</router-link>
-        <router-link to="/search" class="nav-link">搜索功能</router-link>
-        <router-link to="/about" class="nav-link">关于</router-link>
+        <h2 class="mobile-page-title">启动器下载</h2>
+        <button class="hamburger-menu" @click="toggleMobileMenu" :class="{ active: isMobileMenuOpen }">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links" :class="{ active: isMobileMenuOpen }">
+          <li><router-link to="/" class="nav-link" @click="closeMobileMenu">启动器下载</router-link></li>
+          <li><router-link to="/utilities" class="nav-link" @click="closeMobileMenu">实用网站</router-link></li>
+          <li><router-link to="/search" class="nav-link" @click="closeMobileMenu">搜索功能</router-link></li>
+          <li><router-link to="/about" class="nav-link" @click="closeMobileMenu">关于</router-link></li>
+        </ul>
       </nav>
 
       <!-- 设备选择器 -->
@@ -114,6 +122,7 @@ export default {
     const selectedDevice = ref('Android')
     const currentAnnouncementIndex = ref(0)
     const announcements = ref([])
+    const isMobileMenuOpen = ref(false)
     let announcementInterval = null
 
     // 设备列表
@@ -169,6 +178,22 @@ export default {
       }
     }
 
+    // 移动菜单控制方法
+    const toggleMobileMenu = () => {
+      isMobileMenuOpen.value = !isMobileMenuOpen.value
+    }
+
+    const closeMobileMenu = () => {
+      isMobileMenuOpen.value = false
+    }
+
+    // 监听窗口大小变化，自动关闭移动菜单
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        closeMobileMenu()
+      }
+    }
+
     // 生命周期
     onMounted(async () => {
       console.log('HomePage 已挂载')
@@ -176,6 +201,9 @@ export default {
       
       // 初始化公告功能
       await initAnnouncements()
+      
+      // 添加窗口大小变化监听器
+      window.addEventListener('resize', handleResize)
     })
 
     onUnmounted(() => {
@@ -183,16 +211,22 @@ export default {
       if (announcementInterval) {
         clearInterval(announcementInterval)
       }
+      
+      // 移除窗口大小变化监听器
+      window.removeEventListener('resize', handleResize)
     })
 
     return {
       selectedDevice,
       currentAnnouncementIndex,
       announcements,
+      isMobileMenuOpen,
       devices,
       filteredLaunchers,
       handleDeviceChange,
-      handleLauncherClick
+      handleLauncherClick,
+      toggleMobileMenu,
+      closeMobileMenu
     }
   }
 }
