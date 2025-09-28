@@ -9,9 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@material/web": "^1.4.0",
+    "@element-plus/icons-vue": "^2.3.2",
     "@mdi/js": "^7.4.47",
     "axios": "^1.6.0",
+    "element-plus": "^2.11.4",
     "jsonc-parser": "^3.3.1",
     "vue": "^3.4.0",
     "vue-router": "^4.5.1"

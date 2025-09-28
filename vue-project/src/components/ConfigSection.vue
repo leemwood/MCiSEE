@@ -5,59 +5,50 @@
     <div class="config-grid">
       <!-- 更新提示设置 -->
       <div class="config-item">
-        <label class="checkbox-wrapper">
-          <input 
-            type="checkbox"
-            v-model="localConfig.showUpdatePrompt"
-            @change="updateConfig"
-            class="checkbox"
-          >
-          <span class="checkbox-label">显示更新提示</span>
-        </label>
+        <el-switch
+          v-model="localConfig.showUpdatePrompt"
+          @change="updateConfig"
+          active-text="显示更新提示"
+          inactive-text="隐藏更新提示"
+        />
         <span class="config-description">启用后会在有更新时显示提示</span>
       </div>
       
       <!-- 自动检查更新 -->
       <div class="config-item">
-        <label class="checkbox-wrapper">
-          <input 
-            type="checkbox"
-            v-model="localConfig.autoCheckUpdates"
-            @change="updateConfig"
-            class="checkbox"
-          >
-          <span class="checkbox-label">自动检查更新</span>
-        </label>
+        <el-switch
+          v-model="localConfig.autoCheckUpdates"
+          @change="updateConfig"
+          active-text="自动检查更新"
+          inactive-text="手动检查更新"
+        />
         <span class="config-description">启动时自动检查启动器更新</span>
       </div>
       
       <!-- 主题设置 -->
       <div class="config-item">
         <label class="config-label">主题模式</label>
-        <div class="theme-options">
-          <label 
-            v-for="theme in themes" 
+        <el-radio-group
+          v-model="localConfig.theme"
+          @change="updateTheme"
+          class="theme-options"
+        >
+          <el-radio
+            v-for="theme in themes"
             :key="theme.value"
+            :label="theme.value"
             class="radio-wrapper"
           >
-            <input 
-              type="radio"
-              :value="theme.value"
-              v-model="localConfig.theme"
-              @change="updateTheme(theme.value)"
-              class="radio"
-            >
-            <span class="radio-label">{{ theme.label }}</span>
-          </label>
-        </div>
+            {{ theme.label }}
+          </el-radio>
+        </el-radio-group>
       </div>
       
       <!-- 数据重置 -->
       <div class="config-item">
-        <button @click="resetConfig" class="reset-button">
-          <span class="button-icon">🔄</span>
+        <el-button @click="resetConfig" class="reset-button" type="warning" :icon="Refresh">
           重置配置
-        </button>
+        </el-button>
         <span class="config-description">恢复默认设置</span>
       </div>
     </div>
@@ -66,9 +57,13 @@
 
 <script>
 import { ref, watch } from 'vue'
+import { Refresh } from '@element-plus/icons-vue'
 
 export default {
   name: 'ConfigSection',
+  components: {
+    Refresh
+  },
   props: {
     config: {
       type: Object,

@@ -5,27 +5,20 @@
     <!-- 搜索表单 -->
     <div class="search-form">
       <div class="search-input-wrapper">
-        <span class="search-icon">🔍</span>
-        <input 
+        <el-input
           ref="searchInput"
           v-model="searchQuery"
-          type="text"
           :placeholder="searchPlaceholder"
-          class="search-input"
+          clearable
           @keyup.enter="performSearch"
           @input="handleInput"
           @focus="showSuggestions = true"
           @blur="onInputBlur"
         >
-        <button 
-          v-if="searchQuery"
-          @click="clearSearch"
-          class="search-clear"
-          :disabled="isLoading"
-        >
-          <span v-if="isLoading" class="loading-spinner">⏳</span>
-          <span v-else>✕</span>
-        </button>
+          <template #prefix>
+            <el-icon><Search /></el-icon>
+          </template>
+        </el-input>
         
         <!-- 搜索建议下拉框 -->
         <div v-if="showSuggestions && suggestions.length > 0" class="suggestions-dropdown">
@@ -41,70 +34,74 @@
         </div>
       </div>
       
-      <select 
+      <el-select
         v-model="selectedSite"
         class="site-select"
         @change="handleSiteChange"
+        placeholder="选择搜索站点"
       >
-        <option 
-          v-for="site in searchSites" 
+        <el-option
+          v-for="site in searchSites"
           :key="site.title"
+          :label="site.title"
           :value="site"
-        >
-          {{ site.title }}
-        </option>
-      </select>
+        />
+      </el-select>
       
       <!-- Modrinth特殊选项 -->
       <div v-if="selectedSite.abbr === 'Modrinth'" class="modrinth-options">
-        <select v-model="modrinthProjectType" class="modrinth-select">
-          <option value="mod">模组</option>
-          <option value="plugin">插件</option>
-          <option value="datapack">数据包</option>
-          <option value="resourcepack">资源包</option>
-          <option value="shader">光影</option>
-          <option value="modpack">整合包</option>
-        </select>
+        <el-select v-model="modrinthProjectType" class="modrinth-select" placeholder="项目类型">
+          <el-option label="模组" value="mod" />
+          <el-option label="插件" value="plugin" />
+          <el-option label="数据包" value="datapack" />
+          <el-option label="资源包" value="resourcepack" />
+          <el-option label="光影" value="shader" />
+          <el-option label="整合包" value="modpack" />
+        </el-select>
         
-        <select 
-          v-model="modrinthVersions" 
-          class="modrinth-select" 
+        <el-select
+          v-model="modrinthVersions"
+          class="modrinth-select"
           multiple
-          size="3"
+          collapse-tags
+          collapse-tags-tooltip
+          placeholder="选择版本"
         >
-          <option value="all">所有版本</option>
-          <option 
-            v-for="version in minecraftVersions" 
-            :key="version" 
+          <el-option label="所有版本" value="all" />
+          <el-option
+            v-for="version in minecraftVersions"
+            :key="version"
+            :label="version"
             :value="version"
-          >
-            {{ version }}
-          </option>
-        </select>
+          />
+        </el-select>
         
-        <button 
-          @click="fetchMinecraftVersions" 
+        <el-button
+          @click="fetchMinecraftVersions"
           class="version-fetch-btn"
           :disabled="isFetchingVersions"
+          :loading="isFetchingVersions"
         >
           {{ isFetchingVersions ? '获取中...' : '获取版本' }}
-        </button>
+        </el-button>
       </div>
       
-      <button 
-        @click="performSearch" 
+      <el-button
+        @click="performSearch"
         class="search-button"
         :disabled="!searchQuery || isLoading"
+        :loading="isLoading"
+        type="primary"
       >
-        <span class="button-icon">🔍</span>
+        <el-icon><Search /></el-icon>
         {{ searchButtonText }}
-      </button>
+      </el-button>
     </div>
     
     <!-- 搜索历史 -->
     <div v-if="searchHistory.length > 0" class="search-history">
       <h3 class="history-title">搜索历史</h3>
-      <div class="history-items">
+      <div class="history-list">
         <div 
           v-for="(history, index) in searchHistory" 
           :key="index"
@@ -113,18 +110,38 @@
         >
           <span class="history-query">{{ history.query }}</span>
           <span class="history-site">{{ history.site.title }}</span>
-          <button @click.stop="removeHistory(index)" class="history-remove">×</button>
+          <el-button 
+            @click.stop="removeHistory(index)"
+            class="history-remove"
+            type="danger"
+            size="small"
+            :icon="Close"
+            circle
+          />
         </div>
       </div>
+      <el-button 
+        @click="clearHistory"
+        class="clear-history-btn"
+        type="danger"
+        plain
+      >
+        清空历史记录
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
 import { ref, computed, onMounted, watch } from 'vue'
+import { Search, Close } from '@element-plus/icons-vue'
 
 export default {
   name: 'SearchSection',
+  components: {
+    Search,
+    Close
+  },
   props: {
     searchSites: {
       type: Array,

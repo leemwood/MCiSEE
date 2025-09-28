@@ -2,86 +2,102 @@
   <div class="launcher-section">
     <h2 class="section-title">{{ device }} 启动器</h2>
     
-    <div v-if="launchers.length === 0" class="no-launchers">
-      <span class="no-data-icon">ℹ️</span>
-      <p>暂无该平台的启动器数据</p>
-    </div>
+    <el-empty v-if="launchers.length === 0" description="暂无该平台的启动器数据" />
     
     <div v-else class="launcher-grid">
-      <div 
+      <el-card 
         v-for="launcher in launchers" 
         :key="launcher.title"
         class="launcher-card"
+        shadow="hover"
       >
-        <div class="launcher-header">
-          <h3 class="launcher-title">{{ launcher.title }}</h3>
-          <span class="launcher-abbr">{{ launcher.abbr }}</span>
-        </div>
+        <template #header>
+          <div class="launcher-header">
+            <h3 class="launcher-title">{{ launcher.title }}</h3>
+            <el-tag type="primary" size="small">{{ launcher.abbr }}</el-tag>
+          </div>
+        </template>
         
         <div class="launcher-info">
           <div class="info-item" v-if="launcher.version">
-            <span class="info-icon">🏷️</span>
+            <el-icon><PriceTag /></el-icon>
             <span>版本: {{ launcher.version }}</span>
           </div>
           
           <div class="info-item" v-if="launcher.github">
-            <span class="info-icon">💻</span>
+            <el-icon><Monitor /></el-icon>
             <span>GitHub: {{ launcher.github }}</span>
           </div>
           
           <div class="info-item" v-if="launcher.remark">
-            <span class="info-icon">ℹ️</span>
+            <el-icon><InfoFilled /></el-icon>
             <span>{{ launcher.remark }}</span>
           </div>
         </div>
         
         <div class="launcher-actions">
-          <button 
+          <el-button 
             v-if="launcher.download"
             @click="openLink(launcher.download)"
-            class="action-button download-button"
+            type="primary"
+            :icon="Download"
           >
-            <span class="button-icon">⬇️</span>
             下载
-          </button>
+          </el-button>
           
-          <button 
+          <el-button 
             v-if="launcher.dev && launcher.dev.download"
             @click="openLink(launcher.dev.download)"
-            class="action-button preview-button"
+            type="warning"
+            :icon="View"
           >
-            <span class="button-icon">🔬</span>
             预览版
-          </button>
+          </el-button>
           
-          <button 
+          <el-button 
             v-if="launcher.github"
             @click="openGitHub(launcher.github)"
-            class="action-button github-button"
+            type="info"
+            :icon="Monitor"
           >
-            <span class="button-icon">💻</span>
             GitHub
-          </button>
+          </el-button>
           
-          <button 
+          <el-button 
             v-if="launcher.url"
             @click="openLink(launcher.url)"
-            class="action-button website-button"
+            type="success"
+            :icon="Link"
           >
-            <span class="button-icon">🌐</span>
             官网
-          </button>
+          </el-button>
         </div>
-      </div>
+      </el-card>
     </div>
   </div>
 </template>
 
 <script>
 import { defineProps } from 'vue'
+import { 
+  PriceTag, 
+  Monitor, 
+  InfoFilled, 
+  Download, 
+  View, 
+  Link 
+} from '@element-plus/icons-vue'
 
 export default {
   name: 'LauncherList',
+  components: {
+    PriceTag,
+    Monitor,
+    InfoFilled,
+    Download,
+    View,
+    Link
+  },
   props: {
     device: {
       type: String,

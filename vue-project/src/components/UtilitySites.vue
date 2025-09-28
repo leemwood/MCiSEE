@@ -1,45 +1,59 @@
 <template>
   <div class="utility-sites">
     <h2>实用网站</h2>
-    <div v-for="category in Object.keys(utilitySites)" :key="category" class="category">
-      <div class="category-header" @click="toggleCategory(category)">
-        <h3>{{ category.replace('[open]', '') }}</h3>
-        <span class="toggle-icon" :class="{ expanded: expandedCategories[category] }">
-          {{ expandedCategories[category] ? '▼' : '▶' }}
-        </span>
-      </div>
-      <div class="sites-grid" v-show="expandedCategories[category]">
-        <div 
-          v-for="site in utilitySites[category]" 
-          :key="site[0]" 
-          class="site-card"
-          @click="openSite(site[1])"
-        >
-          <div class="site-icon">
-            <img 
-              :src="getSiteIcon(site[1], site[3])" 
-              :alt="site[0] + '图标'"
-              width="32" 
-              height="32"
-              loading="lazy"
-              @error="handleIconError"
-            />
-          </div>
-          <div class="site-info">
-            <h4>{{ site[0] }}</h4>
-            <p class="site-url">{{ site[1] }}</p>
-            <p class="site-description" v-if="site[2]">{{ site[2] }}</p>
-          </div>
+    <el-collapse v-model="activeCategories" accordion>
+      <el-collapse-item 
+        v-for="category in Object.keys(utilitySites)" 
+        :key="category" 
+        :name="category"
+        :title="category.replace('[open]', '')"
+      >
+        <div class="sites-grid">
+          <el-card 
+            v-for="site in utilitySites[category]" 
+            :key="site[0]" 
+            class="site-card"
+            shadow="hover"
+            @click="openSite(site[1])"
+          >
+            <div class="site-content">
+              <div class="site-icon">
+                <img 
+                  :src="getSiteIcon(site[1], site[3])" 
+                  :alt="site[0] + '图标'"
+                  width="32" 
+                  height="32"
+                  loading="lazy"
+                  @error="handleIconError"
+                />
+              </div>
+              <div class="site-info">
+                <h4>{{ site[0] }}</h4>
+                <p class="site-url">{{ site[1] }}</p>
+                <p class="site-description" v-if="site[2]">{{ site[2] }}</p>
+              </div>
+            </div>
+          </el-card>
         </div>
-      </div>
-    </div>
+      </el-collapse-item>
+    </el-collapse>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref, onMounted } from 'vue'
+import {
+  ElCollapse,
+  ElCollapseItem,
+  ElCard
+} from 'element-plus'
 
 export default defineComponent({
+  components: {
+    ElCollapse,
+    ElCollapseItem,
+    ElCard
+  },
   name: 'UtilitySites',
   props: {
     utilitySites: {
@@ -48,19 +62,17 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const expandedCategories = ref({})
+    const activeCategories = ref([])
     const fIconUrl = 'https://www.faviconextractor.com/favicon/<T>?larger=true'
     
-    // 初始化展开状态，除友情链接外都默认收起
+    // 初始化展开状态，友情链接默认展开
     onMounted(() => {
       Object.keys(props.utilitySites).forEach(category => {
-        expandedCategories.value[category] = category.includes('友情链接')
+        if (category.includes('友情链接')) {
+          activeCategories.value.push(category)
+        }
       })
     })
-    
-    const toggleCategory = (category) => {
-      expandedCategories.value[category] = !expandedCategories.value[category]
-    }
     
     const openSite = (url) => {
       if (url && !url.startsWith('#')) {
@@ -97,8 +109,7 @@ export default defineComponent({
     }
     
     return {
-      expandedCategories,
-      toggleCategory,
+      activeCategories,
       openSite,
       getSiteIcon,
       handleIconError

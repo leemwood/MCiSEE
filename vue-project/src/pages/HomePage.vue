@@ -1,34 +1,41 @@
 <template>
   <div id="home-page">
     <!-- 公告栏 -->
-    <div class="announcement-bar" v-if="announcements.length > 0">
-      <ul>
-        <li v-for="(announcement, index) in announcements" 
-            :key="index" 
-            :class="{ active: currentAnnouncementIndex === index }">
-          <span class="announcement-icon">📢</span>
-          <span class="announcement-text" v-html="announcement"></span>
-        </li>
-      </ul>
-    </div>
+    <el-alert 
+      v-if="announcements.length > 0"
+      :title="announcements[currentAnnouncementIndex]"
+      type="info"
+      :closable="false"
+      show-icon
+      class="announcement-bar"
+    />
 
     <!-- 主要内容区域 -->
     <main class="main-content">
       <!-- 导航栏 -->
-      <nav class="page-navigation">
-        <h2 class="mobile-page-title">启动器下载</h2>
-        <button class="hamburger-menu" @click="toggleMobileMenu" :class="{ active: isMobileMenuOpen }">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <ul class="nav-links" :class="{ active: isMobileMenuOpen }">
-          <li><router-link to="/" class="nav-link" @click="closeMobileMenu">启动器下载</router-link></li>
-          <li><router-link to="/utilities" class="nav-link" @click="closeMobileMenu">实用网站</router-link></li>
-          <li><router-link to="/search" class="nav-link" @click="closeMobileMenu">搜索功能</router-link></li>
-          <li><router-link to="/about" class="nav-link" @click="closeMobileMenu">关于</router-link></li>
-        </ul>
-      </nav>
+      <el-menu 
+        :default-active="$route.path" 
+        mode="horizontal" 
+        class="page-navigation"
+        router
+      >
+        <el-menu-item index="/">
+          <el-icon><House /></el-icon>
+          <span>启动器下载</span>
+        </el-menu-item>
+        <el-menu-item index="/utilities">
+          <el-icon><Link /></el-icon>
+          <span>实用网站</span>
+        </el-menu-item>
+        <el-menu-item index="/search">
+          <el-icon><Search /></el-icon>
+          <span>搜索功能</span>
+        </el-menu-item>
+        <el-menu-item index="/about">
+          <el-icon><InfoFilled /></el-icon>
+          <span>关于</span>
+        </el-menu-item>
+      </el-menu>
 
       <!-- 设备选择器 -->
       <DeviceSelector 
@@ -99,6 +106,18 @@ import { useRouter } from 'vue-router'
 import DeviceSelector from '../components/DeviceSelector.vue'
 import LauncherList from '../components/LauncherList.vue'
 import { i18n } from '../utils/i18n'
+import {
+  ElAlert,
+  ElMenu,
+  ElMenuItem,
+  ElIcon
+} from 'element-plus'
+import {
+  House,
+  Link,
+  Search,
+  InfoFilled
+} from '@element-plus/icons-vue'
 
 // 导入JSON数据文件
 import { parseJsonc } from '../utils/jsoncParser'
@@ -113,7 +132,15 @@ export default {
   name: 'HomePage',
   components: {
     DeviceSelector,
-    LauncherList
+    LauncherList,
+    ElAlert,
+    ElMenu,
+    ElMenuItem,
+    ElIcon,
+    House,
+    Link,
+    Search,
+    InfoFilled
   },
   setup() {
     const router = useRouter()
@@ -122,7 +149,6 @@ export default {
     const selectedDevice = ref('Android')
     const currentAnnouncementIndex = ref(0)
     const announcements = ref([])
-    const isMobileMenuOpen = ref(false)
     let announcementInterval = null
 
     // 设备列表
@@ -178,22 +204,6 @@ export default {
       }
     }
 
-    // 移动菜单控制方法
-    const toggleMobileMenu = () => {
-      isMobileMenuOpen.value = !isMobileMenuOpen.value
-    }
-
-    const closeMobileMenu = () => {
-      isMobileMenuOpen.value = false
-    }
-
-    // 监听窗口大小变化，自动关闭移动菜单
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        closeMobileMenu()
-      }
-    }
-
     // 生命周期
     onMounted(async () => {
       console.log('HomePage 已挂载')
@@ -201,9 +211,6 @@ export default {
       
       // 初始化公告功能
       await initAnnouncements()
-      
-      // 添加窗口大小变化监听器
-      window.addEventListener('resize', handleResize)
     })
 
     onUnmounted(() => {
@@ -211,28 +218,93 @@ export default {
       if (announcementInterval) {
         clearInterval(announcementInterval)
       }
-      
-      // 移除窗口大小变化监听器
-      window.removeEventListener('resize', handleResize)
     })
 
     return {
       selectedDevice,
       currentAnnouncementIndex,
       announcements,
-      isMobileMenuOpen,
       devices,
       filteredLaunchers,
       handleDeviceChange,
-      handleLauncherClick,
-      toggleMobileMenu,
-      closeMobileMenu
+      handleLauncherClick
     }
   }
 }
 </script>
 
 <style scoped>
-/* 引入导航样式 */
-@import '../assets/css/navigation.css';
+/* 自定义样式 */
+.announcement-bar {
+  margin-bottom: 20px;
+}
+
+.page-navigation {
+  margin-bottom: 20px;
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: var(--el-bg-color-page);
+  border-top: 1px solid var(--el-border-color-light);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-content h2 {
+  color: var(--el-text-color-primary);
+  margin-bottom: 16px;
+}
+
+.footer-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.footer-stat-item h3 {
+  color: var(--el-text-color-secondary);
+  margin-bottom: 8px;
+}
+
+.footer-links {
+  text-align: center;
+  color: var(--el-text-color-secondary);
+}
+
+.footer-links a {
+  color: var(--el-color-primary);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+  
+  .footer-stats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .footer {
+    padding: 16px;
+  }
+}
 </style>

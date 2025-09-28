@@ -2,19 +2,20 @@
   <div class="device-selector">
     <h2 class="section-title">选择设备平台</h2>
     <div class="device-select-wrapper">
-      <select 
+      <el-select
         v-model="selectedDevice"
         class="device-select"
         @change="handleDeviceChange"
+        placeholder="请选择设备平台"
+        clearable
       >
-        <option 
-          v-for="device in devices" 
+        <el-option
+          v-for="device in devices"
           :key="device.id"
+          :label="`${device.icon} ${device.name}`"
           :value="device.id"
-        >
-          {{ device.icon }} {{ device.name }}
-        </option>
-      </select>
+        />
+      </el-select>
     </div>
   </div>
 </template>
@@ -64,7 +65,7 @@ export default {
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 16px;
-  color: var(--md-sys-color-primary);
+  color: var(--el-color-primary);
 }
 
 .device-select-wrapper {
@@ -76,32 +77,6 @@ export default {
   flex: 1;
   min-width: 200px;
   max-width: 400px;
-  padding: 12px;
-  border: 2px solid var(--md-sys-color-surface-variant);
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 12px;
-  padding-right: 36px;
-}
-
-.device-select:focus {
-  outline: none;
-  border-color: var(--md-sys-color-primary);
-  box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.1);
-}
-
-.device-select option {
-  background-color: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-  padding: 8px;
 }
 
 @media (max-width: 768px) {

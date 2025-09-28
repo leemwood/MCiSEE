@@ -2,33 +2,43 @@
   <div id="about-page">
     <!-- 公告栏 -->
     <div class="announcement-bar" v-if="announcements.length > 0">
-      <ul>
-        <li v-for="(announcement, index) in announcements" 
-            :key="index" 
-            :class="{ active: currentAnnouncementIndex === index }">
-          <span class="announcement-icon">📢</span>
-          <span class="announcement-text" v-html="announcement"></span>
-        </li>
-      </ul>
+      <el-alert
+        :title="announcements[currentAnnouncementIndex]"
+        type="info"
+        :closable="false"
+        show-icon
+        center
+      />
     </div>
 
     <!-- 主要内容区域 -->
     <main class="main-content">
       <!-- 导航栏 -->
-      <nav class="page-navigation">
-        <h2 class="mobile-page-title">关于</h2>
-        <button class="hamburger-menu" @click="toggleMobileMenu" :class="{ active: isMobileMenuOpen }">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <ul class="nav-links" :class="{ active: isMobileMenuOpen }">
-          <li><router-link to="/" class="nav-link" @click="closeMobileMenu">启动器下载</router-link></li>
-          <li><router-link to="/utilities" class="nav-link" @click="closeMobileMenu">实用网站</router-link></li>
-          <li><router-link to="/search" class="nav-link" @click="closeMobileMenu">搜索功能</router-link></li>
-          <li><router-link to="/about" class="nav-link active" @click="closeMobileMenu">关于</router-link></li>
-        </ul>
-      </nav>
+      <div class="page-navigation">
+        <el-menu
+          mode="horizontal"
+          :default-active="$route.path"
+          router
+          class="navigation-menu"
+        >
+          <el-menu-item index="/">
+            <el-icon><House /></el-icon>
+            <span>启动器下载</span>
+          </el-menu-item>
+          <el-menu-item index="/utilities">
+            <el-icon><Link /></el-icon>
+            <span>实用网站</span>
+          </el-menu-item>
+          <el-menu-item index="/search">
+            <el-icon><Search /></el-icon>
+            <span>搜索功能</span>
+          </el-menu-item>
+          <el-menu-item index="/about">
+            <el-icon><InfoFilled /></el-icon>
+            <span>关于</span>
+          </el-menu-item>
+        </el-menu>
+      </div>
 
       <!-- 页面标题 -->
       <div class="page-header">
@@ -137,10 +147,22 @@ import { useRouter } from 'vue-router'
 import ConfigSection from '../components/ConfigSection.vue'
 import { i18n } from '../utils/i18n'
 
+// Element Plus组件导入
+import { ElAlert, ElMenu, ElMenuItem, ElIcon } from 'element-plus'
+import { House, Link, Search, InfoFilled } from '@element-plus/icons-vue'
+
 export default {
   name: 'AboutPage',
   components: {
-    ConfigSection
+    ConfigSection,
+    ElAlert,
+    ElMenu,
+    ElMenuItem,
+    ElIcon,
+    House,
+    Link,
+    Search,
+    InfoFilled
   },
   setup() {
     const router = useRouter()
@@ -151,7 +173,6 @@ export default {
     const autoCheckUpdates = ref(true)
     const currentAnnouncementIndex = ref(0)
     const announcements = ref([])
-    const isMobileMenuOpen = ref(false)
     let announcementInterval = null
 
     // 计算属性：组合配置对象
@@ -210,21 +231,7 @@ export default {
       }
     }
 
-    // 移动菜单控制方法
-    const toggleMobileMenu = () => {
-      isMobileMenuOpen.value = !isMobileMenuOpen.value
-    }
-
-    const closeMobileMenu = () => {
-      isMobileMenuOpen.value = false
-    }
-
-    // 监听窗口大小变化，自动关闭移动菜单
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        closeMobileMenu()
-      }
-    }
+    // 移动菜单控制方法（已移除，使用Element Plus导航组件）
 
     // 生命周期
     onMounted(async () => {
@@ -253,8 +260,7 @@ export default {
         root.style.setProperty('color-scheme', actualTheme)
       }
       
-      // 添加窗口大小变化监听器
-      window.addEventListener('resize', handleResize)
+      // 窗口大小变化监听器已移除（使用Element Plus响应式导航组件）
     })
 
     onUnmounted(() => {
@@ -263,8 +269,7 @@ export default {
         clearInterval(announcementInterval)
       }
       
-      // 移除窗口大小变化监听器
-      window.removeEventListener('resize', handleResize)
+      // 窗口大小变化监听器已移除（使用Element Plus响应式导航组件）
     })
 
     return {
@@ -273,18 +278,201 @@ export default {
       autoCheckUpdates,
       currentAnnouncementIndex,
       announcements,
-      isMobileMenuOpen,
       config,
-      handleConfigChange,
-      toggleMobileMenu,
-      closeMobileMenu
+      handleConfigChange
     }
   }
 }
 </script>
 
 <style scoped lang="css">
-/* 引入导航和关于页面样式 */
-@import '../assets/css/navigation.css';
-@import '../assets/css/about.css';
+/* 自定义样式 */
+.announcement-bar {
+  margin-bottom: 20px;
+}
+
+.page-navigation {
+  margin-bottom: 20px;
+}
+
+.navigation-menu {
+  border-bottom: none;
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  color: var(--el-text-color-primary);
+  margin-bottom: 16px;
+}
+
+.page-description {
+  font-size: 1.2rem;
+  color: var(--el-text-color-secondary);
+}
+
+.info-section,
+.stats-section,
+.links-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: var(--el-text-color-primary);
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--el-color-primary);
+  padding-bottom: 8px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.info-item {
+  background-color: var(--el-bg-color);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.info-item h3 {
+  color: var(--el-text-color-primary);
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.info-item p {
+  color: var(--el-text-color-secondary);
+  line-height: 1.5;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.stat-item {
+  background-color: var(--el-bg-color);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-item h3 {
+  color: var(--el-text-color-primary);
+  margin-bottom: 16px;
+}
+
+.stat-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--el-bg-color);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 8px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--el-text-color-primary);
+  transition: all 0.3s ease;
+}
+
+.link-item:hover {
+  background-color: var(--el-color-primary-light-9);
+  border-color: var(--el-color-primary);
+  transform: translateY(-2px);
+}
+
+.link-icon {
+  font-size: 1.5rem;
+  margin-right: 12px;
+}
+
+.link-text {
+  font-weight: 500;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: var(--el-bg-color-page);
+  border-top: 1px solid var(--el-border-color-light);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-icp,
+.footer-license,
+.footer-credit {
+  color: var(--el-text-color-secondary);
+  margin-bottom: 8px;
+}
+
+.footer-license a {
+  color: var(--el-color-primary);
+  text-decoration: none;
+}
+
+.footer-license a:hover {
+  text-decoration: underline;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .info-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

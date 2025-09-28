@@ -1,4 +1,4 @@
-/* 启动器列表组件样式 */
+/* 启动器列表组件样式 - Element Plus版本 */
 .launcher-section {
   margin-bottom: 32px;
 }
@@ -7,24 +7,7 @@
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 16px;
-  color: var(--md-sys-color-primary);
-}
-
-.no-launchers {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  background-color: var(--md-sys-color-surface-variant);
-  border-radius: 12px;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.no-data-icon {
-  font-size: 3rem;
-  margin-bottom: 16px;
-  opacity: 0.5;
+  color: var(--el-color-primary);
 }
 
 .launcher-grid {
@@ -34,16 +17,11 @@
 }
 
 .launcher-card {
-  background-color: var(--md-sys-color-surface);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 
 .launcher-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .launcher-header {
@@ -56,17 +34,8 @@
 .launcher-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--md-sys-color-on-surface);
+  color: var(--el-text-color-primary);
   margin: 0;
-}
-
-.launcher-abbr {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
 }
 
 .launcher-info {
@@ -79,76 +48,18 @@
   gap: 8px;
   margin-bottom: 8px;
   font-size: 0.9rem;
-  color: var(--md-sys-color-on-surface);
+  color: var(--el-text-color-regular);
 }
 
-.info-icon {
-  font-size: 1rem;
-  opacity: 0.7;
+.info-item .el-icon {
+  color: var(--el-text-color-secondary);
+  font-size: 16px;
 }
 
 .launcher-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-}
-
-.action-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.download-button {
-  background-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
-
-.download-button:hover {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-}
-
-.github-button {
-  background-color: transparent;
-  color: var(--md-sys-color-primary);
-  border: 1px solid var(--md-sys-color-primary);
-}
-
-.github-button:hover {
-  background-color: var(--md-sys-color-primary-container);
-}
-
-.preview-button {
-  background-color: transparent;
-  color: var(--md-sys-color-tertiary);
-  border: 1px solid var(--md-sys-color-tertiary);
-}
-
-.preview-button:hover {
-  background-color: var(--md-sys-color-tertiary-container);
-  color: var(--md-sys-color-on-tertiary-container);
-}
-
-.website-button {
-  background-color: transparent;
-  color: var(--md-sys-color-secondary);
-  border: 1px solid var(--md-sys-color-secondary);
-}
-
-.website-button:hover {
-  background-color: var(--md-sys-color-secondary-container);
-}
-
-.button-icon {
-  font-size: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -160,7 +71,7 @@
     flex-direction: column;
   }
   
-  .action-button {
+  .el-button {
     width: 100%;
     justify-content: center;
   }
